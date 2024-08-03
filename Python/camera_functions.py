@@ -1,8 +1,7 @@
 import global_constants as gc
 
 def convert_world_to_camera_coordinates(camera, entity):
-	"""Input: gameworld coordinates.
-	Output: on-screen coordinates."""
+	"""Input: gameworld coordinates. Output: on-screen coordinates."""
 	return (
 		entity.x - camera.x + gc.WINDOW_WIDTH//2, 
 		entity.y - camera.y + gc.WINDOW_HEIGHT//2

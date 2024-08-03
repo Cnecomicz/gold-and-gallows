@@ -253,9 +253,9 @@ class ManualMovement(StateMachine):
 			if pygame_event.key in gc.RIGHT:
 				self.send("press_right")
 		if pygame_event.type == gc.KEYUP:
-			# Inside this block, the checks to see if keys are pressed down
-			# allows you to wiggle-move by holding a direction and tapping 
-			# the opposite.
+			# Inside this block, the checks to see if keys are pressed 
+			# down allows you to wiggle-move by holding a direction and 
+			# tapping the opposite.
 			check = gc.pygame.key.get_pressed()
 			if pygame_event.key in gc.UP:
 				self.send("release_up")
@@ -275,10 +275,17 @@ class ManualMovement(StateMachine):
 					if check[key]: self.send("press_left")
 
 	def run(self):
-		# The current_frame_obstructions prevent you from moving into walls.
-		# The previous_frame_obstructions check if you have recently moved
-		# clear of a wall. If so, then you can resume moving diagonally 
-		# if you are still holding that direction.
+		# The current_frame_obstructions prevent you from moving into 
+		# walls. The previous_frame_obstructions check if you have 
+		# recently moved clear of a wall. If so, then you can resume 
+		# moving diagonally if you are still holding that direction.
+		# SIDE EFFECT: If you're running into a wall, continue to hold
+		# that direction, and then press the opposite direction, then
+		# you'll move clear and immediately move back, because the 
+		# previous_frame_obstruction check goes through. This doesn't
+		# mesh with the rest of the game, where "most recently pressed
+		# direction" wins, but it's minor enough I'm not addressing at
+		# this time.
 		check = gc.pygame.key.get_pressed()
 		self.current_frame_obstruction_up    = self.next_wall(self.up)
 		self.current_frame_obstruction_down  = self.next_wall(self.down)
@@ -315,12 +322,13 @@ class ManualMovement(StateMachine):
 
 		# Given all of the above collision checking, your current state
 		# should be the total of the directions you are pressing and the 
-		# non-obstructed directions. Thus we can move simply by using the
-		# current_state.
+		# non-obstructed directions. Thus we can move simply by using 
+		# the current_state.
 		(self.puppet.x, self.puppet.y) = self.next_coordinates(
 			self.current_state
 		)
-		# Make sure to update the rect, not just the x and y coordinates.
+		# Make sure to update the rect, not just the x and y 
+		# coordinates.
 		if hasattr(self.puppet, "rect"):
 			self.puppet.rect=gc.pygame.Rect(
 				self.puppet.x, self.puppet.y, 

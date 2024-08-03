@@ -2,10 +2,10 @@ import sys
 from statemachine import StateMachine, State
 
 import camera_functions   as cf
-import collision_handling as ch
 import entity_factory     as ef
 import global_constants   as gc
 import player_functions   as pf
+import text_handling      as th
 
 class Game(StateMachine):
 	overworld = State(initial=True)
@@ -53,7 +53,8 @@ class Game(StateMachine):
 		]
 		self.list_of_collision_rects = ef.list_of_collision_rects
 		# Systems managers: --------------------------------------------
-		self.player_movement  = pf.ManualMovement(
+		self.debugging_flag  = False
+		self.player_movement = pf.ManualMovement(
 			puppet=self.player,
 			list_of_collision_rects=self.list_of_collision_rects
 		)
@@ -76,6 +77,8 @@ class Game(StateMachine):
 					self.send("to_dialogue")
 				if event.key == gc.K_3:
 					self.send("to_turns")
+				if event.key == gc.K_BACKQUOTE:
+					self.debugging_flag = not self.debugging_flag
 			match self.current_state:
 				case self.overworld:
 					self.player_movement.handle_pygame_events(event)
@@ -88,8 +91,6 @@ class Game(StateMachine):
 
 	def update(self):
 		self.player_movement.run()
-		print(f"{self.current_state.name = }")
-		print(f"{self.player_movement.current_state.name = }")
 		match self.current_state:
 			case self.overworld:
 				self.camera.x = self.player.x
@@ -116,6 +117,25 @@ class Game(StateMachine):
 				camera=self.camera,
 				entity=block,
 				color=gc.WHITE
+			)
+
+		if self.debugging_flag:
+			th.make_text(
+				self.DISPLAY_SURF, 
+				gc.BGCOLOR, 
+				10, 
+				10, 
+				gc.WINDOW_WIDTH-20,
+				th.TextBundle(
+					text="Debug menu: \n"
+				),
+				th.TextBundle(
+					# Add more values here when you want to track them.
+					text=
+					f"{self.current_state.name = } \n "\
+					f"{self.player_movement.current_state.name = } \n",
+					color=gc.BLUE
+				)
 			)
 
 		gc.pygame.display.update()

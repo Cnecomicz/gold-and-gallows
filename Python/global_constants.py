@@ -7,8 +7,6 @@ pygame.init()
 FPS = 60
 WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 720
-DEBUG_WINDOW_WIDTH = 400
-DEBUG_WINDOW_HEIGHT = 2000
 
 FONT_SIZE = 20
 BASIC_FONT = pygame.font.Font('freesansbold.ttf', FONT_SIZE)
@@ -43,12 +41,13 @@ RED   = (255,   0,   0)
 WHITE = (255, 255, 255)
 
 BGCOLOR = BLACK
+TEXT_COLOR = WHITE
 
 UP    = [K_w, K_UP]
 DOWN  = [K_s, K_DOWN]
 LEFT  = [K_a, K_LEFT]
 RIGHT = [K_d, K_RIGHT]
-USE   = [K_e]
+USE   = [K_e, K_z]
 
 
 DEFAULT_MOVEMENT_PER_TURN = 300
