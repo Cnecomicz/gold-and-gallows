@@ -7,6 +7,8 @@ pygame.init()
 FPS = 60
 WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 720
+DEBUG_WINDOW_WIDTH = 400
+DEBUG_WINDOW_HEIGHT = 2000
 
 FONT_SIZE = 20
 BASIC_FONT = pygame.font.Font('freesansbold.ttf', FONT_SIZE)
