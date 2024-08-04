@@ -274,7 +274,7 @@ class ManualMovement(StateMachine):
 				for key in gc.LEFT:
 					if check[key]: self.send("press_left")
 
-	def run(self):
+	def update(self):
 		# The current_frame_obstructions prevent you from moving into 
 		# walls. The previous_frame_obstructions check if you have 
 		# recently moved clear of a wall. If so, then you can resume 

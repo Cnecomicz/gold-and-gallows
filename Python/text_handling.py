@@ -46,12 +46,13 @@ def make_text(DISPLAY_SURF, bgcolor, top, left, text_width, *text_bundles):
 					current_line = ""
 				line += 1
 		# Print the final line.
-		textSurf = text_bundle.font.render(
-			current_line, True, text_bundle.color, bgcolor
-		)
-		textRect = textSurf.get_rect()
-		textRect.topleft = (
-			ending_position, top + line * text_bundle.font_size
-		)
-		ending_position = textRect.right
-		DISPLAY_SURF.blit(textSurf, textRect)
+		if current_line != " ": # Don't print lone spaces after \n.
+			textSurf = text_bundle.font.render(
+				current_line, True, text_bundle.color, bgcolor
+			)
+			textRect = textSurf.get_rect()
+			textRect.topleft = (
+				ending_position, top + line * text_bundle.font_size
+			)
+			ending_position = textRect.right
+			DISPLAY_SURF.blit(textSurf, textRect)

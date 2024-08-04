@@ -1,11 +1,12 @@
 import sys
 from statemachine import StateMachine, State
 
-import camera_functions   as cf
-import entity_factory     as ef
-import global_constants   as gc
-import player_functions   as pf
-import text_handling      as th
+import camera_functions as cf
+import dialogue_manager as dm
+import entity_factory   as ef
+import global_constants as gc
+import player_functions as pf
+import text_handling    as th
 
 class Game(StateMachine):
 	overworld = State(initial=True)
@@ -28,12 +29,8 @@ class Game(StateMachine):
 		turns.to(turns)
 	)
 
-	def on_enter_overworld(self, event, state):
-		pass
-		# pseudocode:
-		# set self.camera.target to the player
-		# then inside of game.update, every tick if
-		# (x, y) != (target), move the camera to the target
+	def on_exit_overworld(self, event, state):
+		self.player_movement.send("to_stationary")
 
 	# ------------------------------------------------------------------
 	# ------ Above this line: FSM stuff. Below this line: other. -------
@@ -48,8 +45,9 @@ class Game(StateMachine):
 		# Entities and gameworld objects: ------------------------------
 		self.camera                  = ef.camera
 		self.player                  = ef.player
+		self.guy1                    = ef.guy1
 		self.list_of_entities        = [
-			self.camera, self.player,
+			self.camera, self.player, self.guy1,
 		]
 		self.list_of_collision_rects = ef.list_of_collision_rects
 		# Systems managers: --------------------------------------------
@@ -58,6 +56,7 @@ class Game(StateMachine):
 			puppet=self.player,
 			list_of_collision_rects=self.list_of_collision_rects
 		)
+		self.dialogue_manager = dm.DialogueManager()
 		super().__init__()
 
 	def quit_game(self):
@@ -83,14 +82,14 @@ class Game(StateMachine):
 				case self.overworld:
 					self.player_movement.handle_pygame_events(event)
 				case self.dialogue:
-					self.player_movement.send("to_stationary")
+					self.dialogue_manager.handle_pygame_events(event)
 				case self.turns:
-					self.player_movement.send("to_stationary")
+					pass
 
 
 
 	def update(self):
-		self.player_movement.run()
+		self.player_movement.update()
 		match self.current_state:
 			case self.overworld:
 				self.camera.x = self.player.x
@@ -133,7 +132,9 @@ class Game(StateMachine):
 					# Add more values here when you want to track them.
 					text=
 					f"{self.current_state.name = } \n "\
-					f"{self.player_movement.current_state.name = } \n",
+					f"{self.player_movement.current_state.name = } \n "\
+					f"{self.dialogue_manager.number_of_responses = } \n "\
+					f"{self.dialogue_manager.hovered_index = } \n ",
 					color=gc.BLUE
 				)
 			)
