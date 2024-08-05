@@ -4,7 +4,7 @@ from statemachine import StateMachine, State
 
 import global_constants as gc
 
-class ManualMovement(StateMachine):
+class ManualControls(StateMachine):
 	stationary = State(initial=True)
 	up         = State()
 	down       = State()
@@ -164,10 +164,17 @@ class ManualMovement(StateMachine):
 	# ------------------------------------------------------------------
 	# ------------------------------------------------------------------
 
-	def __init__(self, puppet, list_of_collision_rects, DISPLAY_SURF):
+	def __init__(
+		self, 
+		puppet, 
+		list_of_collision_rects, 
+		list_of_entities,
+		dialogue_manager
+	):
 		self.puppet                           = puppet
 		self.list_of_collision_rects          = list_of_collision_rects
-		self.DISPLAY_SURF                     = DISPLAY_SURF
+		self.list_of_entities                 = list_of_entities
+		self.dialogue_manager                 = dialogue_manager
 		self.current_frame_obstruction_up     = None
 		self.current_frame_obstruction_down   = None
 		self.current_frame_obstruction_left   = None
@@ -252,6 +259,20 @@ class ManualMovement(StateMachine):
 				self.upleft | self.upright | self.downleft | self.downright
 			):
 				self.current_direction_facing = self.current_state
+
+	def get_entity_facing(self):
+		(facing_x, facing_y) = self.next_coordinates(
+			self.current_direction_facing
+		)
+		facing_rect = gc.pygame.Rect(
+			facing_x, facing_y, 
+			self.puppet.height, self.puppet.width
+		)
+		for entity in self.list_of_entities:
+			if getattr(entity, "interactable", False):
+				if gc.pygame.Rect.colliderect(facing_rect, entity):
+					return entity
+		return None
 
 		
 

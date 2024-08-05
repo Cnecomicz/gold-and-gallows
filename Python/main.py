@@ -28,9 +28,13 @@ class Game(StateMachine):
 		dialogue.to(turns) | 
 		turns.to(turns)
 	)
+	begin_dialogue = overworld.to(dialogue)
 
 	def on_exit_overworld(self, event, state):
-		self.player_movement.send("to_stationary")
+		self.player_controls.send("to_stationary")
+
+	def on_exit_dialogue(self, event, state):
+		self.dialogue_manager.leave_dialogue()
 
 	# ------------------------------------------------------------------
 	# ------ Above this line: FSM stuff. Below this line: other. -------
@@ -52,12 +56,13 @@ class Game(StateMachine):
 		self.list_of_collision_rects = ef.list_of_collision_rects
 		# Systems managers: --------------------------------------------
 		self.debugging_flag  = False
-		self.player_movement = pf.ManualMovement(
+		self.dialogue_manager = dm.DialogueManager()
+		self.player_controls = pf.ManualControls(
 			puppet=self.player,
 			list_of_collision_rects=self.list_of_collision_rects,
-			DISPLAY_SURF=self.DISPLAY_SURF
+			list_of_entities=self.list_of_entities,
+			dialogue_manager=self.dialogue_manager
 		)
-		self.dialogue_manager = dm.DialogueManager()
 		super().__init__()
 
 	def quit_game(self):
@@ -68,6 +73,24 @@ class Game(StateMachine):
 		for event in gc.pygame.event.get():
 			if event.type == gc.QUIT:
 				self.quit_game()
+			if event.type == gc.KEYDOWN and event.key == gc.K_BACKQUOTE:
+				self.debugging_flag = not self.debugging_flag
+			match self.current_state:
+				case self.overworld:
+					self.player_controls.handle_pygame_events(event)
+					if event.type == gc.KEYDOWN and event.key in gc.USE:
+						prospective_entity = \
+							self.player_controls.get_entity_facing()
+						if prospective_entity is not None:
+							self.dialogue_manager.enter_dialogue_with(
+								prospective_entity
+							)
+							self.send("begin_dialogue")
+				case self.dialogue:
+					self.dialogue_manager.handle_pygame_events(event)
+				case self.turns:
+					pass
+			# To be deleted later: -------------------------------------
 			if event.type == gc.KEYDOWN:
 				if event.key == gc.K_ESCAPE:
 					self.quit_game()
@@ -77,20 +100,12 @@ class Game(StateMachine):
 					self.send("to_dialogue")
 				if event.key == gc.K_3:
 					self.send("to_turns")
-				if event.key == gc.K_BACKQUOTE:
-					self.debugging_flag = not self.debugging_flag
-			match self.current_state:
-				case self.overworld:
-					self.player_movement.handle_pygame_events(event)
-				case self.dialogue:
-					self.dialogue_manager.handle_pygame_events(event)
-				case self.turns:
-					pass
+			# ----------------------------------------------------------
 
 
 
 	def update(self):
-		self.player_movement.update()
+		self.player_controls.update()
 		match self.current_state:
 			case self.overworld:
 				self.camera.x = self.player.x
@@ -124,24 +139,24 @@ class Game(StateMachine):
 		# comment and the next one is temporary and will be deleted when
 		# we implement sprites.
 		arrow = "•"
-		match self.player_movement.current_direction_facing:
-			case self.player_movement.stationary: 
+		match self.player_controls.current_direction_facing:
+			case self.player_controls.stationary: 
 				arrow = "•"
-			case self.player_movement.up:
+			case self.player_controls.up:
 				arrow = "^"
-			case self.player_movement.down:
+			case self.player_controls.down:
 				arrow = "v"
-			case self.player_movement.left:
+			case self.player_controls.left:
 				arrow = "<"
-			case self.player_movement.right:
+			case self.player_controls.right:
 				arrow = ">"
-			case self.player_movement.upleft:
+			case self.player_controls.upleft:
 				arrow = "'\\"
-			case self.player_movement.upright:
+			case self.player_controls.upright:
 				arrow = "/'"
-			case self.player_movement.downleft:
+			case self.player_controls.downleft:
 				arrow = "./"
-			case self.player_movement.downright:
+			case self.player_controls.downright:
 				arrow = "\\."
 		coord_x, coord_y = cf.convert_world_to_camera_coordinates(
 			self.camera, self.player
@@ -150,7 +165,7 @@ class Game(StateMachine):
 			self.DISPLAY_SURF, 
 			self.player.color, 
 			coord_y, coord_x, 
-			self.player.width*2,
+			self.player.width,
 			th.bdlr(arrow)
 		)
 		# --------------------------------------------------------------
@@ -169,9 +184,10 @@ class Game(StateMachine):
 					# Add more values here when you want to track them.
 					text=
 					f"{self.current_state.name = } \n "\
-					f"{self.player_movement.current_state.name = } \n "\
+					f"{self.player_controls.current_state.name = } \n "\
 					f"{self.dialogue_manager.number_of_responses = } \n "\
-					f"{self.dialogue_manager.hovered_index = } \n ",
+					f"{self.dialogue_manager.hovered_index = } \n "\
+					f"{self.dialogue_manager.conversation_partner = } \n ",
 					color=gc.BLUE
 				)
 			)

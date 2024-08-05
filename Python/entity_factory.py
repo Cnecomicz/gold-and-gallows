@@ -39,6 +39,7 @@ guy1 = e.Entity(
 	width=30, height=30,
 	color=gc.GREEN,
 	visible_on_world_map=True,
+	interactable=True,
 )
 guy1.rect=gc.pygame.Rect(guy1.x, guy1.y, guy1.width, guy1.height)
 guy1.dt=guy1dt

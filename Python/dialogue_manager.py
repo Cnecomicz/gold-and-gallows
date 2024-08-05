@@ -1,4 +1,5 @@
 import global_constants as gc
+import text_handling    as th
 
 class DialogueManager:
 	def __init__(self):
@@ -7,9 +8,9 @@ class DialogueManager:
 		self.current_responses    = {} # Text : Transition
 		self.number_of_responses  = 0
 		self.hovered_index        = 0
-		self.hovered_response     = ""
+		self.hovered_response     = th.TextBundle("")
 
-	def initialize_conversation_partner(self, conversation_partner):
+	def enter_dialogue_with(self, conversation_partner):
 		self.conversation_partner = conversation_partner
 		self.current_dialogue = self.conversation_partner.dt.current_dialogue
 		self.current_responses = self.conversation_partner.dt.current_responses
@@ -17,6 +18,15 @@ class DialogueManager:
 		self.hovered_index = 0
 		self.hovered_response = \
 			list(self.current_responses.keys())[self.hovered_index]
+
+	def leave_dialogue(self):
+		self.conversation_partner = None
+		self.current_dialogue     = ""
+		self.current_responses    = {} # Text : Transition
+		self.number_of_responses  = 0
+		self.hovered_index        = 0
+		self.hovered_response     = th.TextBundle("")
+
 
 	def handle_pygame_events(self, pygame_event):
 		if pygame_event.type == gc.KEYDOWN:
