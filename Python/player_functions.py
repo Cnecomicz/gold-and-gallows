@@ -168,13 +168,11 @@ class ManualControls(StateMachine):
 		self, 
 		puppet, 
 		list_of_collision_rects, 
-		list_of_entities,
-		dialogue_manager
+		list_of_entities
 	):
 		self.puppet                           = puppet
 		self.list_of_collision_rects          = list_of_collision_rects
 		self.list_of_entities                 = list_of_entities
-		self.dialogue_manager                 = dialogue_manager
 		self.current_frame_obstruction_up     = None
 		self.current_frame_obstruction_down   = None
 		self.current_frame_obstruction_left   = None

@@ -22,13 +22,16 @@ class Guy1DialogueTree(StateMachine):
 			self.current_responses[bdlr("Maybe")] = "C"
 
 	def on_enter_node2(self, event, state):
-		self.current_dialogue = bdlr("You selected yes.")
+		self.current_dialogue  = bdlr("You selected yes.")
+		self.current_responses = {bdlr("Goodbye.") : "to1"}
 
 	def on_enter_node3(self, event, state):
-		self.current_dialogue = bdlr("You selected no.")
+		self.current_dialogue  = bdlr("You selected no.")
+		self.current_responses = {bdlr("Goodbye.") : "to1"}
 
 	def on_enter_node4(self, event, state):
-		self.current_dialogue = bdlr("You selected maybe.")
+		self.current_dialogue  = bdlr("You selected maybe.")
+		self.current_responses = {bdlr("Goodbye.") : "to1"}
 
 	def on_exit_state(self, event, state):
 		self.current_dialogue  = bdlr("")

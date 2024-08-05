@@ -11,10 +11,9 @@ class TextBundle:
 		self.text      = text
 		self.font      = font
 		self.color     = color
-		self.font_size = font_size
 
 def bdlr(
-		text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR, font_size=gc.FONT_SIZE
+		text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR
 	):
 	# Syntactic sugar for creating the TextBundle class. Pronounced 
 	# "bundler." Does nothing, but is fewer characters, which makes a 
@@ -22,10 +21,10 @@ def bdlr(
 	# tree data files, use "from text_handler import *" to save on 
 	# writing "th" each time too.
 	return TextBundle(
-		text=text,font=font,color=color,font_size=font_size
+		text=text,font=font,color=color
 	)
 
-def make_text(DISPLAY_SURF, bgcolor, top, left, text_width, *text_bundles):
+def make_text(DISPLAY_SURF, bgcolor, left, top, text_width, *text_bundles):
 	# NOTE: The newline character "\n" does work, but it _must_ be
 	# separated with spaces on both sides, or at the end of your text
 	# string.
@@ -48,7 +47,7 @@ def make_text(DISPLAY_SURF, bgcolor, top, left, text_width, *text_bundles):
 			else:
 				textRect = textSurf.get_rect()
 				textRect.topleft = (
-					ending_position, top + line * text_bundle.font_size
+					ending_position, top + line * text_bundle.font.get_height()
 				)
 				ending_position = left
 				DISPLAY_SURF.blit(textSurf, textRect)
@@ -64,7 +63,7 @@ def make_text(DISPLAY_SURF, bgcolor, top, left, text_width, *text_bundles):
 			)
 			textRect = textSurf.get_rect()
 			textRect.topleft = (
-				ending_position, top + line * text_bundle.font_size
+				ending_position, top + line * text_bundle.font.get_height()
 			)
 			ending_position = textRect.right
 			DISPLAY_SURF.blit(textSurf, textRect)

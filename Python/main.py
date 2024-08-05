@@ -60,8 +60,7 @@ class Game(StateMachine):
 		self.player_controls = pf.ManualControls(
 			puppet=self.player,
 			list_of_collision_rects=self.list_of_collision_rects,
-			list_of_entities=self.list_of_entities,
-			dialogue_manager=self.dialogue_manager
+			list_of_entities=self.list_of_entities
 		)
 		super().__init__()
 
@@ -79,11 +78,10 @@ class Game(StateMachine):
 				case self.overworld:
 					self.player_controls.handle_pygame_events(event)
 					if event.type == gc.KEYDOWN and event.key in gc.USE:
-						prospective_entity = \
-							self.player_controls.get_entity_facing()
-						if prospective_entity is not None:
+						entity = self.player_controls.get_entity_facing()
+						if entity is not None:
 							self.dialogue_manager.enter_dialogue_with(
-								prospective_entity
+								entity
 							)
 							self.send("begin_dialogue")
 				case self.dialogue:
@@ -137,11 +135,9 @@ class Game(StateMachine):
 		# Until we start drawing sprites, let's just draw an "arrow" to
 		# indicate the direction you are facing. Everything between this
 		# comment and the next one is temporary and will be deleted when
-		# we implement sprites.
+		# we implement sprites. ----------------------------------------
 		arrow = "•"
 		match self.player_controls.current_direction_facing:
-			case self.player_controls.stationary: 
-				arrow = "•"
 			case self.player_controls.up:
 				arrow = "^"
 			case self.player_controls.down:
@@ -164,7 +160,7 @@ class Game(StateMachine):
 		th.make_text(
 			self.DISPLAY_SURF, 
 			self.player.color, 
-			coord_y, coord_x, 
+			coord_x, coord_y, 
 			self.player.width,
 			th.bdlr(arrow)
 		)
@@ -178,7 +174,7 @@ class Game(StateMachine):
 				10, 
 				gc.WINDOW_WIDTH-20,
 				th.bdlr(
-					text="Debug menu: \n"
+					text="Debug menu: (toggle with `) \n"
 				),
 				th.bdlr(
 					# Add more values here when you want to track them.
@@ -191,6 +187,13 @@ class Game(StateMachine):
 					color=gc.BLUE
 				)
 			)
+		match self.current_state:
+			case self.overworld:
+				pass
+			case self.dialogue:
+				self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
+			case self.turns:
+				pass
 
 		gc.pygame.display.update()
 

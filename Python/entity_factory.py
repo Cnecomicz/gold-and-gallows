@@ -19,6 +19,18 @@ list_of_collision_rects = [
 	gc.pygame.Rect(-50,200,200,10),
 ]
 
+# Here I'll keep track of some of the components we use. ---------------
+# visible_on_world_map: A boolean. As of now implicitly needs a rect and
+# a color. -------------------------------------------------------------
+# interactable: A boolean. Checks if you can initiate dialogue with the
+# entity. --------------------------------------------------------------
+# dt: Dialogue tree. Every file in DialogueTrees/ has first 
+# a single class which outlines the finite state machine for the given 
+# entity's dialogue tree, and second a single instantiation of that
+# class with syntax "{name}dt". These files are imported via "from
+# DialogueTrees.filename.py import *" and then assigned to their
+# respective entity's dt. ----------------------------------------------
+
 camera = e.Entity(
 	x=0, y=0, speed=1, zoom_level=1,
 )
@@ -28,18 +40,17 @@ player = e.Entity(
 	width=30, height=30,  
 	color=gc.BLUE,
 	speed=4,
-	can_move=True,
-	moving=False,
 	visible_on_world_map=True,
 )
 player.rect=gc.pygame.Rect(player.x, player.y, player.width, player.height)
 
 guy1 = e.Entity(
+	name="Guy1",
 	x=50, y=30,
 	width=30, height=30,
 	color=gc.GREEN,
 	visible_on_world_map=True,
 	interactable=True,
+	dt=guy1dt,
 )
 guy1.rect=gc.pygame.Rect(guy1.x, guy1.y, guy1.width, guy1.height)
-guy1.dt=guy1dt
