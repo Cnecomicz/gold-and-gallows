@@ -54,7 +54,8 @@ class Game(StateMachine):
 		self.debugging_flag  = False
 		self.player_movement = pf.ManualMovement(
 			puppet=self.player,
-			list_of_collision_rects=self.list_of_collision_rects
+			list_of_collision_rects=self.list_of_collision_rects,
+			DISPLAY_SURF=self.DISPLAY_SURF
 		)
 		self.dialogue_manager = dm.DialogueManager()
 		super().__init__()
@@ -118,6 +119,42 @@ class Game(StateMachine):
 				color=gc.WHITE
 			)
 
+		# Until we start drawing sprites, let's just draw an "arrow" to
+		# indicate the direction you are facing. Everything between this
+		# comment and the next one is temporary and will be deleted when
+		# we implement sprites.
+		arrow = "•"
+		match self.player_movement.current_direction_facing:
+			case self.player_movement.stationary: 
+				arrow = "•"
+			case self.player_movement.up:
+				arrow = "^"
+			case self.player_movement.down:
+				arrow = "v"
+			case self.player_movement.left:
+				arrow = "<"
+			case self.player_movement.right:
+				arrow = ">"
+			case self.player_movement.upleft:
+				arrow = "'\\"
+			case self.player_movement.upright:
+				arrow = "/'"
+			case self.player_movement.downleft:
+				arrow = "./"
+			case self.player_movement.downright:
+				arrow = "\\."
+		coord_x, coord_y = cf.convert_world_to_camera_coordinates(
+			self.camera, self.player
+		)
+		th.make_text(
+			self.DISPLAY_SURF, 
+			self.player.color, 
+			coord_y, coord_x, 
+			self.player.width*2,
+			th.bdlr(arrow)
+		)
+		# --------------------------------------------------------------
+
 		if self.debugging_flag:
 			th.make_text(
 				self.DISPLAY_SURF, 
@@ -125,10 +162,10 @@ class Game(StateMachine):
 				10, 
 				10, 
 				gc.WINDOW_WIDTH-20,
-				th.TextBundle(
+				th.bdlr(
 					text="Debug menu: \n"
 				),
-				th.TextBundle(
+				th.bdlr(
 					# Add more values here when you want to track them.
 					text=
 					f"{self.current_state.name = } \n "\

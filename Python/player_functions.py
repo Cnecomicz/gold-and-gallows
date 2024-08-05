@@ -164,9 +164,10 @@ class ManualMovement(StateMachine):
 	# ------------------------------------------------------------------
 	# ------------------------------------------------------------------
 
-	def __init__(self, puppet, list_of_collision_rects):
+	def __init__(self, puppet, list_of_collision_rects, DISPLAY_SURF):
 		self.puppet                           = puppet
 		self.list_of_collision_rects          = list_of_collision_rects
+		self.DISPLAY_SURF                     = DISPLAY_SURF
 		self.current_frame_obstruction_up     = None
 		self.current_frame_obstruction_down   = None
 		self.current_frame_obstruction_left   = None
@@ -175,6 +176,7 @@ class ManualMovement(StateMachine):
 		self.previous_frame_obstruction_down  = None
 		self.previous_frame_obstruction_left  = None
 		self.previous_frame_obstruction_right = None
+		self.current_direction_facing         = None
 		super().__init__()
 
 	def next_coordinates(self, direction):
@@ -240,6 +242,17 @@ class ManualMovement(StateMachine):
 			if gc.pygame.Rect.colliderect(next_rect, wall):
 				return wall
 		return None
+
+	def get_direction_facing(self):
+		match self.current_state:
+			case self.stationary:
+				pass
+			case (
+				self.up | self.down | self.left | self.right |
+				self.upleft | self.upright | self.downleft | self.downright
+			):
+				self.current_direction_facing = self.current_state
+
 		
 
 	def handle_pygame_events(self, pygame_event):
@@ -327,6 +340,8 @@ class ManualMovement(StateMachine):
 		(self.puppet.x, self.puppet.y) = self.next_coordinates(
 			self.current_state
 		)
+		# Call this function after all the collision checking. 
+		self.get_direction_facing()
 		# Make sure to update the rect, not just the x and y 
 		# coordinates.
 		if hasattr(self.puppet, "rect"):
@@ -334,5 +349,6 @@ class ManualMovement(StateMachine):
 				self.puppet.x, self.puppet.y, 
 				self.puppet.width, self.puppet.height
 			)
+
 
 

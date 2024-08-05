@@ -9,7 +9,9 @@ WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 720
 
 FONT_SIZE = 20
-BASIC_FONT = pygame.font.Font('freesansbold.ttf', FONT_SIZE)
+BASIC_FONT = pygame.font.Font("freesansbold.ttf", FONT_SIZE)
+ALCH_FONT = pygame.font.Font("Fonts/1651_Alchemy.ttf", FONT_SIZE)
+BB_FONT = pygame.font.Font("Fonts/BlackBeard_Regular.otf", FONT_SIZE)
 
 MARGIN = 2 * FONT_SIZE
 

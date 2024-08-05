@@ -13,6 +13,18 @@ class TextBundle:
 		self.color     = color
 		self.font_size = font_size
 
+def bdlr(
+		text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR, font_size=gc.FONT_SIZE
+	):
+	# Syntactic sugar for creating the TextBundle class. Pronounced 
+	# "bundler." Does nothing, but is fewer characters, which makes a 
+	# difference when it comes to dialogue trees especially. In dialogue
+	# tree data files, use "from text_handler import *" to save on 
+	# writing "th" each time too.
+	return TextBundle(
+		text=text,font=font,color=color,font_size=font_size
+	)
+
 def make_text(DISPLAY_SURF, bgcolor, top, left, text_width, *text_bundles):
 	# NOTE: The newline character "\n" does work, but it _must_ be
 	# separated with spaces on both sides, or at the end of your text
