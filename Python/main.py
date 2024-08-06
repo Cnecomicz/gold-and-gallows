@@ -29,6 +29,7 @@ class Game(StateMachine):
 		turns.to(turns)
 	)
 	begin_dialogue = overworld.to(dialogue)
+	end_dialogue   = dialogue.to(overworld)
 
 	def on_exit_overworld(self, event, state):
 		self.player_controls.send("to_stationary")
@@ -63,6 +64,19 @@ class Game(StateMachine):
 			list_of_entities=self.list_of_entities
 		)
 		super().__init__()
+
+	def dialogue_listener(self):
+		for speech in self.dialogue_manager.spoken_queue:
+			if speech == "Ending dialogue":
+				self.send("end_dialogue")
+				self.dialogue_manager.spoken_queue.remove(
+					speech
+				)
+			else:
+				raise NotImplementedError(
+					"You haven't yet written code for the listener to "\
+					"respond to that speech."
+				)
 
 	def quit_game(self):
 		gc.pygame.quit()
@@ -109,7 +123,8 @@ class Game(StateMachine):
 				self.camera.x = self.player.x
 				self.camera.y = self.player.y
 			case self.dialogue:
-				pass
+				self.dialogue_manager.update()
+				self.dialogue_listener()
 			case self.turns:
 				pass
 
@@ -184,7 +199,8 @@ class Game(StateMachine):
 					f"{self.dialogue_manager.number_of_responses = } \n "\
 					f"{self.dialogue_manager.hovered_index = } \n "\
 					f"{self.dialogue_manager.conversation_partner = } \n "\
-					f"{self.dialogue_manager.current_responses_dict = } \n ",
+					f"{self.dialogue_manager.current_responses_dict = } \n "\
+					f"{self.dialogue_manager.spoken_queue = } \n ",
 					color=gc.BLUE
 				)
 			)

@@ -37,10 +37,14 @@ class Guy1DialogueTree(StateMachine):
 		self.current_dialogue  = bdlr("")
 		self.current_responses = {}
 
+	def on_to1(self, event, state):
+		self.spoken_queue.append("Ending dialogue")
+
 	def __init__(self):
 		self.current_dialogue  = bdlr("")
 		self.current_responses = {} # Text : Transition
 		self.maybe_flag        = False
+		self.spoken_queue      = []
 		super().__init__()
 
 guy1dt = Guy1DialogueTree()

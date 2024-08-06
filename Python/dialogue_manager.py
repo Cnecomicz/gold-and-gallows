@@ -4,13 +4,7 @@ import text_handling    as th
 class DialogueManager:
 	def __init__(self):
 		self.leave_dialogue()
-		# self.conversation_partner   = None
-		# self.current_dialogue       = th.TextBundle("")
-		# self.current_responses_dict = {}
-		# self.current_responses_list = []
-		# self.number_of_responses    = 0
-		# self.hovered_index          = 0
-		# self.hovered_response       = th.TextBundle("")
+		self.spoken_queue = []
 
 	def enter_dialogue_with(self, conversation_partner):
 		self.conversation_partner = conversation_partner
@@ -37,6 +31,19 @@ class DialogueManager:
 		self.hovered_index          = 0
 		self.hovered_response       = th.TextBundle("")
 
+	def listener(self):
+		if self.conversation_partner is not None:
+			for speech in self.conversation_partner.dt.spoken_queue:
+				if speech == "Ending dialogue":
+					self.spoken_queue.append("Ending dialogue")
+					self.conversation_partner.dt.spoken_queue.remove(speech)
+				else:
+					raise NotImplementedError(
+						"You haven't yet written code for the listener to "\
+						"respond to that speech."
+					)
+
+
 
 	def handle_pygame_events(self, pygame_event):
 		if pygame_event.type == gc.KEYDOWN:
@@ -57,7 +64,7 @@ class DialogueManager:
 					self.current_responses_list[self.hovered_index]
 
 	def update(self):
-		pass
+		self.listener()
 
 	def draw(self, DISPLAY_SURF):
 		th.make_text(
