@@ -183,7 +183,8 @@ class Game(StateMachine):
 					f"{self.player_controls.current_state.name = } \n "\
 					f"{self.dialogue_manager.number_of_responses = } \n "\
 					f"{self.dialogue_manager.hovered_index = } \n "\
-					f"{self.dialogue_manager.conversation_partner = } \n ",
+					f"{self.dialogue_manager.conversation_partner = } \n "\
+					f"{self.dialogue_manager.current_responses_dict = } \n ",
 					color=gc.BLUE
 				)
 			)
