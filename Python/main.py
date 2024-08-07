@@ -11,10 +11,10 @@ import text_handling      as th
 
 class Game(StateMachine):
 	main_menu          = State()
-	overworld          = State(initial=True)
+	overworld          = State()
 	dialogue           = State()
 	turns              = State() 
-	character_creation = State()
+	character_creation = State(initial=True)
 	paused             = State()
 
 	# TEMPORARY TRANSITIONS FOR DEBUGGING ONLY. DELETE ONCE INTENTIONAL
@@ -70,8 +70,9 @@ class Game(StateMachine):
 
 	# ------------------------------------------------------------------
 
-	begin_dialogue = overworld.to(dialogue)
-	end_dialogue   = dialogue.to(overworld)
+	begin_dialogue         = overworld.to(dialogue)
+	end_dialogue           = dialogue.to(overworld)
+	end_character_creation = character_creation.to(overworld)
 
 	def on_exit_overworld(self, event, state):
 		self.player_controls.send("to_stationary")
@@ -113,6 +114,17 @@ class Game(StateMachine):
 			if speech == "Ending dialogue":
 				self.send("end_dialogue")
 				self.dialogue_manager.spoken_queue.remove(speech)
+			else:
+				raise NotImplementedError(
+					"You haven't yet written code for the listener to "\
+					"respond to that speech."
+				)
+
+	def character_creator_listener(self):
+		for speech in self.character_creator.spoken_queue:
+			if speech == "Finished character creation":
+				self.send("end_character_creation")
+				self.character_creator.spoken_queue.remove(speech)
 			else:
 				raise NotImplementedError(
 					"You haven't yet written code for the listener to "\
@@ -181,7 +193,8 @@ class Game(StateMachine):
 			case self.paused:
 				pass
 			case self.character_creation:
-				pass
+				self.character_creator.update()
+				self.character_creator_listener()
 
 	def draw_in_game_world(self):
 		for entity in self.list_of_entities:
@@ -251,7 +264,10 @@ class Game(StateMachine):
 					text=
 					f"{self.current_state.name = } \n "\
 					f"{self.character_creator.cursor_index = } \n "\
-					f"{self.character_creator.current_state.name = } \n ",
+					f"{self.character_creator.current_state.name = } \n "\
+					f"{self.character_creator.spoken_queue = } \n "\
+					f"{hasattr(self.player, "CHA") = } \n "\
+					f"{hasattr(self.player, "name") = } \n ",
 					color=gc.BLUE
 				)
 			)

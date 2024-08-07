@@ -7,14 +7,23 @@ import text_handling    as th
 class CharacterCreator(StateMachine):
 	choosing_power_level = State(initial=True)
 	choosing_class       = State()
-	choosing_name        = State()
+	choosing_name        = State(final=True)
 
-	to_class_extreme  = choosing_power_level.to(choosing_class)
-	to_class_standard = choosing_power_level.to(choosing_class)
-	to_class_classic  = choosing_power_level.to(choosing_class)
-	to_name           = choosing_class.to(choosing_name)
+	chose_extreme    = choosing_power_level.to(choosing_class)
+	chose_standard   = choosing_power_level.to(choosing_class)
+	chose_classic    = choosing_power_level.to(choosing_class)
+	chose_cleric     = choosing_class.to(choosing_name)
+	chose_druid      = choosing_class.to(choosing_name)
+	chose_dwarf      = choosing_class.to(choosing_name)
+	chose_elf        = choosing_class.to(choosing_name)
+	chose_fighter    = choosing_class.to(choosing_name)
+	chose_halfling   = choosing_class.to(choosing_name)
+	chose_magic_user = choosing_class.to(choosing_name)
+	chose_paladin    = choosing_class.to(choosing_name)
+	chose_ranger     = choosing_class.to(choosing_name)
+	chose_warlock    = choosing_class.to(choosing_name)
 
-	def on_to_class_extreme(self, event, state):
+	def on_chose_extreme(self, event, state):
 		self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
 		self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
 		self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
@@ -22,7 +31,7 @@ class CharacterCreator(StateMachine):
 		self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
 		self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
 
-	def on_to_class_standard(self, event, state):
+	def on_chose_standard(self, event, state):
 		self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
 		self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
 		self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
@@ -30,7 +39,7 @@ class CharacterCreator(StateMachine):
 		self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
 		self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
 
-	def on_to_class_classic(self, event, state):
+	def on_chose_classic(self, event, state):
 		self.player.CHA = dr.roll_x_d_n(3,6)
 		self.player.CON = dr.roll_x_d_n(3,6)
 		self.player.DEX = dr.roll_x_d_n(3,6)
@@ -38,12 +47,45 @@ class CharacterCreator(StateMachine):
 		self.player.STR = dr.roll_x_d_n(3,6)
 		self.player.WIS = dr.roll_x_d_n(3,6)
 
+	def on_chose_cleric(self, event, state):
+		self.player.character_class = "Cleric"
+
+	def on_chose_druid(self, event, state):
+		self.player.character_class = "Druid"
+
+	def on_chose_dwarf(self, event, state):
+		self.player.character_class = "Dwarf"
+
+	def on_chose_elf(self, event, state):
+		self.player.character_class = "Elf"
+
+	def on_chose_fighter(self, event, state):
+		self.player.character_class = "Fighter"
+
+	def on_chose_halfling(self, event, state):
+		self.player.character_class = "Halfling"
+
+	def on_chose_magic_user(self, event, state):
+		self.player.character_class = "Magic-User"
+
+	def on_chose_paladin(self, event, state):
+		self.player.character_class = "Paladin"
+
+	def on_chose_ranger(self, event, state):
+		self.player.character_class = "Ranger"
+
+	def on_chose_warlock(self, event, state):
+		self.player.character_class = "Warlock"
+
+
+
 	def on_enter_choosing_power_level(self, event, state):
 		self.number_of_options = 3
 		self.cursor_index      = 1
 
 	def on_enter_choosing_class(self, event, state):
 		self.number_of_options = 10
+		self.cursor_index      = 0
 
 	# ------------------------------------------------------------------
 
@@ -51,24 +93,40 @@ class CharacterCreator(StateMachine):
 		self.player            = player
 		self.cursor_index      = 0
 		self.number_of_options = 0
+		self.spoken_queue      = []
 		super().__init__()
 
 	def choose_power_level(self):
 		match self.cursor_index:
 			case 0:
-				self.send("to_class_extreme")
+				self.send("chose_extreme")
 			case 1:
-				self.send("to_class_standard")
+				self.send("chose_standard")
 			case 2:
-				self.send("to_class_classic")
-			case _:
-				raise NotImplementedError("Cursor index out of range.")
-
-	def roll_stats(self):
-		pass
+				self.send("chose_classic")
 
 	def choose_class(self):
-		pass
+		match self.cursor_index:
+			case 0:
+				self.send("chose_cleric")
+			case 1:
+				self.send("chose_druid")
+			case 2:
+				self.send("chose_dwarf")
+			case 3:
+				self.send("chose_elf")
+			case 4:
+				self.send("chose_fighter")
+			case 5:
+				self.send("chose_halfling")
+			case 6:
+				self.send("chose_magic_user")
+			case 7:
+				self.send("chose_paladin")
+			case 8:
+				self.send("chose_ranger")
+			case 9:
+				self.send("chose_warlock")
 
 	def choose_name(self):
 		pass
@@ -96,7 +154,14 @@ class CharacterCreator(StateMachine):
 					pass
 
 	def update(self):
-		pass
+		match self.current_state:
+			case self.choosing_power_level:
+				pass
+			case self.choosing_class:
+				pass
+			case self.choosing_name:
+				if hasattr(self.player, "name"):
+					self.spoken_queue.append("Finished character creation")
 
 	def draw(self, DISPLAY_SURF):
 		match self.current_state:
@@ -197,6 +262,151 @@ class CharacterCreator(StateMachine):
 						"What class would you like to be?"
 					)
 				)
+				match self.cursor_index:
+					case 0:
+						text = "CLERIC: Lorem ipsum. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "
+					case 1:
+						text = "DRUID: Lorem ipsum. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "
+					case 2:
+						text = "DWARF: Lorem ipsum. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "
+					case 3:
+						text = "ELF: Lorem ipsum. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "
+					case 4:
+						text = "FIGHTER: Lorem ipsum. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "
+					case 5:
+						text = "HALFLING: Lorem ipsum. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "
+					case 6:
+						text = "MAGIC-USER: Lorem ipsum. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "
+					case 7:
+						text = "PALADIN: Lorem ipsum. \n "\
+							"Ranger. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "
+					case 8:
+						text = "RANGER: Lorem ipsum. \n "\
+							"Warlock. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "
+					case 9:
+						text = "WARLOCK: Lorem ipsum. \n "\
+							"Cleric. \n "\
+							"Druid. \n "\
+							"Dwarf. \n "\
+							"Elf. \n "\
+							"Fighter. \n "\
+							"Halfling. \n "\
+							"Magic-User. \n "\
+							"Paladin. \n "\
+							"Ranger. \n "
+				th.make_hovered_option(
+					DISPLAY_SURF,
+					gc.BGCOLOR,
+					100, 300,
+					800,
+					th.bdlr(text)
+				)
 			case self.choosing_name:
-				pass
+				th.make_text(
+					DISPLAY_SURF,
+					gc.BGCOLOR,
+					100, 100,
+					800,
+					th.bdlr(
+						f"You are a {self.player.character_class}. \n "\
+						"Please type your name."
+					)
+				)
+				if not hasattr(self.player, "name"):
+					self.player.name = th.keylogger(
+						DISPLAY_SURF,
+						gc.BGCOLOR,
+						100, 200,
+						800,
+						gc.BASIC_FONT,
+						gc.TEXT_COLOR
+					)
+				else:
+					th.make_hovered_option(
+						DISPLAY_SURF,
+						gc.BGCOLOR,
+						100, 200,
+						800,
+						th.bdlr(self.player.name)
+					)
+
 

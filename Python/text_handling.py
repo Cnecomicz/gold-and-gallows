@@ -92,3 +92,32 @@ def make_hovered_option(
 		text_width,
 		text_bundle
 	)
+
+def keylogger(DISPLAY_SURF, bgcolor, left, top, text_width, font, color):
+	"""Returns the result of the player's keypresses, as a string. 
+	Listens for backspaces and escapes. Draws the typed string to the 
+	screen, because otherwise you're stuck in the "while True" loop with
+	no feedback."""
+	user_string = ""
+	while True:
+		for event in gc.pygame.event.get():
+			if event.type == gc.KEYDOWN:
+				if event.key == gc.K_RETURN and user_string != "":
+					return user_string
+					break
+				elif event.key == gc.K_BACKSPACE and user_string != "":
+					user_string = user_string[:-1]
+				elif event.key == gc.K_ESCAPE:
+					pass
+				else:
+					user_string += event.unicode
+
+		make_hovered_option(
+			DISPLAY_SURF,
+			bgcolor,
+			left,
+			top,
+			text_width,
+			bdlr(user_string, font, color)
+		)
+		gc.pygame.display.update()
