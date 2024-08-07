@@ -1,33 +1,75 @@
 import sys
 from statemachine import StateMachine, State
 
-import camera_functions as cf
-import dialogue_manager as dm
-import entity_factory   as ef
-import global_constants as gc
-import player_functions as pf
-import text_handling    as th
+import character_creation as cc
+import camera_functions   as cf
+import dialogue_manager   as dm
+import entity_factory     as ef
+import global_constants   as gc
+import player_functions   as pf
+import text_handling      as th
 
 class Game(StateMachine):
-	overworld = State(initial=True)
-	dialogue  = State()
-	turns     = State() 
+	main_menu          = State()
+	overworld          = State(initial=True)
+	dialogue           = State()
+	turns              = State() 
+	character_creation = State()
+	paused             = State()
 
+	# TEMPORARY TRANSITIONS FOR DEBUGGING ONLY. DELETE ONCE INTENTIONAL
+	# TRANSITIONS HAVE BEEN ADDED. -------------------------------------
 	to_overworld = (
 		overworld.to(overworld) | 
 		dialogue.to(overworld) | 
-		turns.to(overworld)
+		turns.to(overworld) |
+		main_menu.to(overworld) |
+		character_creation.to(overworld) |
+		paused.to(overworld)
 	)
 	to_dialogue = (
 		overworld.to(dialogue) | 
 		dialogue.to(dialogue) | 
-		turns.to(dialogue)
+		turns.to(dialogue) |
+		main_menu.to(dialogue) |
+		character_creation.to(dialogue) |
+		paused.to(dialogue)
 	)
 	to_turns = (
 		overworld.to(turns) | 
 		dialogue.to(turns) | 
-		turns.to(turns)
+		turns.to(turns) |
+		main_menu.to(turns) |
+		character_creation.to(turns) |
+		paused.to(turns)
 	)
+	to_main_menu = (
+		overworld.to(main_menu) | 
+		dialogue.to(main_menu) | 
+		turns.to(main_menu) |
+		main_menu.to(main_menu) |
+		character_creation.to(main_menu) |
+		paused.to(main_menu)
+	)
+	to_character_creation = (
+		overworld.to(character_creation) | 
+		dialogue.to(character_creation) | 
+		turns.to(character_creation) |
+		main_menu.to(character_creation) |
+		character_creation.to(character_creation) |
+		paused.to(character_creation)
+	)
+	to_paused = (
+		overworld.to(paused) | 
+		dialogue.to(paused) | 
+		turns.to(paused) |
+		main_menu.to(paused) |
+		character_creation.to(paused) |
+		paused.to(paused)
+	)
+
+	# ------------------------------------------------------------------
+
 	begin_dialogue = overworld.to(dialogue)
 	end_dialogue   = dialogue.to(overworld)
 
@@ -63,15 +105,14 @@ class Game(StateMachine):
 			list_of_collision_rects=self.list_of_collision_rects,
 			list_of_entities=self.list_of_entities
 		)
+		self.character_creator = cc.CharacterCreator(player=self.player)
 		super().__init__()
 
 	def dialogue_listener(self):
 		for speech in self.dialogue_manager.spoken_queue:
 			if speech == "Ending dialogue":
 				self.send("end_dialogue")
-				self.dialogue_manager.spoken_queue.remove(
-					speech
-				)
+				self.dialogue_manager.spoken_queue.remove(speech)
 			else:
 				raise NotImplementedError(
 					"You haven't yet written code for the listener to "\
@@ -102,6 +143,12 @@ class Game(StateMachine):
 					self.dialogue_manager.handle_pygame_events(event)
 				case self.turns:
 					pass
+				case self.main_menu:
+					pass
+				case self.paused:
+					pass
+				case self.character_creation:
+					self.character_creator.handle_pygame_events(event)
 			# To be deleted later: -------------------------------------
 			if event.type == gc.KEYDOWN:
 				if event.key == gc.K_ESCAPE:
@@ -112,6 +159,8 @@ class Game(StateMachine):
 					self.send("to_dialogue")
 				if event.key == gc.K_3:
 					self.send("to_turns")
+				if event.key == gc.K_4:
+					self.send("to_character_creation")
 			# ----------------------------------------------------------
 
 
@@ -127,10 +176,14 @@ class Game(StateMachine):
 				self.dialogue_listener()
 			case self.turns:
 				pass
+			case self.main_menu:
+				pass
+			case self.paused:
+				pass
+			case self.character_creation:
+				pass
 
-	def draw(self):
-		self.DISPLAY_SURF.fill(gc.BGCOLOR)
-
+	def draw_in_game_world(self):
 		for entity in self.list_of_entities:
 			if getattr(entity, "visible_on_world_map", False):
 				cf.draw_in_camera_coordinates(
@@ -146,7 +199,6 @@ class Game(StateMachine):
 				entity=block,
 				color=gc.WHITE
 			)
-
 		# Until we start drawing sprites, let's just draw an "arrow" to
 		# indicate the direction you are facing. Everything between this
 		# comment and the next one is temporary and will be deleted when
@@ -181,6 +233,9 @@ class Game(StateMachine):
 		)
 		# --------------------------------------------------------------
 
+	def draw(self):
+		self.DISPLAY_SURF.fill(gc.BGCOLOR)
+
 		if self.debugging_flag:
 			th.make_text(
 				self.DISPLAY_SURF, 
@@ -195,22 +250,25 @@ class Game(StateMachine):
 					# Add more values here when you want to track them.
 					text=
 					f"{self.current_state.name = } \n "\
-					f"{self.player_controls.current_state.name = } \n "\
-					f"{self.dialogue_manager.number_of_responses = } \n "\
-					f"{self.dialogue_manager.hovered_index = } \n "\
-					f"{self.dialogue_manager.conversation_partner = } \n "\
-					f"{self.dialogue_manager.current_responses_dict = } \n "\
-					f"{self.dialogue_manager.spoken_queue = } \n ",
+					f"{self.character_creator.cursor_index = } \n "\
+					f"{self.character_creator.current_state.name = } \n ",
 					color=gc.BLUE
 				)
 			)
 		match self.current_state:
 			case self.overworld:
-				pass
+				self.draw_in_game_world()
 			case self.dialogue:
+				self.draw_in_game_world()
 				self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
 			case self.turns:
+				self.draw_in_game_world()
+			case self.main_menu:
 				pass
+			case self.paused:
+				pass
+			case self.character_creation:
+				self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
 
 		gc.pygame.display.update()
 

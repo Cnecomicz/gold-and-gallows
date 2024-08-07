@@ -2,19 +2,19 @@ import global_constants as gc
 
 class TextBundle:
 	def __init__(
-			self, 
-			text, 
-			font=gc.BASIC_FONT, 
-			color=gc.TEXT_COLOR, 
-			font_size=gc.FONT_SIZE
-		):
+		self, 
+		text, 
+		font=gc.BASIC_FONT, 
+		color=gc.TEXT_COLOR, 
+		font_size=gc.FONT_SIZE
+	):
 		self.text      = text
 		self.font      = font
 		self.color     = color
 
 def bdlr(
-		text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR
-	):
+	text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR
+):
 	# Syntactic sugar for creating the TextBundle class. Pronounced 
 	# "bundler." Does nothing, but is fewer characters, which makes a 
 	# difference when it comes to dialogue trees especially. In dialogue
@@ -67,3 +67,28 @@ def make_text(DISPLAY_SURF, bgcolor, left, top, text_width, *text_bundles):
 			)
 			ending_position = textRect.right
 			DISPLAY_SURF.blit(textSurf, textRect)
+
+def make_hovered_option(
+	DISPLAY_SURF, bgcolor, left, top, text_width, text_bundle
+):
+	hovered_symbol = "> "
+	hoveredSurf = text_bundle.font.render(
+		hovered_symbol, True, text_bundle.color, bgcolor
+	)
+	hovered_width = hoveredSurf.get_width()
+	make_text(
+		DISPLAY_SURF,
+		bgcolor,
+		left-hovered_width,
+		top,
+		hovered_width,
+		bdlr(hovered_symbol, text_bundle.font, text_bundle.color)
+	)
+	make_text(
+		DISPLAY_SURF,
+		bgcolor,
+		left,
+		top,
+		text_width,
+		text_bundle
+	)

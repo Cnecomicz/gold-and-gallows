@@ -77,24 +77,21 @@ class DialogueManager:
 		line = 0
 		for response in self.current_responses_list:
 			if response == self.hovered_response:
-				draw_bdl = th.TextBundle(
-					"> " + response.text,
-					response.font,
-					gc.GREEN
+				th.make_hovered_option(
+					DISPLAY_SURF,
+					gc.BGCOLOR,
+					400, 500+line*response.font.get_height(),
+					800,
+					response
 				)
 			else:
-				draw_bdl = th.TextBundle(
-					"   " + response.text,
-					response.font,
-					gc.TEXT_COLOR
+				th.make_text(
+					DISPLAY_SURF, 
+					gc.BGCOLOR, 
+					400, 500+line*response.font.get_height(), 
+					800,
+					response
 				)
-			th.make_text(
-				DISPLAY_SURF, 
-				gc.BGCOLOR, 
-				400, 500+line*response.font.get_height(), 
-				800,
-				draw_bdl
-			)
 			line += 1
 
 

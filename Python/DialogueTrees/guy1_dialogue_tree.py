@@ -39,6 +39,7 @@ class Guy1DialogueTree(StateMachine):
 
 	def on_to1(self, event, state):
 		self.spoken_queue.append("Ending dialogue")
+		self.maybe_flag = not self.maybe_flag
 
 	def __init__(self):
 		self.current_dialogue  = bdlr("")
