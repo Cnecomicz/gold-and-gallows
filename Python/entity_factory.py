@@ -41,6 +41,17 @@ player = e.Entity(
 	color=gc.BLUE,
 	speed=4,
 	visible_on_world_map=True,
+	level=1,
+	inventory=[],
+	main_hand_slot=None,
+	off_hand_slot=None,
+	head_slot=None,
+	necklace_slot=None,
+	armor_slot=None,
+	boot_slot=None,
+	glove_slot=None,
+	ring_slot=None,
+	back_slot=None,
 )
 player.rect=gc.pygame.Rect(player.x, player.y, player.width, player.height)
 
@@ -54,3 +65,12 @@ guy1 = e.Entity(
 	dt=guy1dt,
 )
 guy1.rect=gc.pygame.Rect(guy1.x, guy1.y, guy1.width, guy1.height)
+
+sword = e.Entity(
+	x=150, y=100,
+	width=30, height=30,
+	color=gc.RED,
+	visible_on_world_map=True,
+	interactable=True,
+)
+sword.rect=gc.pygame.Rect(sword.x, sword.y, sword.width, sword.height)

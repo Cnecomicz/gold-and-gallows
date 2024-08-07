@@ -2,6 +2,7 @@ from statemachine import StateMachine, State
 
 import dice_roller      as dr
 import global_constants as gc
+import player_functions as pf
 import text_handling    as th
 
 class CharacterCreator(StateMachine):
@@ -24,58 +25,118 @@ class CharacterCreator(StateMachine):
 	chose_warlock    = choosing_class.to(choosing_name)
 
 	def on_chose_extreme(self, event, state):
-		self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
-		self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
-		self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
-		self.player.INT = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
-		self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
-		self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3,20,1)
-
+		self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+		self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+		self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+		self.player.INT = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+		self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+		self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+ 
 	def on_chose_standard(self, event, state):
-		self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
-		self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
-		self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
-		self.player.INT = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
-		self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
-		self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3,10,2)
+		self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
+		self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
+		self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
+		self.player.INT = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
+		self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
+		self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
 
 	def on_chose_classic(self, event, state):
-		self.player.CHA = dr.roll_x_d_n(3,6)
-		self.player.CON = dr.roll_x_d_n(3,6)
-		self.player.DEX = dr.roll_x_d_n(3,6)
-		self.player.INT = dr.roll_x_d_n(3,6)
-		self.player.STR = dr.roll_x_d_n(3,6)
-		self.player.WIS = dr.roll_x_d_n(3,6)
+		self.player.CHA = dr.roll_x_d_n(3, 6)
+		self.player.CON = dr.roll_x_d_n(3, 6)
+		self.player.DEX = dr.roll_x_d_n(3, 6)
+		self.player.INT = dr.roll_x_d_n(3, 6)
+		self.player.STR = dr.roll_x_d_n(3, 6)
+		self.player.WIS = dr.roll_x_d_n(3, 6)
 
 	def on_chose_cleric(self, event, state):
-		self.player.character_class = "Cleric"
+		self.player.character_class     = "Cleric"
+		self.player.class_die_size      = 8
+		self.player.weapon_max_die_size = 6
+		self.player.armor_max_size      = "Medium"
+		self.player.shield_max_size     = "Large"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_druid(self, event, state):
-		self.player.character_class = "Druid"
+		self.player.character_class     = "Druid"
+		self.player.class_die_size      = 6
+		self.player.weapon_max_die_size = 4
+		self.player.armor_max_size      = "Light"
+		self.player.shield_max_size     = ""
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_dwarf(self, event, state):
-		self.player.character_class = "Dwarf"
+		self.player.character_class     = "Dwarf"
+		self.player.class_die_size      = 8
+		self.player.weapon_max_die_size = 8
+		self.player.armor_max_size      = "Heavy"
+		self.player.shield_max_size     = "Large"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_elf(self, event, state):
-		self.player.character_class = "Elf"
+		self.player.character_class     = "Elf"
+		self.player.class_die_size      = 6
+		self.player.weapon_max_die_size = 8
+		self.player.armor_max_size      = "Medium"
+		self.player.shield_max_size     = "Small"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_fighter(self, event, state):
-		self.player.character_class = "Fighter"
+		self.player.character_class     = "Fighter"
+		self.player.class_die_size      = 10
+		self.player.weapon_max_die_size = 8
+		self.player.armor_max_size      = "Heavy"
+		self.player.shield_max_size     = "Large"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_halfling(self, event, state):
-		self.player.character_class = "Halfling"
+		self.player.character_class     = "Halfling"
+		self.player.class_die_size      = 6
+		self.player.weapon_max_die_size = 6
+		self.player.armor_max_size      = "Light"
+		self.player.shield_max_size     = "Small"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_magic_user(self, event, state):
-		self.player.character_class = "Magic-User"
+		self.player.character_class     = "Magic-User"
+		self.player.class_die_size      = 4
+		self.player.weapon_max_die_size = 4
+		self.player.armor_max_size      = "Light"
+		self.player.shield_max_size     = ""
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_paladin(self, event, state):
-		self.player.character_class = "Paladin"
+		self.player.character_class     = "Paladin"
+		self.player.class_die_size      = 10
+		self.player.weapon_max_die_size = 8
+		self.player.armor_max_size      = "Heavy"
+		self.player.shield_max_size     = "Large"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_ranger(self, event, state):
-		self.player.character_class = "Ranger"
+		self.player.character_class     = "Ranger"
+		self.player.class_die_size      = 8
+		self.player.weapon_max_die_size = 6
+		self.player.armor_max_size      = "Medium"
+		self.player.shield_max_size     = "Small"
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 	def on_chose_warlock(self, event, state):
-		self.player.character_class = "Warlock"
+		self.player.character_class     = "Warlock"
+		self.player.class_die_size      = 4
+		self.player.weapon_max_die_size = 4
+		self.player.armor_max_size      = "Light"
+		self.player.shield_max_size     = ""
+		self.roll_starting_HP()
+		self.set_initial_AV()
 
 
 
@@ -95,6 +156,12 @@ class CharacterCreator(StateMachine):
 		self.number_of_options = 0
 		self.spoken_queue      = []
 		super().__init__()
+
+	def roll_starting_HP(self):
+		self.player.HP = 4 + dr.roll_x_d_n(1, self.player.class_die_size)
+
+	def set_initial_AV(self):
+		self.player.AV = pf.calculate_AV(self.player.character_class, 1)
 
 	def choose_power_level(self):
 		match self.cursor_index:
@@ -127,9 +194,6 @@ class CharacterCreator(StateMachine):
 				self.send("chose_ranger")
 			case 9:
 				self.send("chose_warlock")
-
-	def choose_name(self):
-		pass
 
 	def cycle_up_and_down(self, pygame_event):
 		if pygame_event.key in gc.UP:
@@ -171,7 +235,7 @@ class CharacterCreator(StateMachine):
 					gc.BGCOLOR, 
 					100, 100, 
 					800,
-					th.bdlr("Choose your difficulty.")
+					th.bdlr("Choose your capability.")
 				)
 				if self.cursor_index == 0:
 					th.make_hovered_option(

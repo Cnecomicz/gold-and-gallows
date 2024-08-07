@@ -167,12 +167,16 @@ class ManualControls(StateMachine):
 	def __init__(
 		self, 
 		puppet, 
+		list_of_entities,
+		list_of_npcs,
+		list_of_items_on_ground,
 		list_of_collision_rects, 
-		list_of_entities
 	):
 		self.puppet                           = puppet
-		self.list_of_collision_rects          = list_of_collision_rects
 		self.list_of_entities                 = list_of_entities
+		self.list_of_npcs                     = list_of_npcs
+		self.list_of_items_on_ground          = list_of_items_on_ground
+		self.list_of_collision_rects          = list_of_collision_rects
 		self.current_frame_obstruction_up     = None
 		self.current_frame_obstruction_down   = None
 		self.current_frame_obstruction_left   = None
@@ -267,10 +271,26 @@ class ManualControls(StateMachine):
 			self.puppet.height, self.puppet.width
 		)
 		for entity in self.list_of_entities:
-			if getattr(entity, "interactable", False):
+			if getattr(entity, "interactable", False) and \
+			(entity in self.list_of_npcs or \
+			entity in self.list_of_items_on_ground):
 				if gc.pygame.Rect.colliderect(facing_rect, entity):
 					return entity
 		return None
+
+
+	def pick_up(self, item):
+		item.x = None
+		item.y = None
+		item.rect = None
+		item.visible_on_world_map = False
+		self.list_of_items_on_ground.remove(item)
+		if hasattr(self.puppet, "inventory"):
+			self.puppet.inventory.append(item)
+		# TODO: (Maybe) make a message that says "You picked up the 
+		# sword!" It's "maybe" because with sprites, this will be not as
+		# necessary.
+
 
 		
 
@@ -369,5 +389,21 @@ class ManualControls(StateMachine):
 				self.puppet.width, self.puppet.height
 			)
 
+def calculate_AV(character_class, level):
+	match character_class:
+		case "Cleric":
+			return round(2/5*(level-1) + 10+(4/5))
+		case "Druid":
+			return round(2/5*(level-1) + 7+(4/5))
+		case "Dwarf" | "Paladin" | "Ranger":
+			return math.floor(1/2*(level-1) + 11)
+		case "Elf":
+			return round(2/3*(level-1) + 10+(2/3))
+		case "Fighter":
+			return math.ceil(2/3*(level-1) + 10+(2/3))
+		case "Halfling":
+			return math.floor(1/4*(level-1) + 12)
+		case "Magic-User" | "Warlock":
+			return math.ceil(1/3*(level-1) + 7+(1/3))
 
 

@@ -94,17 +94,27 @@ class Game(StateMachine):
 		self.camera                  = ef.camera
 		self.player                  = ef.player
 		self.guy1                    = ef.guy1
+		self.sword                   = ef.sword
 		self.list_of_entities        = [
-			self.camera, self.player, self.guy1,
+			self.camera, self.player, self.guy1, self.sword,
 		]
+		self.list_of_npcs            = [
+			self.guy1,
+		]
+		self.list_of_items_on_ground = [
+			self.sword,
+		]
+
 		self.list_of_collision_rects = ef.list_of_collision_rects
 		# Systems managers: --------------------------------------------
 		self.debugging_flag  = False
 		self.dialogue_manager = dm.DialogueManager()
 		self.player_controls = pf.ManualControls(
 			puppet=self.player,
+			list_of_entities=self.list_of_entities,
+			list_of_npcs=self.list_of_npcs,
+			list_of_items_on_ground=self.list_of_items_on_ground,
 			list_of_collision_rects=self.list_of_collision_rects,
-			list_of_entities=self.list_of_entities
 		)
 		self.character_creator = cc.CharacterCreator(player=self.player)
 		super().__init__()
@@ -146,11 +156,13 @@ class Game(StateMachine):
 					self.player_controls.handle_pygame_events(event)
 					if event.type == gc.KEYDOWN and event.key in gc.USE:
 						entity = self.player_controls.get_entity_facing()
-						if entity is not None:
+						if entity in self.list_of_npcs:
 							self.dialogue_manager.enter_dialogue_with(
 								entity
 							)
 							self.send("begin_dialogue")
+						elif entity in self.list_of_items_on_ground:
+							self.player_controls.pick_up(entity)
 				case self.dialogue:
 					self.dialogue_manager.handle_pygame_events(event)
 				case self.turns:
@@ -263,11 +275,8 @@ class Game(StateMachine):
 					# Add more values here when you want to track them.
 					text=
 					f"{self.current_state.name = } \n "\
-					f"{self.character_creator.cursor_index = } \n "\
-					f"{self.character_creator.current_state.name = } \n "\
-					f"{self.character_creator.spoken_queue = } \n "\
-					f"{hasattr(self.player, "CHA") = } \n "\
-					f"{hasattr(self.player, "name") = } \n ",
+					f"{self.player.inventory = } \n "\
+					f"{self.sword.rect = } \n ",
 					color=gc.BLUE
 				)
 			)
