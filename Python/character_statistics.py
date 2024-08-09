@@ -2,7 +2,6 @@ from statemachine import StateMachine, State
 
 import dice_roller      as dr
 import global_constants as gc
-import player_functions as pf
 import text_handling    as th
 
 class CharacterCreator(StateMachine):
@@ -161,7 +160,7 @@ class CharacterCreator(StateMachine):
 		self.player.HP = 4 + dr.roll_x_d_n(1, self.player.class_die_size)
 
 	def set_initial_AV(self):
-		self.player.AV = pf.calculate_AV(self.player.character_class, 1)
+		self.player.AV = calculate_AV(self.player.character_class, 1)
 
 	def choose_power_level(self):
 		match self.cursor_index:
@@ -472,5 +471,240 @@ class CharacterCreator(StateMachine):
 						800,
 						th.bdlr(self.player.name)
 					)
+
+# ======================================================================
+
+class CharacterSheetManager(StateMachine):
+	# "co_" stands for "cursor_over_"
+	co_stats_HP_AC_and_AV = State()
+	co_class_and_level    = State()
+	co_equipment          = State(initial=True)
+	co_portrait           = State()
+	co_spells             = State()
+	co_abilities          = State()
+
+	# LAYOUT: (not to scale)
+	#  ___________   ________________
+	# | Equipment |→| Spells         |
+	# |___________|←|________________|
+	#  ____↑_↓____   ______↑_↓_______
+	# | Abilities |→| Portrait       |
+	# |           |←|________________|
+	# |           |  ______↑_↓_______
+	# |           | | Class & level  |
+	# |           |←|________________|
+	# |           |  ______↑_↓_______
+	# |           | | Stats/HP/AC/AV |
+	# |___________|←|________________|
+
+	cursor_up    = (
+		co_stats_HP_AC_and_AV.to(co_class_and_level) |
+		co_class_and_level.to(co_portrait) |
+		co_equipment.to(co_equipment) |
+		co_portrait.to(co_spells) |
+		co_spells.to(co_spells) |
+		co_abilities.to(co_equipment)
+	)
+	cursor_down  = (
+		co_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV) |
+		co_class_and_level.to(co_stats_HP_AC_and_AV) |
+		co_equipment.to(co_abilities) |
+		co_portrait.to(co_class_and_level) |
+		co_spells.to(co_portrait) |
+		co_abilities.to(co_abilities)
+	)
+	cursor_left  = (
+		co_stats_HP_AC_and_AV.to(co_abilities) |
+		co_class_and_level.to(co_abilities) |
+		co_equipment.to(co_equipment) |
+		co_portrait.to(co_abilities) |
+		co_spells.to(co_equipment) |
+		co_abilities.to(co_abilities)
+	)
+	cursor_right = (
+		co_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV) |
+		co_class_and_level.to(co_class_and_level) |
+		co_equipment.to(co_spells) |
+		co_portrait.to(co_portrait) |
+		co_spells.to(co_spells) |
+		co_abilities.to(co_portrait)
+	)
+
+	# ------------------------------------------------------------------
+
+	def __init__(self, player):
+		self.player = player
+		self.column_one_x = 100
+		self.column_two_x = 600
+		self.row_one_y    = 100
+		self.row_two_y    = 400
+		super().__init__()
+
+	def draw_equipment(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_one_x, self.row_one_y,
+			800,
+			th.bdlr("EQUIPMENT:")
+		) 
+		count = 0
+		for item in self.player.inventory:
+			item_bdl = th.bdlr(item.name)
+			th.make_text(
+				DISPLAY_SURF,
+				gc.BGCOLOR,
+				self.column_one_x, 
+				self.row_one_y+(count+1)*gc.BASIC_FONT.get_height(),
+				800,
+				item_bdl
+			) 
+
+	def draw_spells(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_two_x, self.row_one_y,
+			800,
+			th.bdlr("SPELLS:")
+		) 
+
+	def draw_abilities(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_one_x, self.row_two_y,
+			800,
+			th.bdlr("ABILITIES:")
+		) 
+
+	def draw_portrait(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_two_x, self.row_two_y,
+			800,
+			th.bdlr("PORTRAIT:")
+		) 
+
+	def draw_class_and_level(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_two_x, self.row_two_y+100,
+			800,
+			th.bdlr("CLASS AND LEVEL:")
+		) 
+
+	def draw_stats_HP_AC_and_AV(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_two_x, self.row_two_y+200,
+			800,
+			th.bdlr("STATS, HP, AC, and AV:")
+		) 
+
+	def handle_pygame_events(self, pygame_event):
+		if pygame_event.type == gc.KEYDOWN:
+			if pygame_event.key in gc.UP:
+				self.send("cursor_up")
+			if pygame_event.key in gc.DOWN:
+				self.send("cursor_down")
+			if pygame_event.key in gc.LEFT:
+				self.send("cursor_left")
+			if pygame_event.key in gc.RIGHT:
+				self.send("cursor_right")
+
+	def update(self):
+		pass
+
+	def draw(self, DISPLAY_SURF):
+		self.draw_equipment(DISPLAY_SURF)
+		self.draw_spells(DISPLAY_SURF)
+		self.draw_abilities(DISPLAY_SURF)
+		self.draw_portrait(DISPLAY_SURF)
+		self.draw_class_and_level(DISPLAY_SURF)
+		self.draw_stats_HP_AC_and_AV(DISPLAY_SURF)
+		match self.current_state:
+			case self.co_stats_HP_AC_and_AV:
+				gc.pygame.draw.rect(
+					DISPLAY_SURF, 
+					gc.TEXT_COLOR,
+					gc.pygame.Rect(
+						self.column_two_x, self.row_two_y+200,
+						400, 100
+					),
+					5
+				)
+			case self.co_class_and_level: 
+				gc.pygame.draw.rect(
+					DISPLAY_SURF, 
+					gc.TEXT_COLOR,
+					gc.pygame.Rect(
+						self.column_two_x, self.row_two_y+100,
+						400, 100
+					),
+					5
+				)
+			case self.co_equipment:
+				gc.pygame.draw.rect(
+					DISPLAY_SURF, 
+					gc.TEXT_COLOR,
+					gc.pygame.Rect(
+						self.column_one_x, self.row_one_y,
+						400, 200
+					),
+					5
+				)
+			case self.co_portrait:
+				gc.pygame.draw.rect(
+					DISPLAY_SURF, 
+					gc.TEXT_COLOR,
+					gc.pygame.Rect(
+						self.column_two_x, self.row_two_y,
+						400, 100
+					),
+					5
+				)
+			case self.co_spells:
+				gc.pygame.draw.rect(
+					DISPLAY_SURF, 
+					gc.TEXT_COLOR,
+					gc.pygame.Rect(
+						self.column_two_x, self.row_one_y,
+						400, 200
+					),
+					5
+				)
+			case self.co_abilities:
+				gc.pygame.draw.rect(
+					DISPLAY_SURF, 
+					gc.TEXT_COLOR,
+					gc.pygame.Rect(
+						self.column_one_x, self.row_two_y,
+						400, 200
+					),
+					5
+				)
+
+# ======================================================================
+
+def calculate_AV(character_class, level):
+	match character_class:
+		case "Cleric":
+			return round(2/5*(level-1) + 10+(4/5))
+		case "Druid":
+			return round(2/5*(level-1) + 7+(4/5))
+		case "Dwarf" | "Paladin" | "Ranger":
+			return math.floor(1/2*(level-1) + 11)
+		case "Elf":
+			return round(2/3*(level-1) + 10+(2/3))
+		case "Fighter":
+			return math.ceil(2/3*(level-1) + 10+(2/3))
+		case "Halfling":
+			return math.floor(1/4*(level-1) + 12)
+		case "Magic-User" | "Warlock":
+			return math.ceil(1/3*(level-1) + 7+(1/3))
 
 

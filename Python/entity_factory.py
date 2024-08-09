@@ -67,6 +67,7 @@ guy1 = e.Entity(
 guy1.rect=gc.pygame.Rect(guy1.x, guy1.y, guy1.width, guy1.height)
 
 sword = e.Entity(
+	name="Sword",
 	x=150, y=100,
 	width=30, height=30,
 	color=gc.RED,

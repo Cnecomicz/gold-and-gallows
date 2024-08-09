@@ -1,13 +1,13 @@
 import sys
 from statemachine import StateMachine, State
 
-import character_creation as cc
-import camera_functions   as cf
-import dialogue_manager   as dm
-import entity_factory     as ef
-import global_constants   as gc
-import player_functions   as pf
-import text_handling      as th
+import camera_functions     as cf
+import character_statistics as cs
+import dialogue_manager     as dm
+import entity_factory       as ef
+import global_constants     as gc
+import player_functions     as pf
+import text_handling        as th
 
 class Game(StateMachine):
 	main_menu          = State()
@@ -15,7 +15,7 @@ class Game(StateMachine):
 	dialogue           = State()
 	turns              = State() 
 	character_creation = State(initial=True)
-	paused             = State()
+	character_sheet    = State()
 
 	# TEMPORARY TRANSITIONS FOR DEBUGGING ONLY. DELETE ONCE INTENTIONAL
 	# TRANSITIONS HAVE BEEN ADDED. -------------------------------------
@@ -25,7 +25,7 @@ class Game(StateMachine):
 		turns.to(overworld) |
 		main_menu.to(overworld) |
 		character_creation.to(overworld) |
-		paused.to(overworld)
+		character_sheet.to(overworld)
 	)
 	to_dialogue = (
 		overworld.to(dialogue) | 
@@ -33,7 +33,7 @@ class Game(StateMachine):
 		turns.to(dialogue) |
 		main_menu.to(dialogue) |
 		character_creation.to(dialogue) |
-		paused.to(dialogue)
+		character_sheet.to(dialogue)
 	)
 	to_turns = (
 		overworld.to(turns) | 
@@ -41,7 +41,7 @@ class Game(StateMachine):
 		turns.to(turns) |
 		main_menu.to(turns) |
 		character_creation.to(turns) |
-		paused.to(turns)
+		character_sheet.to(turns)
 	)
 	to_main_menu = (
 		overworld.to(main_menu) | 
@@ -49,7 +49,7 @@ class Game(StateMachine):
 		turns.to(main_menu) |
 		main_menu.to(main_menu) |
 		character_creation.to(main_menu) |
-		paused.to(main_menu)
+		character_sheet.to(main_menu)
 	)
 	to_character_creation = (
 		overworld.to(character_creation) | 
@@ -57,15 +57,15 @@ class Game(StateMachine):
 		turns.to(character_creation) |
 		main_menu.to(character_creation) |
 		character_creation.to(character_creation) |
-		paused.to(character_creation)
+		character_sheet.to(character_creation)
 	)
-	to_paused = (
-		overworld.to(paused) | 
-		dialogue.to(paused) | 
-		turns.to(paused) |
-		main_menu.to(paused) |
-		character_creation.to(paused) |
-		paused.to(paused)
+	to_character_sheet = (
+		overworld.to(character_sheet) | 
+		dialogue.to(character_sheet) | 
+		turns.to(character_sheet) |
+		main_menu.to(character_sheet) |
+		character_creation.to(character_sheet) |
+		character_sheet.to(character_sheet)
 	)
 
 	# ------------------------------------------------------------------
@@ -116,7 +116,9 @@ class Game(StateMachine):
 			list_of_items_on_ground=self.list_of_items_on_ground,
 			list_of_collision_rects=self.list_of_collision_rects,
 		)
-		self.character_creator = cc.CharacterCreator(player=self.player)
+		self.character_creator = cs.CharacterCreator(player=self.player)
+		self.character_sheet_manager = \
+			cs.CharacterSheetManager(player=self.player)
 		super().__init__()
 
 	def dialogue_listener(self):
@@ -146,15 +148,17 @@ class Game(StateMachine):
 		sys.exit()
 
 	def handle_pygame_events(self):
-		for event in gc.pygame.event.get():
-			if event.type == gc.QUIT:
+		for pygame_event in gc.pygame.event.get():
+			if pygame_event.type == gc.QUIT:
 				self.quit_game()
-			if event.type == gc.KEYDOWN and event.key == gc.K_BACKQUOTE:
+			if pygame_event.type == gc.KEYDOWN \
+			and pygame_event.key == gc.K_BACKQUOTE:
 				self.debugging_flag = not self.debugging_flag
 			match self.current_state:
 				case self.overworld:
-					self.player_controls.handle_pygame_events(event)
-					if event.type == gc.KEYDOWN and event.key in gc.USE:
+					self.player_controls.handle_pygame_events(pygame_event)
+					if pygame_event.type == gc.KEYDOWN \
+					and pygame_event.key in gc.USE:
 						entity = self.player_controls.get_entity_facing()
 						if entity in self.list_of_npcs:
 							self.dialogue_manager.enter_dialogue_with(
@@ -164,27 +168,31 @@ class Game(StateMachine):
 						elif entity in self.list_of_items_on_ground:
 							self.player_controls.pick_up(entity)
 				case self.dialogue:
-					self.dialogue_manager.handle_pygame_events(event)
+					self.dialogue_manager.handle_pygame_events(pygame_event)
 				case self.turns:
 					pass
 				case self.main_menu:
 					pass
-				case self.paused:
-					pass
+				case self.character_sheet:
+					self.character_sheet_manager.handle_pygame_events(
+						pygame_event
+					)
 				case self.character_creation:
-					self.character_creator.handle_pygame_events(event)
+					self.character_creator.handle_pygame_events(pygame_event)
 			# To be deleted later: -------------------------------------
-			if event.type == gc.KEYDOWN:
-				if event.key == gc.K_ESCAPE:
+			if pygame_event.type == gc.KEYDOWN:
+				if pygame_event.key == gc.K_ESCAPE:
 					self.quit_game()
-				if event.key == gc.K_1:
+				if pygame_event.key == gc.K_1:
 					self.send("to_overworld")
-				if event.key == gc.K_2:
+				if pygame_event.key == gc.K_2:
 					self.send("to_dialogue")
-				if event.key == gc.K_3:
+				if pygame_event.key == gc.K_3:
 					self.send("to_turns")
-				if event.key == gc.K_4:
+				if pygame_event.key == gc.K_4:
 					self.send("to_character_creation")
+				if pygame_event.key == gc.K_5:
+					self.send("to_character_sheet")
 			# ----------------------------------------------------------
 
 
@@ -202,7 +210,7 @@ class Game(StateMachine):
 				pass
 			case self.main_menu:
 				pass
-			case self.paused:
+			case self.character_sheet:
 				pass
 			case self.character_creation:
 				self.character_creator.update()
@@ -276,6 +284,7 @@ class Game(StateMachine):
 					text=
 					f"{self.current_state.name = } \n "\
 					f"{self.player.inventory = } \n "\
+					f"{self.character_sheet_manager.current_state = } \n "\
 					f"{self.sword.rect = } \n ",
 					color=gc.BLUE
 				)
@@ -290,8 +299,10 @@ class Game(StateMachine):
 				self.draw_in_game_world()
 			case self.main_menu:
 				pass
-			case self.paused:
-				pass
+			case self.character_sheet:
+				self.character_sheet_manager.draw(
+					DISPLAY_SURF=self.DISPLAY_SURF
+				)
 			case self.character_creation:
 				self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
 
