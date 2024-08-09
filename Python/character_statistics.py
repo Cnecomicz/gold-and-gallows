@@ -1,3 +1,5 @@
+import math
+
 from statemachine import StateMachine, State
 
 import dice_roller      as dr
@@ -157,7 +159,8 @@ class CharacterCreator(StateMachine):
 		super().__init__()
 
 	def roll_starting_HP(self):
-		self.player.HP = 4 + dr.roll_x_d_n(1, self.player.class_die_size)
+		self.player.max_HP = 4 + dr.roll_x_d_n(1, self.player.class_die_size)
+		self.player.current_HP = self.player.max_HP
 
 	def set_initial_AV(self):
 		self.player.AV = calculate_AV(self.player.character_class, 1)
@@ -534,10 +537,10 @@ class CharacterSheetManager(StateMachine):
 
 	def __init__(self, player):
 		self.player = player
-		self.column_one_x = 100
+		self.column_one_x = 10
 		self.column_two_x = 600
-		self.row_one_y    = 100
-		self.row_two_y    = 400
+		self.row_one_y    = 10
+		self.row_two_y    = 500
 		super().__init__()
 
 	def draw_equipment(self, DISPLAY_SURF):
@@ -548,17 +551,26 @@ class CharacterSheetManager(StateMachine):
 			800,
 			th.bdlr("EQUIPMENT:")
 		) 
-		count = 0
-		for item in self.player.inventory:
-			item_bdl = th.bdlr(item.name)
+		enum = 1
+		# Without .copy() you end up .pop()ing the actual inventory! 
+		write_items_list = self.player.inventory.copy()
+		for i in range(self.player.STR):
+			if write_items_list != []:
+				text_bundle = th.bdlr(f"{enum}. {write_items_list[0].name}")
+			else:
+				text_bundle = th.bdlr(f"{enum}.")
 			th.make_text(
 				DISPLAY_SURF,
 				gc.BGCOLOR,
 				self.column_one_x, 
-				self.row_one_y+(count+1)*gc.BASIC_FONT.get_height(),
+				self.row_one_y+(enum)*gc.BASIC_FONT.get_height(),
 				800,
-				item_bdl
-			) 
+				text_bundle
+			)
+			if write_items_list != []:
+				write_items_list.pop(0)
+			enum += 1
+
 
 	def draw_spells(self, DISPLAY_SURF):
 		th.make_text(
@@ -593,16 +605,25 @@ class CharacterSheetManager(StateMachine):
 			gc.BGCOLOR,
 			self.column_two_x, self.row_two_y+100,
 			800,
-			th.bdlr("CLASS AND LEVEL:")
+			th.bdlr(f"{self.player.character_class} {self.player.level}")
 		) 
 
 	def draw_stats_HP_AC_and_AV(self, DISPLAY_SURF):
 		th.make_text(
 			DISPLAY_SURF,
 			gc.BGCOLOR,
-			self.column_two_x, self.row_two_y+200,
+			self.column_two_x, self.row_two_y+100+gc.BASIC_FONT.get_height(),
 			800,
-			th.bdlr("STATS, HP, AC, and AV:")
+			th.bdlr(
+				f"HP: {self.player.current_HP}/{self.player.max_HP} "\
+				f"AC: TODO "\
+				f"AV: {calculate_AV(
+					self.player.character_class, self.player.level
+				)} \n "\
+				f"CHA: {self.player.CHA} CON: {self.player.CON} "\
+				f"DEX: {self.player.DEX} INT: {self.player.INT} "\
+				f"STR: {self.player.STR} WIS: {self.player.WIS} "\
+			)
 		) 
 
 	def handle_pygame_events(self, pygame_event):
