@@ -486,7 +486,16 @@ class CharacterSheetManager(StateMachine):
 	co_spells             = State()
 	co_abilities          = State()
 
+	# "is_" stands for "in_submenu_"
+	is_stats_HP_AC_and_AV = State()
+	is_class_and_level    = State()
+	is_equipment          = State()
+	is_portrait           = State()
+	is_spells             = State()
+	is_abilities          = State()
+
 	# LAYOUT: (not to scale)
+	# Arrows indicate transitions when in "co_" states.
 	#  ___________   ________________
 	# | Equipment |→| Spells         |
 	# |___________|←|________________|
@@ -500,7 +509,7 @@ class CharacterSheetManager(StateMachine):
 	# |           | | Stats/HP/AC/AV |
 	# |___________|←|________________|
 
-	cursor_up    = (
+	cursor_up = (
 		co_stats_HP_AC_and_AV.to(co_class_and_level) |
 		co_class_and_level.to(co_portrait) |
 		co_equipment.to(co_equipment) |
@@ -508,7 +517,7 @@ class CharacterSheetManager(StateMachine):
 		co_spells.to(co_spells) |
 		co_abilities.to(co_equipment)
 	)
-	cursor_down  = (
+	cursor_down = (
 		co_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV) |
 		co_class_and_level.to(co_stats_HP_AC_and_AV) |
 		co_equipment.to(co_abilities) |
@@ -516,7 +525,7 @@ class CharacterSheetManager(StateMachine):
 		co_spells.to(co_portrait) |
 		co_abilities.to(co_abilities)
 	)
-	cursor_left  = (
+	cursor_left = (
 		co_stats_HP_AC_and_AV.to(co_abilities) |
 		co_class_and_level.to(co_abilities) |
 		co_equipment.to(co_equipment) |
@@ -532,24 +541,153 @@ class CharacterSheetManager(StateMachine):
 		co_spells.to(co_spells) |
 		co_abilities.to(co_portrait)
 	)
+	into_submenu = (
+		co_stats_HP_AC_and_AV.to(is_stats_HP_AC_and_AV) |
+		co_class_and_level.to(is_class_and_level) |
+		co_equipment.to(is_equipment) |
+		co_portrait.to(is_portrait) |
+		co_spells.to(is_spells) |
+		co_abilities.to(is_abilities)
+	)
+	out_of_submenu = (
+		is_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV) |
+		is_class_and_level.to(co_class_and_level) |
+		is_equipment.to(co_equipment) |
+		is_portrait.to(co_portrait) |
+		is_spells.to(co_spells) |
+		is_abilities.to(co_abilities)
+	)
+	reset = (
+		co_stats_HP_AC_and_AV.to(co_equipment) |
+		co_class_and_level.to(co_equipment) |
+		co_equipment.to(co_equipment) |
+		co_portrait.to(co_equipment) |
+		co_spells.to(co_equipment) |
+		co_abilities.to(co_equipment) |
+		is_stats_HP_AC_and_AV.to(co_equipment) |
+		is_class_and_level.to(co_equipment) |
+		is_equipment.to(co_equipment) |
+		is_portrait.to(co_equipment) |
+		is_spells.to(co_equipment) |
+		is_abilities.to(co_equipment)
+	)
+
+	def on_enter_is_equipment(self, event, state):
+		self.cursor_index = 0
+		if self.player.inventory != []:
+			self.number_of_options = len(self.player.inventory)
+		else:
+			self.number_of_options = 1
+			# OR we could do:
+			# self.send("out_of_submenu") 
+			# This would keep you from entering the submenu at all if 
+			# you had no items.
 
 	# ------------------------------------------------------------------
 
 	def __init__(self, player):
-		self.player         = player
-		self.column_one_x   = 10
-		self.column_two_x   = 600
-		self.row_one_y      = 10
-		self.row_two_y      = 450
-		self.row_one_height = 21*gc.BASIC_FONT.get_height()
+		self.player            = player
+		self.column_one_x      = 10
+		self.column_two_x      = 550
+		self.row_one_y         = 10
+		self.row_two_y         = 450
+		self.row_one_height    = 21*gc.BASIC_FONT.get_height()
+		self.width             = 500
+		self.cursor_index      = 0
+		self.number_of_options = 0
 		super().__init__()
 
-	def draw_equipment(self, DISPLAY_SURF):
+	def cycle_up_and_down(self, pygame_event):
+		if pygame_event.key in gc.UP:
+			self.cursor_index = \
+				(self.cursor_index - 1) % self.number_of_options
+		if pygame_event.key in gc.DOWN:
+			self.cursor_index = \
+				(self.cursor_index + 1) % self.number_of_options
+
+	def draw_controls(self, DISPLAY_SURF):
+		text = ""
+		def get_keys(val):
+			return gc.pygame.key.name(val).upper()
+		match self.current_state:
+			case (
+				self.co_abilities | self.co_class_and_level | 
+				self.co_equipment | self.co_portrait | self.co_spells |
+				self.co_stats_HP_AC_and_AV
+			):
+				text = \
+					f"Select: {[get_keys(val) for val in gc.USE]}. "\
+					f"Back: TODO"
+			case self.is_abilities:
+				pass
+			case self.is_class_and_level:
+				pass
+			case self.is_equipment:
+				if self.player.inventory != []:
+					current_item = self.player.inventory[self.cursor_index]
+				else:
+					current_item = None
+				if getattr(current_item, "equippable", False):
+					slot = current_item.slot
+					if current_item in getattr(self.player, slot):
+						text = \
+							f"Unequip: {[get_keys(val) for val in gc.USE]}. "\
+							f"Back: TODO"
+					else:
+						text = \
+							f"Equip: {[get_keys(val) for val in gc.USE]}. "\
+							f"Back: TODO"
+				elif getattr(current_item, "edible", False):
+					text = \
+						f"Eat: {[get_keys(val) for val in gc.USE]}. "\
+						f"Back: TODO"
+				elif getattr(current_item, "potable", False):
+					text = \
+						f"Drink: {[get_keys(val) for val in gc.USE]}. "\
+						f"Back: TODO"
+				else:
+					text = \
+						f"Drop: {[get_keys(val) for val in gc.USE]}. "\
+						f"Back: TODO"
+			case self.is_portrait:
+				pass
+			case self.is_spells:
+				pass
+			case self.is_stats_HP_AC_and_AV:
+				pass
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			500, gc.WINDOW_HEIGHT-2*gc.BASIC_FONT.get_height(),
+			500,
+			th.bdlr(text)
+		)
+
+
+	def draw_co_abilities(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_one_x, self.row_two_y,
+			self.width,
+			th.bdlr("ABILITIES:")
+		) 
+
+	def draw_co_class_and_level(self, DISPLAY_SURF):
+		th.make_text(
+			DISPLAY_SURF,
+			gc.BGCOLOR,
+			self.column_two_x, self.row_two_y+100,
+			self.width,
+			th.bdlr(f"{self.player.character_class} {self.player.level}")
+		) 
+
+	def draw_co_equipment(self, DISPLAY_SURF):
 		th.make_text(
 			DISPLAY_SURF,
 			gc.BGCOLOR,
 			self.column_one_x, self.row_one_y,
-			800,
+			self.width,
 			th.bdlr("EQUIPMENT:")
 		) 
 		enum = 1
@@ -565,56 +703,47 @@ class CharacterSheetManager(StateMachine):
 				gc.BGCOLOR,
 				self.column_one_x, 
 				self.row_one_y+(enum)*gc.BASIC_FONT.get_height(),
-				800,
+				self.width,
 				text_bundle
 			)
 			if write_items_list != []:
 				write_items_list.pop(0)
 			enum += 1
 
-
-	def draw_spells(self, DISPLAY_SURF):
-		th.make_text(
-			DISPLAY_SURF,
-			gc.BGCOLOR,
-			self.column_two_x, self.row_one_y,
-			800,
-			th.bdlr("SPELLS:")
-		) 
-
-	def draw_abilities(self, DISPLAY_SURF):
-		th.make_text(
-			DISPLAY_SURF,
-			gc.BGCOLOR,
-			self.column_one_x, self.row_two_y,
-			800,
-			th.bdlr("ABILITIES:")
-		) 
-
-	def draw_portrait(self, DISPLAY_SURF):
+	def draw_co_portrait(self, DISPLAY_SURF):
 		th.make_text(
 			DISPLAY_SURF,
 			gc.BGCOLOR,
 			self.column_two_x, self.row_two_y,
-			800,
-			th.bdlr("PORTRAIT:")
+			self.width,
+			th.bdlr(
+				f"PORTRAIT: \n "\
+				f"Held: {self.player.held_slot} "\
+				f"Head: {self.player.head_slot} "\
+				f"Necklace: {self.player.necklace_slot} "\
+				f"Armor: {self.player.armor_slot} "\
+				f"Boot: {self.player.boot_slot} "\
+				f"Glove: {self.player.glove_slot} "\
+				f"Ring: {self.player.ring_slot} "\
+				f"Back: {self.player.back_slot} "\
+			)
 		) 
 
-	def draw_class_and_level(self, DISPLAY_SURF):
+	def draw_co_spells(self, DISPLAY_SURF):
 		th.make_text(
 			DISPLAY_SURF,
 			gc.BGCOLOR,
-			self.column_two_x, self.row_two_y+100,
-			800,
-			th.bdlr(f"{self.player.character_class} {self.player.level}")
+			self.column_two_x, self.row_one_y,
+			self.width,
+			th.bdlr("SPELLS:")
 		) 
 
-	def draw_stats_HP_AC_and_AV(self, DISPLAY_SURF):
+	def draw_co_stats_HP_AC_and_AV(self, DISPLAY_SURF):
 		th.make_text(
 			DISPLAY_SURF,
 			gc.BGCOLOR,
 			self.column_two_x, self.row_two_y+100+gc.BASIC_FONT.get_height(),
-			800,
+			self.width,
 			th.bdlr(
 				f"HP: {self.player.current_HP}/{self.player.max_HP} "\
 				f"AC: TODO "\
@@ -627,27 +756,7 @@ class CharacterSheetManager(StateMachine):
 			)
 		) 
 
-	def handle_pygame_events(self, pygame_event):
-		if pygame_event.type == gc.KEYDOWN:
-			if pygame_event.key in gc.UP:
-				self.send("cursor_up")
-			if pygame_event.key in gc.DOWN:
-				self.send("cursor_down")
-			if pygame_event.key in gc.LEFT:
-				self.send("cursor_left")
-			if pygame_event.key in gc.RIGHT:
-				self.send("cursor_right")
-
-	def update(self):
-		pass
-
-	def draw(self, DISPLAY_SURF):
-		self.draw_equipment(DISPLAY_SURF)
-		self.draw_spells(DISPLAY_SURF)
-		self.draw_abilities(DISPLAY_SURF)
-		self.draw_portrait(DISPLAY_SURF)
-		self.draw_class_and_level(DISPLAY_SURF)
-		self.draw_stats_HP_AC_and_AV(DISPLAY_SURF)
+	def draw_cursor(self, DISPLAY_SURF):
 		match self.current_state:
 			case self.co_stats_HP_AC_and_AV:
 				gc.pygame.draw.rect(
@@ -656,7 +765,7 @@ class CharacterSheetManager(StateMachine):
 					gc.pygame.Rect(
 						self.column_two_x, 
 						self.row_two_y+100+gc.BASIC_FONT.get_height(),
-						400, 3*gc.BASIC_FONT.get_height()
+						self.width, 3*gc.BASIC_FONT.get_height()
 					),
 					5
 				)
@@ -666,7 +775,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_two_x, self.row_two_y+100,
-						400, gc.BASIC_FONT.get_height()
+						self.width, gc.BASIC_FONT.get_height()
 					),
 					5
 				)
@@ -676,7 +785,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_one_x, self.row_one_y,
-						400, self.row_one_height,
+						self.width, self.row_one_height,
 					),
 					5
 				)
@@ -686,7 +795,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_two_x, self.row_two_y,
-						400, 100
+						self.width, 100
 					),
 					5
 				)
@@ -696,7 +805,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_two_x, self.row_one_y,
-						400, self.row_one_height,
+						self.width, self.row_one_height,
 					),
 					5
 				)
@@ -706,10 +815,75 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_one_x, self.row_two_y,
-						400, 200
+						self.width, 200
 					),
 					5
 				)
+
+	def handle_pygame_events(self, pygame_event):
+		if pygame_event.type == gc.KEYDOWN:
+			match self.current_state:
+				case (
+					self.co_abilities | self.co_class_and_level | 
+					self.co_equipment | self.co_portrait | self.co_spells |
+					self.co_stats_HP_AC_and_AV
+				):
+					if pygame_event.key in gc.UP:
+						self.send("cursor_up")
+					if pygame_event.key in gc.DOWN:
+						self.send("cursor_down")
+					if pygame_event.key in gc.LEFT:
+						self.send("cursor_left")
+					if pygame_event.key in gc.RIGHT:
+						self.send("cursor_right")
+					if pygame_event.key in gc.USE:
+						self.send("into_submenu")
+				case self.is_abilities:
+					pass
+				case self.is_class_and_level:
+					pass
+				case self.is_equipment: 
+					self.cycle_up_and_down(pygame_event)
+				case self.is_portrait:
+					pass
+				case self.is_spells:
+					pass
+				case self.is_stats_HP_AC_and_AV:
+					pass
+
+	def update(self):
+		pass
+
+	def draw(self, DISPLAY_SURF):
+		self.draw_controls(DISPLAY_SURF)
+		match self.current_state:
+			case (
+				self.co_abilities | self.co_class_and_level | 
+				self.co_equipment | self.co_portrait | self.co_spells |
+				self.co_stats_HP_AC_and_AV
+			):
+				self.draw_co_equipment(DISPLAY_SURF)
+				self.draw_co_spells(DISPLAY_SURF)
+				self.draw_co_abilities(DISPLAY_SURF)
+				self.draw_co_portrait(DISPLAY_SURF)
+				self.draw_co_class_and_level(DISPLAY_SURF)
+				self.draw_co_stats_HP_AC_and_AV(DISPLAY_SURF)
+				self.draw_cursor(DISPLAY_SURF)
+			case self.is_abilities:
+				pass
+			case self.is_class_and_level:
+				pass
+			case self.is_equipment: 
+				pass
+				# FILL IN
+			case self.is_portrait:
+				pass
+			case self.is_spells:
+				pass
+			case self.is_stats_HP_AC_and_AV:
+				pass
+
+		
 
 # ======================================================================
 

@@ -19,17 +19,28 @@ list_of_collision_rects = [
 	gc.pygame.Rect(-50,200,200,10),
 ]
 
-# Here I'll keep track of some of the components we use. ---------------
-# visible_on_world_map: A boolean. As of now implicitly needs a rect and
-# a color. -------------------------------------------------------------
-# interactable: A boolean. Checks if you can initiate dialogue with the
-# entity. --------------------------------------------------------------
-# dt: Dialogue tree. Every file in DialogueTrees/ has first 
-# a single class which outlines the finite state machine for the given 
-# entity's dialogue tree, and second a single instantiation of that
-# class with syntax "{name}dt". These files are imported via "from
+# Here I'll keep track of some of the components we use. 
+# ----- dt: ------------------------------------------------------------
+# Dialogue tree. Every file in DialogueTrees/ has first a single class 
+# which outlines the finite state machine for the given entity's 
+# dialogue tree, and second a single instantiation of that class with 
+# syntax "{name}dt". These files are imported via "from 
 # DialogueTrees.filename.py import *" and then assigned to their
-# respective entity's dt. ----------------------------------------------
+# respective entity's dt. 
+# ----- equippable: ----------------------------------------------------
+# A boolean. Checks if an item can be equipped. If so, there must be 
+# another component called "slot".
+# ----- interactable: --------------------------------------------------
+# A boolean. Checks if you can initiate dialogue / pick up / etc with 
+# the entity. 
+# ----- slot: ----------------------------------------------------------
+# Indicates which equipment slot an equippable item will fit into.
+# Options are: held_slot, head_slot, necklace_slot, armor_slot, 
+# boot_slot, glove_slot, ring_slot, and back_slot.
+# ----- visible_on_world_map: ------------------------------------------
+# A boolean. As of now implicitly needs a rect and a color. 
+
+
 
 camera = e.Entity(
 	x=0, y=0, speed=1, zoom_level=1,
@@ -43,35 +54,30 @@ player = e.Entity(
 	visible_on_world_map=True,
 	level=1,
 	inventory=[],
-	main_hand_slot=None,
-	off_hand_slot=None,
+	held_slot=[], # Max size: number of arms
 	head_slot=None,
 	necklace_slot=None,
 	armor_slot=None,
 	boot_slot=None,
 	glove_slot=None,
-	ring_slot=None,
+	ring_slot=[], # Max size: number of fingers
 	back_slot=None,
 )
 player.rect=gc.pygame.Rect(player.x, player.y, player.width, player.height)
 
-guy1 = e.Entity(
+guy1 = e.NPC(
 	name="Guy1",
 	x=50, y=30,
 	width=30, height=30,
 	color=gc.GREEN,
-	visible_on_world_map=True,
-	interactable=True,
 	dt=guy1dt,
 )
-guy1.rect=gc.pygame.Rect(guy1.x, guy1.y, guy1.width, guy1.height)
 
-sword = e.Entity(
+sword = e.Item(
 	name="Sword",
 	x=150, y=100,
 	width=30, height=30,
 	color=gc.RED,
-	visible_on_world_map=True,
-	interactable=True,
+	equippable=True,
+	slot="held_slot",
 )
-sword.rect=gc.pygame.Rect(sword.x, sword.y, sword.width, sword.height)

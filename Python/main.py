@@ -80,6 +80,9 @@ class Game(StateMachine):
 	def on_exit_dialogue(self, event, state):
 		self.dialogue_manager.leave_dialogue()
 
+	def on_exit_character_sheet(self, event, state):
+		self.character_sheet_manager.send("reset")
+
 	# ------------------------------------------------------------------
 	# ------ Above this line: FSM stuff. Below this line: other. -------
 	# ------------------------------------------------------------------
