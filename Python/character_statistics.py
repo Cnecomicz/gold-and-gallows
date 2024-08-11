@@ -536,11 +536,12 @@ class CharacterSheetManager(StateMachine):
 	# ------------------------------------------------------------------
 
 	def __init__(self, player):
-		self.player = player
-		self.column_one_x = 10
-		self.column_two_x = 600
-		self.row_one_y    = 10
-		self.row_two_y    = 500
+		self.player         = player
+		self.column_one_x   = 10
+		self.column_two_x   = 600
+		self.row_one_y      = 10
+		self.row_two_y      = 450
+		self.row_one_height = 21*gc.BASIC_FONT.get_height()
 		super().__init__()
 
 	def draw_equipment(self, DISPLAY_SURF):
@@ -621,7 +622,7 @@ class CharacterSheetManager(StateMachine):
 					self.player.character_class, self.player.level
 				)} \n "\
 				f"CHA: {self.player.CHA} CON: {self.player.CON} "\
-				f"DEX: {self.player.DEX} INT: {self.player.INT} "\
+				f"DEX: {self.player.DEX} \n INT: {self.player.INT} "\
 				f"STR: {self.player.STR} WIS: {self.player.WIS} "\
 			)
 		) 
@@ -653,8 +654,9 @@ class CharacterSheetManager(StateMachine):
 					DISPLAY_SURF, 
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
-						self.column_two_x, self.row_two_y+200,
-						400, 100
+						self.column_two_x, 
+						self.row_two_y+100+gc.BASIC_FONT.get_height(),
+						400, 3*gc.BASIC_FONT.get_height()
 					),
 					5
 				)
@@ -664,7 +666,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_two_x, self.row_two_y+100,
-						400, 100
+						400, gc.BASIC_FONT.get_height()
 					),
 					5
 				)
@@ -674,7 +676,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_one_x, self.row_one_y,
-						400, 200
+						400, self.row_one_height,
 					),
 					5
 				)
@@ -694,7 +696,7 @@ class CharacterSheetManager(StateMachine):
 					gc.TEXT_COLOR,
 					gc.pygame.Rect(
 						self.column_two_x, self.row_one_y,
-						400, 200
+						400, self.row_one_height,
 					),
 					5
 				)

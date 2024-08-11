@@ -121,22 +121,22 @@ class Game(StateMachine):
 			cs.CharacterSheetManager(player=self.player)
 		super().__init__()
 
-	def dialogue_listener(self):
-		for speech in self.dialogue_manager.spoken_queue:
-			if speech == "Ending dialogue":
-				self.send("end_dialogue")
-				self.dialogue_manager.spoken_queue.remove(speech)
+	def character_creator_listener(self):
+		for speech in self.character_creator.spoken_queue:
+			if speech == "Finished character creation":
+				self.send("end_character_creation")
+				self.character_creator.spoken_queue.remove(speech)
 			else:
 				raise NotImplementedError(
 					"You haven't yet written code for the listener to "\
 					"respond to that speech."
 				)
 
-	def character_creator_listener(self):
-		for speech in self.character_creator.spoken_queue:
-			if speech == "Finished character creation":
-				self.send("end_character_creation")
-				self.character_creator.spoken_queue.remove(speech)
+	def dialogue_listener(self):
+		for speech in self.dialogue_manager.spoken_queue:
+			if speech == "Ending dialogue":
+				self.send("end_dialogue")
+				self.dialogue_manager.spoken_queue.remove(speech)
 			else:
 				raise NotImplementedError(
 					"You haven't yet written code for the listener to "\
@@ -268,7 +268,22 @@ class Game(StateMachine):
 
 	def draw(self):
 		self.DISPLAY_SURF.fill(gc.BGCOLOR)
-
+		match self.current_state:
+			case self.overworld:
+				self.draw_in_game_world()
+			case self.dialogue:
+				self.draw_in_game_world()
+				self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
+			case self.turns:
+				self.draw_in_game_world()
+			case self.main_menu:
+				pass
+			case self.character_sheet:
+				self.character_sheet_manager.draw(
+					DISPLAY_SURF=self.DISPLAY_SURF
+				)
+			case self.character_creation:
+				self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
 		if self.debugging_flag:
 			th.make_text(
 				self.DISPLAY_SURF, 
@@ -289,23 +304,6 @@ class Game(StateMachine):
 					color=gc.BLUE
 				)
 			)
-		match self.current_state:
-			case self.overworld:
-				self.draw_in_game_world()
-			case self.dialogue:
-				self.draw_in_game_world()
-				self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-			case self.turns:
-				self.draw_in_game_world()
-			case self.main_menu:
-				pass
-			case self.character_sheet:
-				self.character_sheet_manager.draw(
-					DISPLAY_SURF=self.DISPLAY_SURF
-				)
-			case self.character_creation:
-				self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-
 		gc.pygame.display.update()
 
 
