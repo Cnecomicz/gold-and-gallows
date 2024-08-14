@@ -42,7 +42,7 @@ list_of_collision_rects = [
 
 
 
-camera = e.Entity(
+camera_target = e.Entity(
 	x=0, y=0, speed=1, zoom_level=1,
 )
 

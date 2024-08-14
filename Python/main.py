@@ -4,7 +4,7 @@ from statemachine import StateMachine, State
 import camera_functions     as cf
 import character_statistics as cs
 import dialogue_manager     as dm
-import entity_factory       as ef
+import entity_instances     as ei
 import global_constants     as gc
 import player_functions     as pf
 import text_handling        as th
@@ -94,12 +94,12 @@ class Game(StateMachine):
 			(gc.WINDOW_WIDTH, gc.WINDOW_HEIGHT)
 		)
 		# Entities and gameworld objects: ------------------------------
-		self.camera                  = ef.camera
-		self.player                  = ef.player
-		self.guy1                    = ef.guy1
-		self.sword                   = ef.sword
+		self.camera_target           = ei.camera_target
+		self.player                  = ei.player
+		self.guy1                    = ei.guy1
+		self.sword                   = ei.sword
 		self.list_of_entities        = [
-			self.camera, self.player, self.guy1, self.sword,
+			self.camera_target, self.player, self.guy1, self.sword,
 		]
 		self.list_of_npcs            = [
 			self.guy1,
@@ -108,7 +108,7 @@ class Game(StateMachine):
 			self.sword,
 		]
 
-		self.list_of_collision_rects = ef.list_of_collision_rects
+		self.list_of_collision_rects = ei.list_of_collision_rects
 		# Systems managers: --------------------------------------------
 		self.debugging_flag  = False
 		self.dialogue_manager = dm.DialogueManager()
@@ -204,8 +204,8 @@ class Game(StateMachine):
 		self.player_controls.update()
 		match self.current_state:
 			case self.overworld:
-				self.camera.x = self.player.x
-				self.camera.y = self.player.y
+				self.camera_target.x = self.player.x
+				self.camera_target.y = self.player.y
 			case self.dialogue:
 				self.dialogue_manager.update()
 				self.dialogue_listener()
@@ -224,14 +224,14 @@ class Game(StateMachine):
 			if getattr(entity, "visible_on_world_map", False):
 				cf.draw_in_camera_coordinates(
 					DISPLAY_SURF=self.DISPLAY_SURF,
-					camera=self.camera,
+					camera_target=self.camera_target,
 					entity=entity,
 					color=entity.color
 				)
 		for block in self.list_of_collision_rects:
 			cf.draw_in_camera_coordinates(
 				DISPLAY_SURF=self.DISPLAY_SURF,
-				camera=self.camera,
+				camera_target=self.camera_target,
 				entity=block,
 				color=gc.WHITE
 			)
@@ -258,7 +258,7 @@ class Game(StateMachine):
 			case self.player_controls.downright:
 				arrow = "\\."
 		coord_x, coord_y = cf.convert_world_to_camera_coordinates(
-			self.camera, self.player
+			self.camera_target, self.player
 		)
 		th.make_text(
 			self.DISPLAY_SURF, 
