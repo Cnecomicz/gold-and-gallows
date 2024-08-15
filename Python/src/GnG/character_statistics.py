@@ -1,10 +1,11 @@
+
 import math
 
 from statemachine import StateMachine, State
 
-import dice_roller      as dr
-import global_constants as gc
-import text_handling    as th
+import GnG.dice_roller      as dr
+import GnG.global_constants as gc
+import GnG.text_handling    as th
 
 class CharacterCreator(StateMachine):
 	choosing_power_level = State(initial=True)
@@ -739,6 +740,7 @@ class CharacterSheetManager(StateMachine):
 		) 
 
 	def draw_co_stats_HP_AC_and_AV(self, DISPLAY_SURF):
+		av = calculate_AV(self.player.character_class, self.player.level)
 		th.make_text(
 			DISPLAY_SURF,
 			gc.BGCOLOR,
@@ -747,9 +749,7 @@ class CharacterSheetManager(StateMachine):
 			th.bdlr(
 				f"HP: {self.player.current_HP}/{self.player.max_HP} "\
 				f"AC: TODO "\
-				f"AV: {calculate_AV(
-					self.player.character_class, self.player.level
-				)} \n "\
+				f"AV: {av} \n "\
 				f"CHA: {self.player.CHA} CON: {self.player.CON} "\
 				f"DEX: {self.player.DEX} \n INT: {self.player.INT} "\
 				f"STR: {self.player.STR} WIS: {self.player.WIS} "\

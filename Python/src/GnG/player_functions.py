@@ -2,7 +2,7 @@ import math
 
 from statemachine import StateMachine, State
 
-import global_constants as gc
+import GnG.global_constants as gc
 
 class ManualControls(StateMachine):
 	stationary = State(initial=True)

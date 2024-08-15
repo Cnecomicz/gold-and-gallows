@@ -1,5 +1,5 @@
-import global_constants as gc
-import text_handling    as th
+import GnG.global_constants as gc
+import GnG.text_handling    as th
 
 class DialogueManager:
 	def __init__(self):

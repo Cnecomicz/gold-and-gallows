@@ -1,13 +1,13 @@
 import sys
 from statemachine import StateMachine, State
 
-import camera_functions     as cf
-import character_statistics as cs
-import dialogue_manager     as dm
-import entity_instances     as ei
-import global_constants     as gc
-import player_functions     as pf
-import text_handling        as th
+import GnG.camera_functions     as cf
+import GnG.character_statistics as cs
+import GnG.dialogue_manager     as dm
+import GnG.entity_instances     as ei
+import GnG.global_constants     as gc
+import GnG.player_functions     as pf
+import GnG.text_handling        as th
 
 class Game(StateMachine):
 	main_menu          = State()
@@ -320,6 +320,3 @@ class Game(StateMachine):
 def main():
 	game = Game()
 	game.run()
-
-if __name__ == "__main__":
-	main()

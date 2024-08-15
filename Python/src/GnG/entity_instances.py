@@ -1,6 +1,6 @@
-import entity           as e
-import global_constants as gc
-from DialogueTrees.guy1_dialogue_tree import *
+import GnG.entities_and_components as ec
+import GnG.global_constants        as gc
+from GnG.DialogueTrees.guy1_dialogue_tree import *
 
 
 list_of_collision_rects = [
@@ -42,11 +42,11 @@ list_of_collision_rects = [
 
 
 
-camera_target = e.Entity(
+camera_target = ec.Entity(
 	x=0, y=0, speed=1, zoom_level=1,
 )
 
-player = e.Entity(
+player = ec.Entity(
 	x=0, y=0, 
 	width=30, height=30,  
 	color=gc.BLUE,
@@ -54,30 +54,41 @@ player = e.Entity(
 	visible_on_world_map=True,
 	level=1,
 	inventory=[],
-	held_slot=[], # Max size: number of arms
-	head_slot=None,
-	necklace_slot=None,
-	armor_slot=None,
-	boot_slot=None,
-	glove_slot=None,
-	ring_slot=[], # Max size: number of fingers
-	back_slot=None,
+	held_slot=[], # Max size: number_of_arms
+	glove_slot=[], # Max size: number_of_arms
+	number_of_arms=2,
+	head_slot=[], # Max size: number_of_heads
+	necklace_slot=[], # Max size: number_of_heads
+	number_of_heads=1,
+	boot_slot=[], # Max size: number_of_legs
+	number_of_legs=2,
+	ring_slot=[], # Max size: number_of_fingers
+	number_of_fingers_on_a_hand=5,
+	armor_slot=[], # Max size: number_of_torsos
+	back_slot=[], # Max size: number_of_torsos
+	number_of_torsos=1,
 )
 player.rect=gc.pygame.Rect(player.x, player.y, player.width, player.height)
+player.number_of_fingers=\
+	player.number_of_arms*player.number_of_fingers_on_a_hand,
 
-guy1 = e.NPC(
+guy1 = ec.Entity(
 	name="Guy1",
 	x=50, y=30,
 	width=30, height=30,
 	color=gc.GREEN,
 	dt=guy1dt,
+	visible_on_world_map=True, interactable=True, 
 )
+guy1.rect=gc.pygame.Rect(guy1.x, guy1.y, guy1.width, guy1.height)
 
-sword = e.Item(
+sword = ec.Entity(
 	name="Sword",
 	x=150, y=100,
 	width=30, height=30,
 	color=gc.RED,
+	visible_on_world_map=True, interactable=True,
 	equippable=True,
 	slot="held_slot",
 )
+sword.rect=gc.pygame.Rect(sword.x, sword.y, sword.width, sword.height)

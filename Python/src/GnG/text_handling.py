@@ -1,4 +1,4 @@
-import global_constants as gc
+import GnG.global_constants as gc
 
 class TextBundle:
 	def __init__(
