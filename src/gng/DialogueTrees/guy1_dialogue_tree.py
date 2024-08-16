@@ -1,8 +1,8 @@
 from statemachine import StateMachine, State
 
-import GnG.global_constants as gc
+import gng.global_constants as gc
 
-from GnG.text_handling import *
+from gng.text_handling import *
 
 class Guy1DialogueTree(StateMachine):
 	node1 = State(initial=True)

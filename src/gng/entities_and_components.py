@@ -1,4 +1,4 @@
-import GnG.global_constants as gc
+import gng.global_constants as gc
 
 # This code lets us define an indeterminate amount of components when we 
 # instantiate an object of Entity. You can also add new components to an 

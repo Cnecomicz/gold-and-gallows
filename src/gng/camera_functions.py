@@ -1,4 +1,4 @@
-import GnG.global_constants as gc
+import gng.global_constants as gc
 
 def convert_world_to_camera_coordinates(camera_target, entity):
 	"""Input: gameworld coordinates. Output: on-screen coordinates."""

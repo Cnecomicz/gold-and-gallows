@@ -3,9 +3,9 @@ import math
 
 from statemachine import StateMachine, State
 
-import GnG.dice_roller      as dr
-import GnG.global_constants as gc
-import GnG.text_handling    as th
+import gng.dice_roller      as dr
+import gng.global_constants as gc
+import gng.text_handling    as th
 
 class CharacterCreator(StateMachine):
 	choosing_power_level = State(initial=True)

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "GnG"
+name = "gng"
 version = "0.0.1"
 authors = [
   { name="Eric", email="171273411+Cnecomicz@users.noreply.github.com" }
@@ -31,10 +31,10 @@ Homepage = "https://github.com/cnecomicz/python-rpg-game"
 Issues = "https://github.com/cnecomicz/python-rpg-game/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/GnG"]
+packages = ["src/gng"]
 
 [project.scripts]
-gng = "GnG.main:main"
+gng = "gng.main:main"
 
 [tool.pytest.ini_options]
 addopts = [

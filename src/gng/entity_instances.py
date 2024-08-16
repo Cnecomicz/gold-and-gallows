@@ -1,6 +1,6 @@
-import GnG.entities_and_components as ec
-import GnG.global_constants        as gc
-from GnG.DialogueTrees.guy1_dialogue_tree import *
+import gng.entities_and_components as ec
+import gng.global_constants        as gc
+from gng.DialogueTrees.guy1_dialogue_tree import *
 
 
 list_of_collision_rects = [
