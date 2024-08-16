@@ -30,4 +30,16 @@ def test_sword_can_be_equipped():
 	player=create_test_player()
 	player.equip(sword)
 	assert sword in player.held_slot
+
+def test_entities_without_equip_method_cannot_equip_an_item():
+	sword=create_test_sword()
+	try:
+		sword.equip(sword)
+	except Exception:
+		assert True
+		return
+	assert False
+
+def test_attack_with_sword():
+	pass
 	
