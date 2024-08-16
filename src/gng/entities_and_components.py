@@ -1,3 +1,4 @@
+from functools import partial
 import gng.global_constants as gc
 
 # This code lets us define an indeterminate amount of components when we 
@@ -13,13 +14,16 @@ class Entity:
 
 class Player:
 	pass
+
 class NPC:
 	pass
 
-def create_item(name):
+def create_item(name, equippable=False, slot="", damage_die=0, AC_value=0):
 	entity = Entity()
 	give_name_component(entity, name)
-	give_item_component(entity)
+	give_item_component(
+		entity, equippable, slot, damage_die, AC_value
+	)
 	return entity
 
 def create_player(name, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV):
@@ -111,11 +115,15 @@ def give_equipment_component(
 	entity.back_slot = back_slot
 	entity.number_of_torsos = number_of_torsos
 
-	def equip(item):
-		# Ask the item what slot it is. Then put the item into that slot.
-		pass
+	def equip(self, item):
+		if item.equippable:
+			slot_string = item.slot
+			slot_list = getattr(self, slot_string)
+			slot_list.append(item)
+		else:
+			raise NotImplementedError("That item is not equippable.")
 
-		# entity.equip = equip
+	entity.equip = partial(equip, entity)
 
 def give_dialogue_component(entity, dialogue_tree):
 	if not entity.interactable:

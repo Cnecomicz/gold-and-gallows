@@ -16,7 +16,9 @@ def create_test_potato():
 	)
 
 def create_test_sword():
-	return create_item("sword")
+	return create_item(
+		"sword", equippable=True, slot="held_slot", damage_die=4, AC_value=0
+	)
 
 def test_creating_sword_player_potato():
 	sword=create_test_sword()
@@ -26,7 +28,6 @@ def test_creating_sword_player_potato():
 def test_sword_can_be_equipped():
 	sword=create_test_sword()
 	player=create_test_player()
-	player.inventory.append(sword)
-	player.held_slot.append(sword)
+	player.equip(sword)
 	assert sword in player.held_slot
 	
