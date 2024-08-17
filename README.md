@@ -10,11 +10,11 @@ Gold & Gallows is a **tabletop roleplaying game**. You play with pen
 and paper, dice, and (if you so choose) miniatures. It is a rules-light 
 early-D&D demake (around the era of OD&D, BECMI, and AD&D 1e and 2e), 
 but it has some design decisions which differ from D&D in interesting 
-ways. At its core, Gold & Gallows attempts to be streamlined, player-
-focused, and mechanically lethal (at least, if played... uncreatively). 
-Please see the [Gold & Gallows: The TTRPG](#gold--gallows-the-ttrpg) 
-section for more information and the opportunity to try the game 
-yourself!
+ways. At its core, Gold & Gallows attempts to be streamlined, 
+player-focused, and mechanically lethal (at least, if played... 
+uncreatively). Please see the 
+[Gold & Gallows: The TTRPG](#gold--gallows-the-ttrpg) section for more 
+information and the opportunity to try the game yourself!
 
 Gold & Gallows is also a **computer roleplaying game** I am in the 
 early stages of developing. It is written in Python and while 
@@ -90,15 +90,15 @@ rather than toss them out entirely, they've been quarantined.
 
 ### A note on old school inspired mechanics and communities
 
-As stated, one primary design ethos of Gold & Gallows is its rules-
-light nature. A lot of old school systems are rules-light as well, 
-perhaps mainly by virtue of the fact that they didn't have 50+ years of 
-additional ideas on top of them. In addition to being less complex, I 
-also generally just like the old school sensibilities: games should be 
-driven by players' choices, encounters should require players to plan 
-and strategize (not rely on their characters' skills), and the world 
-need not be balanced or centered around the players. This ethos is 
-sometimes packaged under the OSR (for Old School Renaissance) 
+As stated, one primary design ethos of Gold & Gallows is its 
+rules-light nature. A lot of old school systems are rules-light as 
+well, perhaps mainly by virtue of the fact that they didn't have 50+ 
+years of additional ideas on top of them. In addition to being less 
+complex, I also generally just like the old school sensibilities: games 
+should be driven by players' choices, encounters should require players 
+to plan and strategize (not rely on their characters' skills), and the 
+world need not be balanced or centered around the players. This ethos 
+is sometimes packaged under the OSR (for Old School Renaissance) 
 philosophy, but I personally will not identify under that banner. 
 Unfortunately there exist a number of people in the OSR with alt-right 
 views and several that have acted on such views, and the OSR on the 
