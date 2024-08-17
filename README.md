@@ -12,7 +12,7 @@ early-D&D demake (around the era of OD&D, BECMI, and AD&D 1e and 2e),
 but it has some design decisions which differ from D&D in interesting 
 ways. At its core, Gold & Gallows attempts to be streamlined, player-
 focused, and mechanically lethal (at least, if played... uncreatively). 
-Please see the [Gold & Gallows: The TTRPG](#gold-&-gallows-the-ttrpg) 
+Please see the [Gold & Gallows: The TTRPG](#gold--gallows-the-ttrpg) 
 section for more information and the opportunity to try the game 
 yourself!
 
@@ -21,16 +21,18 @@ early stages of developing. It is written in Python and while
 artistically it intends to be a compelling implementation of a setting 
 using the Gold & Gallows tabletop rules, it is also an opportunity for 
 me to practice using Python and in particular adopt good programming 
-habits. Check out [Gold & Gallows: The CRPG](#gold-&-gallows-the-crpg) 
+habits. Check out [Gold & Gallows: The CRPG](#gold--gallows-the-crpg) 
 for more.
 
 ## Gold & Gallows: The TTRPG
 
 If you are interested in downloading PDFs of the 
 Gold & Gallows rules, they can be found in this very repository:
+
 * [Rules Booklet](TTRPG/GnG_Rules_Booklet_6_Jan_2024.pdf)
 * [Referee Guidebook](TTRPG/GnG_Referee_Guidebook_6_Jan_2024.pdf)
 * [Modular Rules](TTRPG/GnG_Modular_Rules_6_Jan_2024.pdf)
+
 If you play the game, please let me know what you think! You can 
 contact me here on Github.
 
