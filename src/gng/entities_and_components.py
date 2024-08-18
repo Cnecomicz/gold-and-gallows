@@ -1,6 +1,17 @@
 from functools import partial
 import gng.global_constants as gc
 
+class NoSlotDefined(Exception):
+	pass
+
+class NotEquippable(Exception):
+	pass
+
+class UnreachableDialogue(Exception):
+	pass
+
+# ----------------------------------------------------------------------
+
 # This code lets us define an indeterminate amount of components when we 
 # instantiate an object of Entity. You can also add new components to an 
 # Entity after creation by simply declaring them (e.g., Bob.x = 5 makes 
@@ -11,12 +22,6 @@ class Entity:
 	def __init__(self, **kwargs):
 		for key, value in kwargs.items():
 			setattr(self, key, value)
-
-class Player:
-	pass
-
-class NPC:
-	pass
 
 def create_item(name, equippable=False, slot="", damage_die=0, AC_value=0):
 	entity = Entity()
@@ -37,7 +42,9 @@ def create_player(name, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV):
 		color=gc.BLUE, 
 		visible_on_world_map=True, interactable=False
 	)
-	give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV)
+	give_player_stats_component(
+		entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV
+	)
 	give_moveable_component(entity, speed=4)
 	give_level_component(entity, level=1)
 	return entity
@@ -74,7 +81,7 @@ def give_item_component(
 	entity, equippable=False, slot="", damage_die=0, AC_value=0, 
 ):
 	if equippable and slot=="":
-		raise NotImplementedError("An equippable item must have a slot.")
+		raise NoSlotDefined("An equippable item must have a slot.")
 	entity.equippable = equippable
 	entity.slot = slot
 	entity.damage_die = damage_die
@@ -121,15 +128,15 @@ def give_equipment_component(
 			slot_list = getattr(self, slot_string)
 			slot_list.append(item)
 		else:
-			raise NotImplementedError("That item is not equippable.")
+			raise NotEquippable("That item is not equippable.")
 
 	entity.equip = partial(equip, entity)
 
 def give_dialogue_component(entity, dialogue_tree):
 	if not entity.interactable:
-		raise NotImplementedError(
+		raise UnreachableDialogue(
 			"An entity with a dialogue tree that "\
-			"can't be interacted with is not okay."
+			"can't be interacted with will never display its dialogue."
 		)
 	entity.dt = dialogue_tree
 

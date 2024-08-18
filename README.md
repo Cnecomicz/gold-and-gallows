@@ -6,6 +6,8 @@ Hello! This README file is currently a very early work in progress, but
 in its current form it intends to point you to several key things about 
 this project.
 
+### What is this? (1)
+
 Gold & Gallows is a **tabletop roleplaying game**. You play with pen 
 and paper, dice, and (if you so choose) miniatures. It is a rules-light 
 early-D&D demake (around the era of OD&D, BECMI, and AD&D 1e and 2e), 
@@ -15,6 +17,8 @@ player-focused, and mechanically lethal (at least, if played...
 uncreatively). Please see the 
 [Gold & Gallows: The TTRPG](#gold--gallows-the-ttrpg) section for more 
 information and the opportunity to try the game yourself!
+
+### What is this? (2)
 
 Gold & Gallows is also a **computer roleplaying game** I am in the 
 early stages of developing. It is written in Python and while 
@@ -30,8 +34,10 @@ If you are interested in downloading PDFs of the
 Gold & Gallows rules, they can be found in this very repository:
 
 * [Rules Booklet](TTRPG/GnG_Rules_Booklet_6_Jan_2024.pdf)
-* [Referee Guidebook](TTRPG/GnG_Referee_Guidebook_6_Jan_2024.pdf)
-* [Modular Rules](TTRPG/GnG_Modular_Rules_6_Jan_2024.pdf)
+* [Referee Guidebook](TTRPG/GnG_Referee_Guidebook_6_Jan_2024.pdf) (Work 
+in progress)
+* [Modular Rules](TTRPG/GnG_Modular_Rules_6_Jan_2024.pdf) (Work in 
+progress)
 
 If you play the game, please let me know what you think! You can 
 contact me here on Github.
@@ -44,7 +50,7 @@ The name Gold & Gallows is inspired by the *X*- & *X*- format common to
 the genre: Dungeons & Dragons, Tunnels & Trolls, Castles & Crusades, 
 etc. I chose Gold & Gallows to emphasize two core aspects: the system 
 incentivizes characters to focus on acquiring gold, and the mechanics 
-are often unforgivingly lethal.
+are often lethal.
 
 My main design goal in creating the system is to streamline and 
 minimize complexity. I first cut my teeth on Pathfinder, which is a 
@@ -76,17 +82,22 @@ content that will undoubtedly change. The first is the
 contains some explicit explanations behind my design ethos, along with 
 some best practices/tips for running the game. You're invited in 
 particular to focus on sections which describe ways in which Gold & 
-Gallows differs from other roleplaying games, even those with old 
-school sensibilities. If you have experience with other systems, Gold & 
-Gallows might seem odd at times, so I try to explain the intention 
-behind some of its quirks. Please let me know of any places I fall 
-short of this goal.
+Gallows differs from other roleplaying games. If you have experience 
+with other systems, Gold & Gallows might seem odd at times, so I try to 
+explain the intention behind some of its quirks. Please let me know of 
+any places I fall short of this goal.
 
 The final PDF is the 
 [Modular Rules](TTRPG/GnG_Modular_Rules_6_Jan_2024.pdf), which contains 
 a smörgåsbord of extra rules, systems, and ideas. Their inclusion in 
 the Rules Booklet would run antithetical to the minimalism ethos, so 
-rather than toss them out entirely, they've been quarantined.
+rather than toss them out entirely, they've been quarantined. In 
+particular, all of the concepts in the Modular Rules are optional, not 
+always balanced, and certainly not all mutually compatible. As the 
+Introduction to that PDF states, you should think of them as 
+suggestions for when edge cases show up and the core rules seem 
+insufficient, or interesting ideas to tinker with new mechanics and 
+systems, or both or neither!
 
 ### A note on old school inspired mechanics and communities
 
@@ -97,15 +108,16 @@ years of additional ideas on top of them. In addition to being less
 complex, I also generally just like the old school sensibilities: games 
 should be driven by players' choices, encounters should require players 
 to plan and strategize (not rely on their characters' skills), and the 
-world need not be balanced or centered around the players. This ethos 
-is sometimes packaged under the OSR (for Old School Renaissance) 
-philosophy, but I personally will not identify under that banner. 
-Unfortunately there exist a number of people in the OSR with alt-right 
-views and several that have acted on such views, and the OSR on the 
-whole seems to do little to moderate their presence. Out of solidarity 
-with my friends, family, and community, many of whom are affected by 
-the beliefs and actions of reactionary right-wing extremism, I do not 
-want to prop up or participate in the OSR.
+world need not be balanced or centered around the players. This ethos, 
+and especially the modern-era rediscovery of this ethos, is sometimes 
+packaged under the OSR (for Old School Renaissance) philosophy, but I 
+personally will not identify under that banner. Unfortunately there 
+exist a number of people in the OSR with alt-right views and several 
+that have acted on such views, and the OSR on the whole seems to do 
+little to moderate their presence. Out of solidarity with my friends, 
+family, and community, many of whom are affected by the beliefs and 
+actions of reactionary right-wing extremism, I do not want to prop up 
+or participate in the OSR.
 
 
 ## Gold & Gallows: The CRPG
