@@ -1,4 +1,6 @@
 from functools import partial
+
+import gng.dice_roller      as dr
 import gng.global_constants as gc
 
 class NoSlotDefined(Exception):
@@ -49,13 +51,13 @@ def create_player(name, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV):
 	give_level_component(entity, level=1)
 	return entity
 
-def create_npc(name, x, y, width, height, level, dialogue_tree):
+def create_npc(name, x, y, width, height, HD, dialogue_tree):
 	entity = Entity()
 	give_name_component(entity, name)
 	give_moveable_component(entity, speed=4)
 	give_equipment_component(entity)
 	give_world_map_component(entity, x, y, width, height, color=gc.GREEN)
-	give_level_component(entity, level)
+	give_HD_component(entity, HD)
 	give_dialogue_component(entity, dialogue_tree)
 	return entity
 
@@ -129,7 +131,6 @@ def give_equipment_component(
 			slot_list.append(item)
 		else:
 			raise NotEquippable("That item is not equippable.")
-
 	entity.equip = partial(equip, entity)
 
 def give_dialogue_component(entity, dialogue_tree):
@@ -153,11 +154,35 @@ def give_player_stats_component(
 	entity.STR = STR
 	entity.WIS = WIS
 	entity.max_HP = max_HP
-	entity.HP = max_HP
+	entity.HP = entity.max_HP
 	entity.AC = AC
 	entity.AV = AV
+
+	def attacks(self, enemy):
+		weapon = entity.held_slot[0] # TODO: how do I reconcile multiple or no weapons?
+		if dr.thread_the_needle(enemy.HD, entity.AV):
+			weapon.damages(enemy)
+	entity.attacks = partial(attacks, entity)
+
+	def defends(self, enemy):
+		pass
+	entity.defends = partial(defends, entity)
+
 
 def give_level_component(entity, level):
 	entity.level = level
 
+def give_HD_component(entity, HD):
+	entity.HD = HD
+	# By defining a HD (hit die), you can derive all other values. They 
+	# can be overridden on a case-by-case basis when desired.
+	entity.max_HP = round(entity.HD * gc.AVERAGE_HP_PER_HD)
+	entity.HP = entity.max_HP
 
+def give_damage_dealing_component(entity, damage_die):
+	entity.damage_die = damage_die
+
+	def damages(self, entity):
+		damage_roll = dr.roll_x_d_n(1, self.damage_die)
+		entity.HP -= damage_roll
+	entity.damages = partial(damages, entity)

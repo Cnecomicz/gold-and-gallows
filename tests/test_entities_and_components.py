@@ -1,12 +1,15 @@
+from flexmock import flexmock
 import pytest
 
+import gng.dice_roller      as dr
 import gng.global_constants as gc
 import gng.DialogueTrees.guy1_dialogue_tree
 
 from gng.entities_and_components \
 import NoSlotDefined, NotEquippable, UnreachableDialogue, Entity, \
 create_item, create_player, create_npc, give_item_component, \
-give_world_map_component, give_dialogue_component
+give_world_map_component, give_dialogue_component, \
+give_damage_dealing_component
 
 
 def create_test_player():
@@ -20,13 +23,15 @@ def create_test_potato():
 	return create_npc(
 		name="potato", 
 		x=10, y=10, width=30, height=30, 
-		level=42, dialogue_tree=None
+		HD=42, dialogue_tree=None
 	)
 
 def create_test_sword():
-	return create_item(
+	sword = create_item(
 		"sword", equippable=True, slot="held_slot", damage_die=4, AC_value=0
 	)
+	give_damage_dealing_component(sword, 4)
+	return sword
 
 def create_test_shield():
 	return create_item(
@@ -50,8 +55,33 @@ def test_sword_can_be_equipped():
 	assert sword in player.held_slot
 
 
-def test_attack_with_sword():
-	pass
+def test_sword_deals_damage():
+	sword=create_test_sword()
+	potato=create_test_potato()
+	starting_HP = potato.HP
+	sword.damages(potato)
+	resulting_HP = potato.HP
+	assert resulting_HP < starting_HP
+
+def test_flexmock_sword_deals_max_damage():
+	sword=create_test_sword()
+	potato=create_test_potato()
+	starting_HP = potato.HP
+	flexmock(dr).should_receive("roll_x_d_n").and_return(4)
+	sword.damages(potato)
+	resulting_HP = potato.HP
+	assert resulting_HP == starting_HP - 4
+
+
+def test_player_attacks_potato():
+	player=create_test_player()
+	fake_sword=flexmock(create_test_sword())
+	potato=create_test_potato()
+	fake_sword.should_receive("damages").with_args(potato).once()
+	flexmock(dr).should_receive("thread_the_needle").and_return(True)
+	player.equip(fake_sword)
+	player.attacks(potato)
+
 
 # Error handling -------------------------------------------------------
 
