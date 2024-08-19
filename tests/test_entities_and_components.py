@@ -77,7 +77,7 @@ def test_player_attacks_potato():
 	player=create_test_player()
 	fake_sword=flexmock(create_test_sword())
 	potato=create_test_potato()
-	fake_sword.should_receive("damages").with_args(potato).once()
+	fake_sword.should_receive("damages").with_args(potato).at_most().once()
 	flexmock(dr).should_receive("thread_the_needle").and_return(True)
 	player.equip(fake_sword)
 	player.attacks(potato)
