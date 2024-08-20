@@ -14,19 +14,19 @@ ALCH_FONT = pygame.font.Font("Fonts/1651_Alchemy.ttf", FONT_SIZE)
 BB_FONT = pygame.font.Font("Fonts/BlackBeard_Regular.otf", FONT_SIZE)
 
 
-BLACK = (  0,   0,   0)
-BLUE  = (  0,   0, 255)
-GREEN = (  0, 255,   0)
-RED   = (255,   0,   0)
+BLACK = (0, 0, 0)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 
 BGCOLOR = BLACK
 TEXT_COLOR = WHITE
 
-UP    = [K_w, K_UP]
-DOWN  = [K_s, K_DOWN]
-LEFT  = [K_a, K_LEFT]
+UP = [K_w, K_UP]
+DOWN = [K_s, K_DOWN]
+LEFT = [K_a, K_LEFT]
 RIGHT = [K_d, K_RIGHT]
-USE   = [K_e, K_z]
+USE = [K_e, K_z]
 
 AVERAGE_HP_PER_HD = 4.5
