@@ -112,10 +112,8 @@ def give_equipment_component(
 	back_slot=[], # Max size: number_of_torsos
 	number_of_torsos=1,
 ):
-	if held_slot == None:
-		held_slot = []
 	entity.inventory = inventory
-	entity.held_slot = held_slot
+	entity.held_slot = held_slot or []
 	entity.glove_slot = glove_slot
 	entity.number_of_arms = number_of_arms
 	entity.head_slot = head_slot
