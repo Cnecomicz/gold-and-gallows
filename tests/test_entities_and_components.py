@@ -10,6 +10,7 @@ from gng.entities_and_components import (
     NotEquippable,
     UnreachableDialogue,
     Entity,
+    convert_HD_to_default_damage,
     create_item,
     create_player,
     create_npc,
@@ -37,21 +38,29 @@ def create_test_player():
 
 def create_test_potato():
     return create_npc(
-        name="potato", x=10, y=10, width=30, height=30, HD=42, dialogue_tree=None
+        name="potato", 
+        x=10, y=10, 
+        width=30, height=30, 
+        HD=3, 
+        dialogue_tree=None
     )
 
 
 def create_test_sword():
     sword = create_item(
-        "sword", equippable=True, slot="held_slot", damage_die=4, AC_value=0
+        "sword", 
+        equippable=True, slot="held_slot", 
+        number_of_dice=1, damage_die=4, AC_value=0
     )
-    give_damage_dealing_component(sword, 4)
+    give_damage_dealing_component(sword, number_of_dice=1, damage_die=4)
     return sword
 
 
 def create_test_shield():
     return create_item(
-        "shield", equippable=True, slot="held_slot", damage_die=0, AC_value=1
+        "shield", 
+        equippable=True, slot="held_slot", 
+        number_of_dice=0, damage_die=0, AC_value=1
     )
 
 
@@ -96,9 +105,27 @@ def test_player_attacks_potato():
     fake_sword = flexmock(create_test_sword())
     potato = create_test_potato()
     fake_sword.should_receive("damages").with_args(potato).once()
+    # Succeed on your roll to hit the enemy:
     flexmock(dr).should_receive("thread_the_needle").and_return(True)
     player.equip(fake_sword)
     player.attacks(potato)
+
+def test_HD_are_converted_to_damage_dice():
+    assert convert_HD_to_default_damage(3) == (1, 8)
+
+def test_player_gets_attacked_by_potato():
+    player = create_test_player()
+    starting_HP = player.HP
+    potato = create_test_potato()
+    assert hasattr(potato, "default_weapon")
+    # Fail on your roll to be damaged by the enemy:
+    flexmock(dr).should_receive("thread_the_needle").with_args(3,10).and_return(False)
+    player.gets_attacked_by(potato)
+    resulting_HP = player.HP
+    assert starting_HP > resulting_HP
+
+
+
 
 
 # Error handling -------------------------------------------------------

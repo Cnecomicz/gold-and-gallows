@@ -1,4 +1,4 @@
-import pygame
+import json, pygame
 from pygame.locals import *
 
 pygame.init()
@@ -30,3 +30,6 @@ RIGHT = [K_d, K_RIGHT]
 USE = [K_e, K_z]
 
 AVERAGE_HP_PER_HD = 4.5
+
+with open("JSON/monster_statistics_by_hit_dice.json", "r") as file:
+	MONSTER_HP_AND_DAMAGE_LIST_OF_DICT = json.load(file)

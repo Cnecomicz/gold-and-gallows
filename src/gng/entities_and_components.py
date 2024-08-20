@@ -16,6 +16,10 @@ class UnreachableDialogue(Exception):
     pass
 
 
+class NoSuchHD(Exception):
+    pass
+
+
 # ----------------------------------------------------------------------
 
 # This code lets us define an indeterminate amount of components when we
@@ -34,10 +38,10 @@ class Entity:
         return "<entity(id=%s, name='%s')>" % (hex(id(self)), self.name)
 
 
-def create_item(name, equippable=False, slot="", damage_die=0, AC_value=0):
+def create_item(name, equippable=False, slot="", number_of_dice=0, damage_die=0, AC_value=0):
     entity = Entity()
     give_name_component(entity, name)
-    give_item_component(entity, equippable, slot, damage_die, AC_value)
+    give_item_component(entity, equippable, slot, number_of_dice, damage_die, AC_value)
     return entity
 
 
@@ -74,6 +78,26 @@ def create_npc(name, x, y, width, height, HD, dialogue_tree):
 
 # ----------------------------------------------------------------------
 
+def convert_HD_to_default_damage(HD):
+    """Input: an int representing monster HD. 
+    Output: (int, int) corresponding to 
+    gc.MONSTER_HP_AND_DAMAGE_LIST_OF_DICT"""
+    for dictionary in gc.MONSTER_HP_AND_DAMAGE_LIST_OF_DICT:
+        if dictionary["hit_die"] == HD:
+            return dictionary["number_of_damage_dice"], \
+            dictionary["type_of_damage_dice"]
+    raise NoSuchHD(f"The inputted HD {HD} was not found in the JSON.")
+
+
+    
+
+
+
+def create_default_weapon(entity, number_of_dice=1, damage_die=1):
+    default_weapon = Entity()
+    give_damage_dealing_component(default_weapon, number_of_dice, damage_die)
+    entity.default_weapon = default_weapon
+
 
 def give_world_map_component(
     entity, x, y, width, height, color, visible_on_world_map=True, interactable=True
@@ -92,6 +116,7 @@ def give_item_component(
     entity,
     equippable=False,
     slot="",
+    number_of_dice=0,
     damage_die=0,
     AC_value=0,
 ):
@@ -109,7 +134,7 @@ def give_name_component(entity, name):
 
 def give_equipment_component(
     entity,
-    inventory=[],
+    inventory=None,
     held_slot=None,  # Max size: number_of_arms
     glove_slot=None,  # Max size: number_of_arms
     number_of_arms=2,
@@ -124,7 +149,7 @@ def give_equipment_component(
     back_slot=None,  # Max size: number_of_torsos
     number_of_torsos=1,
 ):
-    entity.inventory = inventory
+    entity.inventory = inventory or []
     entity.held_slot = held_slot or []
     entity.glove_slot = glove_slot or []
     entity.number_of_arms = number_of_arms
@@ -182,10 +207,11 @@ def give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC
 
     entity.attacks = partial(attacks, entity)
 
-    def defends(self, enemy):
-        pass
+    def gets_attacked_by(self, enemy):
+        if not dr.thread_the_needle(enemy.HD, entity.AC):
+            enemy.default_weapon.damages(self) # TODO: add logic for if the enemy uses a non default weapon
 
-    entity.defends = partial(defends, entity)
+    entity.gets_attacked_by = partial(gets_attacked_by, entity)
 
 
 def give_level_component(entity, level):
@@ -198,13 +224,19 @@ def give_HD_component(entity, HD):
     # can be overridden on a case-by-case basis when desired.
     entity.max_HP = round(entity.HD * gc.AVERAGE_HP_PER_HD)
     entity.HP = entity.max_HP
+    create_default_weapon(entity)
 
 
-def give_damage_dealing_component(entity, damage_die):
+
+
+
+
+def give_damage_dealing_component(entity, number_of_dice, damage_die):
     entity.damage_die = damage_die
+    entity.number_of_dice = number_of_dice
 
     def damages(self, entity):
-        damage_roll = dr.roll_x_d_n(1, self.damage_die)
+        damage_roll = dr.roll_x_d_n(self.number_of_dice, self.damage_die)
         entity.HP -= damage_roll
 
     entity.damages = partial(damages, entity)

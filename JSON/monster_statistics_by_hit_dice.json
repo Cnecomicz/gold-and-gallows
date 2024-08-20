@@ -1,0 +1,128 @@
+[
+  {
+    "hit_die": 0,
+    "avg_health": 1,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 1,
+    "dice_syntax": "1d1"
+  },
+  {
+    "hit_die": 1,
+    "avg_health": 4.5,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 4,
+    "dice_syntax": "1d4"
+  },
+  {
+    "hit_die": 2,
+    "avg_health": 9,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 6,
+    "dice_syntax": "1d6"
+  },
+  {
+    "hit_die": 3,
+    "avg_health": 13.5,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 8,
+    "dice_syntax": "1d8"
+  },
+  {
+    "hit_die": 4,
+    "avg_health": 18,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 10,
+    "dice_syntax": "1d10"
+  },
+  {
+    "hit_die": 5,
+    "avg_health": 22.5,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 12,
+    "dice_syntax": "1d12"
+  },
+  {
+    "hit_die": 6,
+    "avg_health": 27,
+    "number_of_damage_dice": 2,
+    "type_of_damage_dice": 6,
+    "dice_syntax": "2d6"
+  },
+  {
+    "hit_die": 7,
+    "avg_health": 31.5,
+    "number_of_damage_dice": 3,
+    "type_of_damage_dice": 4,
+    "dice_syntax": "3d4"
+  },
+  {
+    "hit_die": 8,
+    "avg_health": 36,
+    "number_of_damage_dice": 2,
+    "type_of_damage_dice": 8,
+    "dice_syntax": "2d8"
+  },
+  {
+    "hit_die": 9,
+    "avg_health": 40.5,
+    "number_of_damage_dice": 4,
+    "type_of_damage_dice": 4,
+    "dice_syntax": "4d4"
+  },
+  {
+    "hit_die": 10,
+    "avg_health": 45,
+    "number_of_damage_dice": 3,
+    "type_of_damage_dice": 6,
+    "dice_syntax": "3d6"
+  },
+  {
+    "hit_die": 11,
+    "avg_health": 49.5,
+    "number_of_damage_dice": 1,
+    "type_of_damage_dice": 20,
+    "dice_syntax": "1d20"
+  },
+  {
+    "hit_die": 12,
+    "avg_health": 54,
+    "number_of_damage_dice": 2,
+    "type_of_damage_dice": 10,
+    "dice_syntax": "2d10"
+  },
+  {
+    "hit_die": 13,
+    "avg_health": 58.5,
+    "number_of_damage_dice": 5,
+    "type_of_damage_dice": 4,
+    "dice_syntax": "5d4"
+  },
+  {
+    "hit_die": 14,
+    "avg_health": 63,
+    "number_of_damage_dice": 3,
+    "type_of_damage_dice": 8,
+    "dice_syntax": "3d8"
+  },
+  {
+    "hit_die": 15,
+    "avg_health": 67.5,
+    "number_of_damage_dice": 4,
+    "type_of_damage_dice": 6,
+    "dice_syntax": "4d6"
+  },
+  {
+    "hit_die": 16,
+    "avg_health": 72,
+    "number_of_damage_dice": 6,
+    "type_of_damage_dice": 4,
+    "dice_syntax": "6d4"
+  },
+  {
+    "hit_die": 17,
+    "avg_health": 76.5,
+    "number_of_damage_dice": 3,
+    "type_of_damage_dice": 10,
+    "dice_syntax": "3d10"
+  }
+]
