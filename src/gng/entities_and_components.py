@@ -24,6 +24,9 @@ class Entity:
 	def __init__(self, **kwargs):
 		for key, value in kwargs.items():
 			setattr(self, key, value)
+    	def __repr__(self):
+        	return "<entity(id=%s, name='%s')>" % (
+            		hex(id(self)), self.name)
 
 def create_item(name, equippable=False, slot="", damage_die=0, AC_value=0):
 	entity = Entity()
@@ -95,7 +98,7 @@ def give_name_component(entity, name):
 def give_equipment_component(
 	entity,
 	inventory=[],
-	held_slot=[], # Max size: number_of_arms
+	held_slot=None, # Max size: number_of_arms
 	glove_slot=[], # Max size: number_of_arms
 	number_of_arms=2,
 	head_slot=[], # Max size: number_of_heads
@@ -110,7 +113,7 @@ def give_equipment_component(
 	number_of_torsos=1,
 ):
 	entity.inventory = inventory
-	entity.held_slot = held_slot
+	entity.held_slot = held_slot or []
 	entity.glove_slot = glove_slot
 	entity.number_of_arms = number_of_arms
 	entity.head_slot = head_slot
