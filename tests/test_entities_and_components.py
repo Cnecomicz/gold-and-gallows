@@ -7,6 +7,7 @@ import gng.DialogueTrees.guy1_dialogue_tree
 
 from gng.entities_and_components import (
     NoSlotDefined,
+    NoSuchHD,
     NotEquippable,
     UnreachableDialogue,
     Entity,
@@ -156,3 +157,11 @@ def test_you_should_not_give_dialogue_trees_to_noninteractable_entities():
     give_world_map_component(ghost, 0, 0, 0, 0, gc.WHITE, interactable=False)
     with pytest.raises(UnreachableDialogue):
         give_dialogue_component(ghost, gng.DialogueTrees.guy1_dialogue_tree.guy1dt)
+
+def test_NoSuchHD():
+    with pytest.raises(NoSuchHD):
+        convert_HD_to_default_damage(19) # HD are <= 17
+    with pytest.raises(NoSuchHD):
+        convert_HD_to_default_damage("Z") # HD are int
+    with pytest.raises(NoSuchHD):
+        convert_HD_to_default_damage(4.5) # HD are not avg_health
