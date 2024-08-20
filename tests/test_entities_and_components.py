@@ -67,7 +67,7 @@ def test_flexmock_sword_deals_max_damage():
 	sword=create_test_sword()
 	potato=create_test_potato()
 	starting_HP = potato.HP
-	flexmock(dr).should_receive("roll_x_d_n").and_return(4)
+	flexmock(dr).should_receive("roll_x_d_n").and_return(4).once()
 	sword.damages(potato)
 	resulting_HP = potato.HP
 	assert resulting_HP == starting_HP - 4

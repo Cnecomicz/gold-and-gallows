@@ -24,9 +24,9 @@ class Entity:
 	def __init__(self, **kwargs):
 		for key, value in kwargs.items():
 			setattr(self, key, value)
-    	def __repr__(self):
-        	return "<entity(id=%s, name='%s')>" % (
-            		hex(id(self)), self.name)
+	def __repr__(self):
+		return "<entity(id=%s, name='%s')>" % (
+			hex(id(self)), self.name)
 
 def create_item(name, equippable=False, slot="", damage_die=0, AC_value=0):
 	entity = Entity()
@@ -99,32 +99,32 @@ def give_equipment_component(
 	entity,
 	inventory=[],
 	held_slot=None, # Max size: number_of_arms
-	glove_slot=[], # Max size: number_of_arms
+	glove_slot=None, # Max size: number_of_arms
 	number_of_arms=2,
-	head_slot=[], # Max size: number_of_heads
-	necklace_slot=[], # Max size: number_of_heads
+	head_slot=None, # Max size: number_of_heads
+	necklace_slot=None, # Max size: number_of_heads
 	number_of_heads=1,
-	boot_slot=[], # Max size: number_of_legs
+	boot_slot=None, # Max size: number_of_legs
 	number_of_legs=2,
-	ring_slot=[], # Max size: number_of_fingers
+	ring_slot=None, # Max size: number_of_fingers
 	number_of_fingers_on_a_hand=5,
-	armor_slot=[], # Max size: number_of_torsos
-	back_slot=[], # Max size: number_of_torsos
+	armor_slot=None, # Max size: number_of_torsos
+	back_slot=None, # Max size: number_of_torsos
 	number_of_torsos=1,
 ):
 	entity.inventory = inventory
 	entity.held_slot = held_slot or []
-	entity.glove_slot = glove_slot
+	entity.glove_slot = glove_slot or []
 	entity.number_of_arms = number_of_arms
-	entity.head_slot = head_slot
-	entity.necklace_slot = necklace_slot
+	entity.head_slot = head_slot or []
+	entity.necklace_slot = necklace_slot or []
 	entity.number_of_heads = number_of_heads
-	entity.boot_slot = boot_slot
+	entity.boot_slot = boot_slot or []
 	entity.number_of_legs = number_of_legs
-	entity.ring_slot = ring_slot
+	entity.ring_slot = ring_slot or []
 	entity.number_of_fingers_on_a_hand = number_of_fingers_on_a_hand
-	entity.armor_slot = armor_slot
-	entity.back_slot = back_slot
+	entity.armor_slot = armor_slot or []
+	entity.back_slot = back_slot or []
 	entity.number_of_torsos = number_of_torsos
 
 	def equip(self, item):
