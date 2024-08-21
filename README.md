@@ -122,4 +122,5 @@ or participate in the OSR.
 
 ## Gold & Gallows: The CRPG
 
-TODO
+TODO (at the very least mention that after git clone you can type "pip 
+install -e ." and then "gng" in your same repository to run the game)

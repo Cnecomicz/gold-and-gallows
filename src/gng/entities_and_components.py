@@ -213,6 +213,11 @@ def give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC
 
     entity.gets_attacked_by = partial(gets_attacked_by, entity)
 
+    def roll_initiative(self):
+        return dr.roll_below(self.DEX)
+
+    entity.roll_initiative = partial(roll_initiative, entity)
+
 
 def give_level_component(entity, level):
     entity.level = level
@@ -225,8 +230,6 @@ def give_HD_component(entity, HD):
     entity.max_HP = round(entity.HD * gc.AVERAGE_HP_PER_HD)
     entity.HP = entity.max_HP
     create_default_weapon(entity)
-
-
 
 
 
