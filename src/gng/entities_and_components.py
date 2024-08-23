@@ -200,6 +200,8 @@ def give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC
     entity.AC = AC
     entity.AV = AV
 
+    entity.movement_allotment = 300
+
     def attacks(self, enemy):
         weapon = entity.held_slot[0]  # TODO: how do I reconcile multiple or no weapons?
         if dr.thread_the_needle(enemy.HD, entity.AV):

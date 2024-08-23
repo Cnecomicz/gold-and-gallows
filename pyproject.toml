@@ -21,6 +21,7 @@ dependencies = [
   "pytest",
   "pytest-cov",
   "python-statemachine",
+  "black",
 ]
 
 [template.plugins.default]

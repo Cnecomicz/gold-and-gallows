@@ -1,7 +1,5 @@
 from statemachine import StateMachine, State
 
-import gng.global_constants as gc
-
 class TurnsManager(StateMachine):
     roll_initiative = State(initial=True)
     player_turn = State()
@@ -9,10 +7,12 @@ class TurnsManager(StateMachine):
     not_in_combat = State()
 
     # TODO: FIXME
-    cycle = (roll_initiative.to(player_turn) 
+    cycle = (
+        roll_initiative.to(player_turn) 
         | player_turn.to(npc_turn) 
         | npc_turn.to(not_in_combat) 
-        | not_in_combat.to(roll_initiative))
+        | not_in_combat.to(roll_initiative)
+    )
 
     def on_enter_roll_initiative(self, event, state):
         # Start by putting all NPCs in the turn order.
@@ -47,4 +47,7 @@ class TurnsManager(StateMachine):
 
     def draw(self):
         pass
+
+
+
 
