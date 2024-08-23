@@ -60,7 +60,7 @@ def create_player(name, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV):
         interactable=False,
     )
     give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV)
-    give_moveable_component(entity, speed=4)
+    give_moveable_component(entity, speed=4, movement_allotment=300)
     give_level_component(entity, level=1)
     return entity
 
@@ -68,7 +68,7 @@ def create_player(name, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV):
 def create_npc(name, x, y, width, height, HD, dialogue_tree):
     entity = Entity()
     give_name_component(entity, name)
-    give_moveable_component(entity, speed=4)
+    give_moveable_component(entity, speed=4, movement_allotment=300)
     give_equipment_component(entity)
     give_world_map_component(entity, x, y, width, height, color=gc.GREEN)
     give_HD_component(entity, HD)
@@ -184,8 +184,9 @@ def give_dialogue_component(entity, dialogue_tree):
     entity.dt = dialogue_tree
 
 
-def give_moveable_component(entity, speed):
+def give_moveable_component(entity, speed, movement_allotment):
     entity.speed = speed
+    entity.movement_allotment = movement_allotment
 
 
 def give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC, AV):
@@ -199,8 +200,6 @@ def give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC
     entity.HP = entity.max_HP
     entity.AC = AC
     entity.AV = AV
-
-    entity.movement_allotment = 300
 
     def attacks(self, enemy):
         weapon = entity.held_slot[0]  # TODO: how do I reconcile multiple or no weapons?
