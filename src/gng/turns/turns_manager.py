@@ -24,11 +24,11 @@ class TurnsManager(StateMachine):
                 self.turn_order_list.append(character)
 
     def on_enter_turn(self, event, state):
-        current_actor = self.turn_order_list[self.current_turn_index]
-        if current_actor == self.player:
-            player_turn_fsm = pt.PlayerTurn(current_actor)
+        self.current_actor = self.turn_order_list[self.current_turn_index]
+        if self.current_actor == self.player:
+            player_turn_fsm = pt.PlayerTurn(self.current_actor)
         else:
-            npc_turn_fsm = nt.NPCTurn(current_actor)
+            npc_turn_fsm = nt.NPCTurn(self.current_actor)
 
     def on_exit_turn(self, event, state):
         self.current_turn_index = \
@@ -39,6 +39,9 @@ class TurnsManager(StateMachine):
         self.party_list = []
         self.other_npcs_list = []
         self.turn_order_list = []
+        self.current_turn_index = 0
+        self.number_of_actors = 0
+        self.current_actor = None
 
 
 
@@ -51,6 +54,7 @@ class TurnsManager(StateMachine):
         self.current_turn_index = 0
         self.number_of_actors = \
             len(self.party_list) + len(self.other_npcs_list)
+        self.current_actor = None
         super().__init__()
 
     def handle_pygame_events(self, pygame_event):
