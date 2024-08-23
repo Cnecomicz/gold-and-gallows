@@ -1,5 +1,7 @@
 from statemachine import StateMachine, State
 
+import gng.global_constants as gc
+
 class PlayerTurn(StateMachine):
     awaiting_input = State(initial=True)
     handling_movement = State()
@@ -30,13 +32,29 @@ class PlayerTurn(StateMachine):
         self.can_act = True
         super().__init__()
 
-    def handle_pygame_events(self, pygame_event):
-        pass
-
-    def update(self):
+    def check_if_movement_remains(self):
         if self.movement_spent >= self.player.movement_allotment:
             self.can_move = False
             self.send("stop_move")
+
+    def handle_pygame_events(self, pygame_event):
+        if pygame_event.type == gc.KEYDOWN:
+            match self.current_state:
+                case self.awaiting_input:
+                    pass
+                case self.handling_movement:
+                    if pygame_event.key in (
+                        gc.UP + gc.DOWN + gc.LEFT + gc.RIGHT
+                    ):
+                        # TODO: player movement
+                        self.check_if_movement_remains()
+                case self.handling_action:
+                    pass
+                case self.end_turn:
+                    pass
+
+    def update(self):
+        pass
 
     def draw(self):
         pass
