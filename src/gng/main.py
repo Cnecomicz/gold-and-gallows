@@ -9,6 +9,11 @@ import gng.global_constants as gc
 import gng.player_functions as pf
 import gng.text_handling as th
 
+import gng.event_handlers.pygame_event_handler as peh
+import gng.event_handlers.player_controls_event_handler as pceh
+
+
+
 
 class Game(StateMachine):
     main_menu = State()
@@ -115,6 +120,7 @@ class Game(StateMachine):
         self.list_of_collision_rects = ei.list_of_collision_rects
         # Systems managers: --------------------------------------------
         self.debugging_flag = False
+        self.quitting_event_handler = peh.PygameEventHandler()
         self.dialogue_manager = dm.DialogueManager()
         self.player_controls = pf.ManualControls(
             puppet=self.player,
@@ -125,6 +131,12 @@ class Game(StateMachine):
         )
         self.character_creator = cs.CharacterCreator(player=self.player)
         self.character_sheet_manager = cs.CharacterSheetManager(player=self.player)
+        self.player_controls_event_handler = pceh.PlayerControlsEventHandler(
+            self.player_controls, 
+            self.list_of_npcs, 
+            self.list_of_items_on_ground,
+            self.dialogue_manager
+        )
         super().__init__()
 
     def character_creator_listener(self):
@@ -149,51 +161,59 @@ class Game(StateMachine):
                     "respond to that speech."
                 )
 
+    def event_handler_listener(self):
+        for speech in self.player_controls_event_handler.spoken_queue:
+            if speech == "Go to dialogue state":
+                self.send("begin_dialogue")
+                self.player_controls_event_handler.spoken_queue.remove(speech)
+
     def quit_game(self):
         gc.pygame.quit()
         sys.exit()
 
     def handle_pygame_events(self):
-        for pygame_event in gc.pygame.event.get():
-            if pygame_event.type == gc.QUIT:
-                self.quit_game()
-            if pygame_event.type == gc.KEYDOWN and pygame_event.key == gc.K_BACKQUOTE:
-                self.debugging_flag = not self.debugging_flag
-            match self.current_state:
-                case self.overworld:
-                    self.player_controls.handle_pygame_events(pygame_event)
-                    if pygame_event.type == gc.KEYDOWN and pygame_event.key in gc.USE:
-                        entity = self.player_controls.get_entity_facing()
-                        if entity in self.list_of_npcs:
-                            self.dialogue_manager.enter_dialogue_with(entity)
-                            self.send("begin_dialogue")
-                        elif entity in self.list_of_items_on_ground:
-                            self.player_controls.pick_up(entity)
-                case self.dialogue:
-                    self.dialogue_manager.handle_pygame_events(pygame_event)
-                case self.turns:
-                    pass
-                case self.main_menu:
-                    pass
-                case self.character_sheet:
-                    self.character_sheet_manager.handle_pygame_events(pygame_event)
-                case self.character_creation:
-                    self.character_creator.handle_pygame_events(pygame_event)
-            # To be deleted later: -------------------------------------
-            if pygame_event.type == gc.KEYDOWN:
-                if pygame_event.key == gc.K_ESCAPE:
-                    self.quit_game()
-                if pygame_event.key == gc.K_1:
-                    self.send("to_overworld")
-                if pygame_event.key == gc.K_2:
-                    self.send("to_dialogue")
-                if pygame_event.key == gc.K_3:
-                    self.send("to_turns")
-                if pygame_event.key == gc.K_4:
-                    self.send("to_character_creation")
-                if pygame_event.key == gc.K_5:
-                    self.send("to_character_sheet")
-            # ----------------------------------------------------------
+        self.player_controls_event_handler.handle_pygame_events()
+
+        # for pygame_event in gc.pygame.event.get():
+        #     if pygame_event.type == gc.QUIT:
+        #         self.quit_game()
+        #     if pygame_event.type == gc.KEYDOWN and pygame_event.key == gc.K_BACKQUOTE:
+        #         self.debugging_flag = not self.debugging_flag
+        #     match self.current_state:
+        #         case self.overworld:
+        #             self.player_controls.handle_pygame_events(pygame_event)
+        #             if pygame_event.type == gc.KEYDOWN and pygame_event.key in gc.USE:
+        #                 entity = self.player_controls.get_entity_facing()
+        #                 if entity in self.list_of_npcs:
+        #                     self.dialogue_manager.enter_dialogue_with(entity)
+        #                     self.send("begin_dialogue")
+        #                 elif entity in self.list_of_items_on_ground:
+        #                     self.player_controls.pick_up(entity)
+        #         case self.dialogue:
+        #             self.dialogue_manager.handle_pygame_events(pygame_event)
+        #         case self.turns:
+        #             pass
+        #         case self.main_menu:
+        #             pass
+        #         case self.character_sheet:
+        #             self.character_sheet_manager.handle_pygame_events(pygame_event)
+        #         case self.character_creation:
+        #             self.character_creator.handle_pygame_events(pygame_event)
+        #     # To be deleted later: -------------------------------------
+        #     if pygame_event.type == gc.KEYDOWN:
+        #         if pygame_event.key == gc.K_ESCAPE:
+        #             self.quit_game()
+        #         if pygame_event.key == gc.K_1:
+        #             self.send("to_overworld")
+        #         if pygame_event.key == gc.K_2:
+        #             self.send("to_dialogue")
+        #         if pygame_event.key == gc.K_3:
+        #             self.send("to_turns")
+        #         if pygame_event.key == gc.K_4:
+        #             self.send("to_character_creation")
+        #         if pygame_event.key == gc.K_5:
+        #             self.send("to_character_sheet")
+        #     # ----------------------------------------------------------
 
     def update(self):
         self.player_controls.update()
@@ -201,6 +221,7 @@ class Game(StateMachine):
             case self.overworld:
                 self.camera_target.x = self.player.x
                 self.camera_target.y = self.player.y
+                self.event_handler_listener()
             case self.dialogue:
                 self.dialogue_manager.update()
                 self.dialogue_listener()
@@ -291,7 +312,8 @@ class Game(StateMachine):
                 th.bdlr(text="Debug menu: (toggle with `) \n"),
                 th.bdlr(
                     # Add more values here when you want to track them.
-                    text=f"{self.current_state.name = } \n "
+                    text=f"FPS = {self.FPS_CLOCK.get_fps()} \n "
+                    f"{self.current_state.name = } \n "
                     f"{self.player.inventory = } \n "
                     f"{self.character_sheet_manager.current_state = } \n "
                     f"{self.sword.rect = } \n ",
