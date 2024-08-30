@@ -196,26 +196,6 @@ class CharacterCreator(StateMachine):
             case 9:
                 self.send("chose_warlock")
 
-    def cycle_up_and_down(self, pygame_event):
-        if pygame_event.key in gc.UP:
-            self.cursor_index = (self.cursor_index - 1) % self.number_of_options
-        if pygame_event.key in gc.DOWN:
-            self.cursor_index = (self.cursor_index + 1) % self.number_of_options
-
-    def handle_pygame_events(self, pygame_event):
-        if pygame_event.type == gc.KEYDOWN:
-            match self.current_state:
-                case self.choosing_power_level:
-                    self.cycle_up_and_down(pygame_event)
-                    if pygame_event.key in gc.USE:
-                        self.choose_power_level()
-                case self.choosing_class:
-                    self.cycle_up_and_down(pygame_event)
-                    if pygame_event.key in gc.USE:
-                        self.choose_class()
-                case self.choosing_name:
-                    pass
-
     def update(self):
         match self.current_state:
             case self.choosing_power_level:
@@ -623,12 +603,6 @@ class CharacterSheetManager(StateMachine):
         self.number_of_options = 0
         super().__init__()
 
-    def cycle_up_and_down(self, pygame_event):
-        if pygame_event.key in gc.UP:
-            self.cursor_index = (self.cursor_index - 1) % self.number_of_options
-        if pygame_event.key in gc.DOWN:
-            self.cursor_index = (self.cursor_index + 1) % self.number_of_options
-
     def draw_controls(self, DISPLAY_SURF):
         text = ""
 
@@ -848,40 +822,6 @@ class CharacterSheetManager(StateMachine):
                     gc.pygame.Rect(self.column_one_x, self.row_two_y, self.width, 200),
                     5,
                 )
-
-    def handle_pygame_events(self, pygame_event):
-        if pygame_event.type == gc.KEYDOWN:
-            match self.current_state:
-                case (
-                    self.co_abilities
-                    | self.co_class_and_level
-                    | self.co_equipment
-                    | self.co_portrait
-                    | self.co_spells
-                    | self.co_stats_HP_AC_and_AV
-                ):
-                    if pygame_event.key in gc.UP:
-                        self.send("cursor_up")
-                    if pygame_event.key in gc.DOWN:
-                        self.send("cursor_down")
-                    if pygame_event.key in gc.LEFT:
-                        self.send("cursor_left")
-                    if pygame_event.key in gc.RIGHT:
-                        self.send("cursor_right")
-                    if pygame_event.key in gc.USE:
-                        self.send("into_submenu")
-                case self.is_abilities:
-                    pass
-                case self.is_class_and_level:
-                    pass
-                case self.is_equipment:
-                    self.cycle_up_and_down(pygame_event)
-                case self.is_portrait:
-                    pass
-                case self.is_spells:
-                    pass
-                case self.is_stats_HP_AC_and_AV:
-                    pass
 
     def update(self):
         pass

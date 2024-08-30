@@ -1,5 +1,6 @@
 import pygame
 
+import gng.global_constants as gc
 import gng.event_handlers.pygame_event_handler as peh
 
 class PlayerControlsEventHandler(peh.PygameEventHandler):
@@ -16,60 +17,38 @@ class PlayerControlsEventHandler(peh.PygameEventHandler):
         self.dialogue_manager = dialogue_manager
         self.spoken_queue = []
         super().__init__()
-        self.register_keydown_event_handler(
-            pygame.K_UP, self.handle_keydown_up
-        )
-        self.register_keydown_event_handler(
-            pygame.K_w, self.handle_keydown_up
-        )
-        self.register_keydown_event_handler(
-            pygame.K_DOWN, self.handle_keydown_down
-        )
-        self.register_keydown_event_handler(
-            pygame.K_s, self.handle_keydown_down
-        )
-        self.register_keydown_event_handler(
-            pygame.K_LEFT, self.handle_keydown_left
-        )
-        self.register_keydown_event_handler(
-            pygame.K_a, self.handle_keydown_left
-        )
-        self.register_keydown_event_handler(
-            pygame.K_RIGHT, self.handle_keydown_right
-        )
-        self.register_keydown_event_handler(
-            pygame.K_d, self.handle_keydown_right
-        )
-        self.register_keyup_event_handler(
-            pygame.K_UP, self.handle_keyup_up
-        )
-        self.register_keyup_event_handler(
-            pygame.K_w, self.handle_keyup_up
-        )
-        self.register_keyup_event_handler(
-            pygame.K_DOWN, self.handle_keyup_down
-        )
-        self.register_keyup_event_handler(
-            pygame.K_s, self.handle_keyup_down
-        )
-        self.register_keyup_event_handler(
-            pygame.K_LEFT, self.handle_keyup_left
-        )
-        self.register_keyup_event_handler(
-            pygame.K_a, self.handle_keyup_left
-        )
-        self.register_keyup_event_handler(
-            pygame.K_RIGHT, self.handle_keyup_right
-        )
-        self.register_keyup_event_handler(
-            pygame.K_d, self.handle_keyup_right
-        )
-        self.register_keydown_event_handler(
-            pygame.K_e, self.handle_keydown_use
-        )
-        self.register_keydown_event_handler(
-            pygame.K_z, self.handle_keydown_use
-        )
+        for up_key in gc.UP:
+            self.register_keydown_event_handler(
+                up_key, self.handle_keydown_up
+            )
+            self.register_keyup_event_handler(
+                up_key, self.handle_keyup_up
+            )
+        for down_key in gc.DOWN:
+            self.register_keydown_event_handler(
+                down_key, self.handle_keydown_down
+            )
+            self.register_keyup_event_handler(
+                down_key, self.handle_keyup_down
+            )
+        for left_key in gc.LEFT:
+            self.register_keydown_event_handler(
+                left_key, self.handle_keydown_left
+            )
+            self.register_keyup_event_handler(
+                left_key, self.handle_keyup_left
+            )
+        for right_key in gc.RIGHT:
+            self.register_keydown_event_handler(
+                right_key, self.handle_keydown_right
+            )
+            self.register_keyup_event_handler(
+                right_key, self.handle_keyup_right
+            )
+        for use_key in gc.USE:
+            self.register_keydown_event_handler(
+                use_key, self.handle_keydown_use
+            )
 
     def handle_keydown_up(self, pygame_event):
         self.player_controls.send("press_up")

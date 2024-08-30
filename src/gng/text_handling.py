@@ -1,3 +1,5 @@
+import pygame
+
 import gng.global_constants as gc
 
 
@@ -90,19 +92,19 @@ def keylogger(DISPLAY_SURF, bgcolor, left, top, text_width, font, color):
     no feedback."""
     user_string = ""
     while True:
-        for event in gc.pygame.event.get():
-            if event.type == gc.KEYDOWN:
-                if event.key == gc.K_RETURN and user_string != "":
+        for pygame_event in pygame.event.get():
+            if pygame_event.type == pygame.KEYDOWN:
+                if pygame_event.key == pygame.K_RETURN and user_string != "":
                     return user_string
                     break
-                elif event.key == gc.K_BACKSPACE and user_string != "":
+                elif pygame_event.key == pygame.K_BACKSPACE and user_string != "":
                     user_string = user_string[:-1]
-                elif event.key == gc.K_ESCAPE:
+                elif pygame_event.key == pygame.K_ESCAPE:
                     pass
                 else:
-                    user_string += event.unicode
+                    user_string += pygame_event.unicode
 
         make_hovered_option(
             DISPLAY_SURF, bgcolor, left, top, text_width, bdlr(user_string, font, color)
         )
-        gc.pygame.display.update()
+        pygame.display.update()

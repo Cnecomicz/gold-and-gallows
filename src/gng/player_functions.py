@@ -1,4 +1,5 @@
 import math
+import pygame
 
 from statemachine import StateMachine, State
 
@@ -325,7 +326,7 @@ class ManualControls(StateMachine):
         # mesh with the rest of the game, where "most recently pressed
         # direction" wins, but it's minor enough I'm not addressing at
         # this time.
-        check = gc.pygame.key.get_pressed()
+        check = pygame.key.get_pressed()
         self.current_frame_obstruction_up = self.next_wall(self.up)
         self.current_frame_obstruction_down = self.next_wall(self.down)
         self.current_frame_obstruction_left = self.next_wall(self.left)
@@ -333,25 +334,25 @@ class ManualControls(StateMachine):
         if self.current_frame_obstruction_up is not None:
             self.send("obstruction_up")
         elif self.previous_frame_obstruction_up is not None:
-            for key in gc.UP:
+            for key in [pygame.K_UP, pygame.K_w]: # TODO: This needs to be cross referenced with event handlers
                 if check[key]:
                     self.send("press_up")
         if self.current_frame_obstruction_down is not None:
             self.send("obstruction_down")
         elif self.previous_frame_obstruction_down is not None:
-            for key in gc.DOWN:
+            for key in [pygame.K_DOWN, pygame.K_s]: # TODO: This needs to be cross referenced with event handlers
                 if check[key]:
                     self.send("press_down")
         if self.current_frame_obstruction_left is not None:
             self.send("obstruction_left")
         elif self.previous_frame_obstruction_left is not None:
-            for key in gc.LEFT:
+            for key in [pygame.K_LEFT, pygame.K_a]: # TODO: This needs to be cross referenced with event handlers
                 if check[key]:
                     self.send("press_left")
         if self.current_frame_obstruction_right is not None:
             self.send("obstruction_right")
         elif self.previous_frame_obstruction_right is not None:
-            for key in gc.RIGHT:
+            for key in [pygame.K_RIGHT, pygame.K_d]: # TODO: This needs to be cross referenced with event handlers
                 if check[key]:
                     self.send("press_right")
         self.previous_frame_obstruction_up = self.current_frame_obstruction_up

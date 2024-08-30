@@ -1,5 +1,6 @@
 import sys
 from statemachine import StateMachine, State
+import pygame
 
 import gng.camera_functions as cf
 import gng.character_statistics as cs
@@ -11,9 +12,9 @@ import gng.text_handling as th
 
 import gng.event_handlers.pygame_event_handler as peh
 import gng.event_handlers.player_controls_event_handler as pceh
-
-
-
+import gng.event_handlers.character_creator_event_handler as cceh
+import gng.event_handlers.character_sheet_event_handler as cseh
+import gng.event_handlers.dialogue_event_handler as deh
 
 class Game(StateMachine):
     main_menu = State()
@@ -73,20 +74,53 @@ class Game(StateMachine):
         | character_creation.to(character_sheet)
         | character_sheet.to(character_sheet)
     )
-
-    # ------------------------------------------------------------------
+    # END OF TEMPORARY TRANSITIONS. ------------------------------------
 
     begin_dialogue = overworld.to(dialogue)
     end_dialogue = dialogue.to(overworld)
     end_character_creation = character_creation.to(overworld)
 
+    def on_enter_character_creation(self, event, state):
+        self.list_of_active_handlers.append(
+            self.character_creator_event_handler
+        )
+
+    def on_exit_character_creation(self, event, state):
+        self.list_of_active_handlers.remove(
+            self.character_creator_event_handler
+        )
+
+    def on_enter_overworld(self, event, state):
+        self.list_of_active_handlers.append(
+            self.player_controls_event_handler
+        )
+
     def on_exit_overworld(self, event, state):
+        self.list_of_active_handlers.remove(
+            self.player_controls_event_handler
+        )
         self.player_controls.send("to_stationary")
 
+    def on_enter_dialogue(self, event, state):
+        self.list_of_active_handlers.append(
+            self.dialogue_event_handler
+        )
+
     def on_exit_dialogue(self, event, state):
+        self.list_of_active_handlers.remove(
+            self.dialogue_event_handler
+        )
         self.dialogue_manager.leave_dialogue()
 
+    def on_enter_character_sheet(self, event, state):
+        self.list_of_active_handlers.append(
+            self.character_sheet_event_handler
+        )
+
     def on_exit_character_sheet(self, event, state):
+        self.list_of_active_handlers.remove(
+            self.character_sheet_event_handler
+        )
         self.character_sheet_manager.send("reset")
 
     # ------------------------------------------------------------------
@@ -95,8 +129,8 @@ class Game(StateMachine):
 
     def __init__(self):
         # Pygame stuff: ------------------------------------------------
-        self.FPS_CLOCK = gc.pygame.time.Clock()
-        self.DISPLAY_SURF = gc.pygame.display.set_mode(
+        self.FPS_CLOCK = pygame.time.Clock()
+        self.DISPLAY_SURF = pygame.display.set_mode(
             (gc.WINDOW_WIDTH, gc.WINDOW_HEIGHT)
         )
         # Entities and gameworld objects: ------------------------------
@@ -118,9 +152,8 @@ class Game(StateMachine):
         ]
 
         self.list_of_collision_rects = ei.list_of_collision_rects
-        # Systems managers: --------------------------------------------
+        # Systems managers: --------------------------------------
         self.debugging_flag = False
-        self.quitting_event_handler = peh.PygameEventHandler()
         self.dialogue_manager = dm.DialogueManager()
         self.player_controls = pf.ManualControls(
             puppet=self.player,
@@ -130,13 +163,52 @@ class Game(StateMachine):
             list_of_collision_rects=self.list_of_collision_rects,
         )
         self.character_creator = cs.CharacterCreator(player=self.player)
-        self.character_sheet_manager = cs.CharacterSheetManager(player=self.player)
+        self.character_sheet_manager = cs.CharacterSheetManager(
+            player=self.player
+        )
+        # Event handlers: ----------------------------------------------
+        self.system_event_handler = peh.PygameEventHandler()
+        self.system_event_handler.register_event_handler(
+            pygame.QUIT, self.quit_game
+        )
+        self.system_event_handler.register_keydown_event_handler(
+            pygame.K_BACKQUOTE, lambda pygame_event: setattr(
+                self, "debugging_flag", not self.debugging_flag
+            )
+        )
+        # TODO: Remove everything below this comment and above the next. 
+        # The number keys are for in-game debugging. The Escape key 
+        # should eventually be replaced with pause functionality. ------
+        self.system_event_handler.register_keydown_event_handler(
+            pygame.K_1, lambda pygame_event: self.send("to_overworld")
+        )
+        self.system_event_handler.register_keydown_event_handler(
+            pygame.K_3, lambda pygame_event: self.send("to_turns")
+        )
+        self.system_event_handler.register_keydown_event_handler(
+            pygame.K_5, lambda pygame_event: self.send("to_character_sheet")
+        )
+        self.system_event_handler.register_keydown_event_handler(
+            pygame.K_ESCAPE, self.quit_game
+        )
+        # TODO: Remove everything above this comment and below the 
+        # previous. ----------------------------------------------------
         self.player_controls_event_handler = pceh.PlayerControlsEventHandler(
             self.player_controls, 
             self.list_of_npcs, 
             self.list_of_items_on_ground,
             self.dialogue_manager
         )
+        self.character_creator_event_handler = cceh.CharacterCreatorEventHandler(
+            self.character_creator
+        )
+        self.character_sheet_event_handler = cseh.CharacterSheetEventHandler(
+            self.character_sheet_manager
+        )
+        self.dialogue_event_handler = deh.DialogueEventHandler(
+            self.dialogue_manager
+        )
+        self.list_of_active_handlers = [self.system_event_handler,]
         super().__init__()
 
     def character_creator_listener(self):
@@ -167,53 +239,14 @@ class Game(StateMachine):
                 self.send("begin_dialogue")
                 self.player_controls_event_handler.spoken_queue.remove(speech)
 
-    def quit_game(self):
-        gc.pygame.quit()
+    def quit_game(self, pygame_event):
+        pygame.quit()
         sys.exit()
 
     def handle_pygame_events(self):
-        self.player_controls_event_handler.handle_pygame_events()
-
-        # for pygame_event in gc.pygame.event.get():
-        #     if pygame_event.type == gc.QUIT:
-        #         self.quit_game()
-        #     if pygame_event.type == gc.KEYDOWN and pygame_event.key == gc.K_BACKQUOTE:
-        #         self.debugging_flag = not self.debugging_flag
-        #     match self.current_state:
-        #         case self.overworld:
-        #             self.player_controls.handle_pygame_events(pygame_event)
-        #             if pygame_event.type == gc.KEYDOWN and pygame_event.key in gc.USE:
-        #                 entity = self.player_controls.get_entity_facing()
-        #                 if entity in self.list_of_npcs:
-        #                     self.dialogue_manager.enter_dialogue_with(entity)
-        #                     self.send("begin_dialogue")
-        #                 elif entity in self.list_of_items_on_ground:
-        #                     self.player_controls.pick_up(entity)
-        #         case self.dialogue:
-        #             self.dialogue_manager.handle_pygame_events(pygame_event)
-        #         case self.turns:
-        #             pass
-        #         case self.main_menu:
-        #             pass
-        #         case self.character_sheet:
-        #             self.character_sheet_manager.handle_pygame_events(pygame_event)
-        #         case self.character_creation:
-        #             self.character_creator.handle_pygame_events(pygame_event)
-        #     # To be deleted later: -------------------------------------
-        #     if pygame_event.type == gc.KEYDOWN:
-        #         if pygame_event.key == gc.K_ESCAPE:
-        #             self.quit_game()
-        #         if pygame_event.key == gc.K_1:
-        #             self.send("to_overworld")
-        #         if pygame_event.key == gc.K_2:
-        #             self.send("to_dialogue")
-        #         if pygame_event.key == gc.K_3:
-        #             self.send("to_turns")
-        #         if pygame_event.key == gc.K_4:
-        #             self.send("to_character_creation")
-        #         if pygame_event.key == gc.K_5:
-        #             self.send("to_character_sheet")
-        #     # ----------------------------------------------------------
+        for pygame_event in pygame.event.get():
+            for handler in self.list_of_active_handlers:
+                handler.handle_pygame_event(pygame_event)
 
     def update(self):
         self.player_controls.update()
@@ -320,7 +353,7 @@ class Game(StateMachine):
                     color=gc.BLUE,
                 ),
             )
-        gc.pygame.display.update()
+        pygame.display.update()
 
     def run(self):
         while True:

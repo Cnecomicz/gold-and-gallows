@@ -40,19 +40,19 @@ class DialogueManager:
                         "respond to that speech."
                     )
 
-    def handle_pygame_events(self, pygame_event):
-        if pygame_event.type == gc.KEYDOWN:
-            if pygame_event.key in gc.USE:
-                self.conversation_partner.dt.send(
-                    self.current_responses_dict[self.hovered_response]
-                )
-                self.refresh_dialogue()
-            if pygame_event.key in gc.UP:
-                self.hovered_index = (self.hovered_index - 1) % self.number_of_responses
-                self.hovered_response = self.current_responses_list[self.hovered_index]
-            if pygame_event.key in gc.DOWN:
-                self.hovered_index = (self.hovered_index + 1) % self.number_of_responses
-                self.hovered_response = self.current_responses_list[self.hovered_index]
+    # def handle_pygame_events(self, pygame_event):
+    #     if pygame_event.type == gc.KEYDOWN:
+    #         if pygame_event.key in gc.USE:
+    #             self.conversation_partner.dt.send(
+    #                 self.current_responses_dict[self.hovered_response]
+    #             )
+    #             self.refresh_dialogue()
+    #         if pygame_event.key in gc.UP:
+    #             self.hovered_index = (self.hovered_index - 1) % self.number_of_responses
+    #             self.hovered_response = self.current_responses_list[self.hovered_index]
+    #         if pygame_event.key in gc.DOWN:
+    #             self.hovered_index = (self.hovered_index + 1) % self.number_of_responses
+    #             self.hovered_response = self.current_responses_list[self.hovered_index]
 
     def update(self):
         self.listener()

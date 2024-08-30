@@ -1,7 +1,9 @@
 import json, pygame
 from pygame.locals import *
 
-pygame.init()
+pygame.init() 
+# TODO: move pygame.init() to main. Reason for delay: without 
+# pygame.init(), you get pygame.error: font not initialized.
 
 
 FPS = 60
