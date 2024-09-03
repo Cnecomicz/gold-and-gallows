@@ -32,10 +32,6 @@ class PygameEventHandler:
     def __init__(self):
         self.event_handlers = {}
 
-    # def handle_pygame_events(self, event_list=pygame.event):
-    #     for pygame_event in event_list.get():
-    #         self.handle_pygame_event(pygame_event)
-
     def handle_pygame_event(self, pygame_event):
         if (event_handler := self.event_handlers.get(pygame_event.type)) \
         is not None:
