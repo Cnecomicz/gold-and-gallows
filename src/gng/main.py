@@ -4,6 +4,7 @@ import pygame
 
 import gng.camera_functions as cf
 import gng.character_statistics as cs
+import gng.clock_manager as cm
 import gng.dialogue_manager as dm
 import gng.entity_instances as ei
 import gng.global_constants as gc
@@ -166,6 +167,7 @@ class Game(StateMachine):
         self.character_sheet_manager = cs.CharacterSheetManager(
             player=self.player
         )
+        self.clock_manager = cm.ClockManager()
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
         self.system_event_handler.register_event_handler(
@@ -255,11 +257,12 @@ class Game(StateMachine):
                 self.camera_target.x = self.player.x
                 self.camera_target.y = self.player.y
                 self.event_handler_listener()
+                self.clock_manager.add_tick()
             case self.dialogue:
                 self.dialogue_manager.update()
                 self.dialogue_listener()
             case self.turns:
-                pass
+                self.clock_manager.add_tick()
             case self.main_menu:
                 pass
             case self.character_sheet:
@@ -343,6 +346,10 @@ class Game(StateMachine):
                 10,
                 gc.WINDOW_WIDTH - 20,
                 th.bdlr(text="Debug menu: (toggle with `) \n"),
+                th.bdlr(
+                    text=self.clock_manager.get_datetime_string() + " \n",
+                    color=gc.GREEN,
+                ),
                 th.bdlr(
                     # Add more values here when you want to track them.
                     text=f"FPS = {self.FPS_CLOCK.get_fps()} \n "

@@ -15,4 +15,5 @@ def test_get_datetime_string_adding_time():
     clock.add_weeks(1)
     clock.add_months(2)
     clock.add_years(7)
+    print(clock.get_datetime_string())
     assert clock.get_datetime_string() == "Year 8 March 10 01:40:45"
