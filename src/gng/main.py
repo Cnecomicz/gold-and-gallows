@@ -152,7 +152,7 @@ class Game(StateMachine):
         ]
 
         self.list_of_collision_rects = ei.list_of_collision_rects
-        # Systems managers: --------------------------------------
+        # Systems managers: --------------------------------------------
         self.debugging_flag = False
         self.dialogue_manager = dm.DialogueManager()
         self.player_controls = pf.ManualControls(
