@@ -36,7 +36,7 @@ class DialogueManager:
                     self.conversation_partner.dt.spoken_queue.remove(speech)
                 else:
                     raise NotImplementedError(
-                        "You haven't yet written code for the listener to "
+                        "You haven't yet written code for the listener to " \
                         "respond to that speech."
                     )
 

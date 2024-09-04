@@ -278,42 +278,6 @@ class ManualControls(StateMachine):
         # sword!" It's "maybe" because with sprites, this will be not as
         # necessary.
 
-    def handle_pygame_events(self, pygame_event):
-        if pygame_event.type == gc.KEYDOWN:
-            if pygame_event.key in gc.UP:
-                self.send("press_up")
-            if pygame_event.key in gc.DOWN:
-                self.send("press_down")
-            if pygame_event.key in gc.LEFT:
-                self.send("press_left")
-            if pygame_event.key in gc.RIGHT:
-                self.send("press_right")
-        if pygame_event.type == gc.KEYUP:
-            # Inside this block, the checks to see if keys are pressed
-            # down allows you to wiggle-move by holding a direction and
-            # tapping the opposite.
-            check = gc.pygame.key.get_pressed()
-            if pygame_event.key in gc.UP:
-                self.send("release_up")
-                for key in gc.DOWN:
-                    if check[key]:
-                        self.send("press_down")
-            if pygame_event.key in gc.DOWN:
-                self.send("release_down")
-                for key in gc.UP:
-                    if check[key]:
-                        self.send("press_up")
-            if pygame_event.key in gc.LEFT:
-                self.send("release_left")
-                for key in gc.RIGHT:
-                    if check[key]:
-                        self.send("press_right")
-            if pygame_event.key in gc.RIGHT:
-                self.send("release_right")
-                for key in gc.LEFT:
-                    if check[key]:
-                        self.send("press_left")
-
     def update(self):
         # The current_frame_obstructions prevent you from moving into
         # walls. The previous_frame_obstructions check if you have
@@ -334,25 +298,25 @@ class ManualControls(StateMachine):
         if self.current_frame_obstruction_up is not None:
             self.send("obstruction_up")
         elif self.previous_frame_obstruction_up is not None:
-            for key in [pygame.K_UP, pygame.K_w]: # TODO: This needs to be cross referenced with event handlers
+            for key in gc.UP:
                 if check[key]:
                     self.send("press_up")
         if self.current_frame_obstruction_down is not None:
             self.send("obstruction_down")
         elif self.previous_frame_obstruction_down is not None:
-            for key in [pygame.K_DOWN, pygame.K_s]: # TODO: This needs to be cross referenced with event handlers
+            for key in gc.DOWN:
                 if check[key]:
                     self.send("press_down")
         if self.current_frame_obstruction_left is not None:
             self.send("obstruction_left")
         elif self.previous_frame_obstruction_left is not None:
-            for key in [pygame.K_LEFT, pygame.K_a]: # TODO: This needs to be cross referenced with event handlers
+            for key in gc.LEFT:
                 if check[key]:
                     self.send("press_left")
         if self.current_frame_obstruction_right is not None:
             self.send("obstruction_right")
         elif self.previous_frame_obstruction_right is not None:
-            for key in [pygame.K_RIGHT, pygame.K_d]: # TODO: This needs to be cross referenced with event handlers
+            for key in gc.RIGHT: 
                 if check[key]:
                     self.send("press_right")
         self.previous_frame_obstruction_up = self.current_frame_obstruction_up

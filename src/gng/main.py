@@ -211,6 +211,8 @@ class Game(StateMachine):
             self.dialogue_manager
         )
         self.list_of_active_handlers = [self.system_event_handler,]
+        # Updaters -----------------------------------------------------
+        self.list_of_active_updaters = []
         super().__init__()
 
     def character_creator_listener(self):
@@ -251,6 +253,8 @@ class Game(StateMachine):
                 handler.handle_pygame_event(pygame_event)
 
     def update(self):
+        # for updater in self.list_of_active_updaters:
+        #     updater.update()
         self.player_controls.update()
         match self.current_state:
             case self.overworld:
@@ -262,7 +266,7 @@ class Game(StateMachine):
                 self.dialogue_manager.update()
                 self.dialogue_listener()
             case self.turns:
-                self.clock_manager.add_tick()
+                pass
             case self.main_menu:
                 pass
             case self.character_sheet:
