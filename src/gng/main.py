@@ -6,6 +6,7 @@ import gng.camera_functions as cf
 import gng.character_statistics as cs
 import gng.clock_manager as cm
 import gng.dialogue_manager as dm
+import gng.debugging_manager as dbm
 import gng.entity_instances as ei
 import gng.global_constants as gc
 import gng.manual_controls as mc
@@ -27,6 +28,7 @@ import gng.listeners.current_dialogue_tree_listener as cdtl
 import gng.listeners.manual_controls_event_handler_listener as mcehl
 # ----------------------------------------------------------------------
 import gng.artists.character_creator_artist as cca
+import gng.artists.debugging_artist as da
 import gng.artists.game_world_artist as gwa
 
 class Game(StateMachine):
@@ -242,7 +244,6 @@ class Game(StateMachine):
 
         self.list_of_collision_rects = ei.list_of_collision_rects
         # Systems managers: --------------------------------------------
-        self.debugging_flag = False
         self.dialogue_manager = dm.DialogueManager()
         self.manual_controls = mc.ManualControls(
             puppet=self.player,
@@ -256,6 +257,15 @@ class Game(StateMachine):
             player=self.player
         )
         self.clock_manager = cm.ClockManager()
+        self.debugging_manager = dbm.DebuggingManager(
+            {
+                "FPS": self.FPS_CLOCK.get_fps(),
+                # "Current state name": self.current_state.name,
+                "Inventory": self.player.inventory,
+                "Character sheet current state": self.character_sheet_manager.current_state,
+                "Sword rect": self.sword.rect,
+            }
+        )
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
         self.system_event_handler.register_event_handler(
@@ -263,7 +273,7 @@ class Game(StateMachine):
         )
         self.system_event_handler.register_keydown_event_handler(
             pygame.K_BACKQUOTE, lambda pygame_event: setattr(
-                self, "debugging_flag", not self.debugging_flag
+                self.debugging_manager, "debugging_flag", not self.debugging_manager.debugging_flag
             )
         )
         # TODO: Remove everything below this comment and above the next. 
@@ -335,7 +345,11 @@ class Game(StateMachine):
             self.character_creator,
             self.player
         )
-        self.list_of_active_artists = []
+        self.debugging_artist = da.DebuggingArtist(
+            self.debugging_manager, 
+            self.clock_manager
+        )
+        self.list_of_active_artists = [self.debugging_artist,]
         super().__init__()
 
     def quit_game(self, pygame_event):
@@ -357,37 +371,37 @@ class Game(StateMachine):
 
     def draw(self):
         self.DISPLAY_SURF.fill(gc.BGCOLOR)
-        for artist in self.list_of_active_artists:
+        for artist in reversed(self.list_of_active_artists): # TODO: 
+            # this is reversing because we're handling debugging
+            # differently. Reconsider this!
             artist.draw(self.DISPLAY_SURF)
         match self.current_state:
             case self.dialogue:
                 self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
             case self.character_sheet:
                 self.character_sheet_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-            # case self.character_creation:
-            #     self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-        if self.debugging_flag:
-            th.make_text(
-                self.DISPLAY_SURF,
-                gc.BGCOLOR,
-                10,
-                10,
-                gc.WINDOW_WIDTH - 20,
-                th.bdlr(text="Debug menu: (toggle with `) \n"),
-                th.bdlr(
-                    text=self.clock_manager.get_datetime_string() + " \n",
-                    color=gc.GREEN,
-                ),
-                th.bdlr(
-                    # Add more values here when you want to track them.
-                    text=f"FPS = {self.FPS_CLOCK.get_fps()} \n "
-                    f"{self.current_state.name = } \n "
-                    f"{self.player.inventory = } \n "
-                    f"{self.character_sheet_manager.current_state = } \n "
-                    f"{self.sword.rect = } \n ",
-                    color=gc.BLUE,
-                ),
-            )
+        # if self.debugging_flag:
+        #     th.make_text(
+        #         self.DISPLAY_SURF,
+        #         gc.BGCOLOR,
+        #         10,
+        #         10,
+        #         gc.WINDOW_WIDTH - 20,
+        #         th.bdlr(text="Debug menu: (toggle with `) \n"),
+        #         th.bdlr(
+        #             text=self.clock_manager.get_datetime_string() + " \n",
+        #             color=gc.GREEN,
+        #         ),
+        #         th.bdlr(
+        #             # Add more values here when you want to track them.
+        #             text=f"FPS = {self.FPS_CLOCK.get_fps()} \n "
+        #             f"{self.current_state.name = } \n "
+        #             f"{self.player.inventory = } \n "
+        #             f"{self.character_sheet_manager.current_state = } \n "
+        #             f"{self.sword.rect = } \n ",
+        #             color=gc.BLUE,
+        #         ),
+        #     )
         pygame.display.update()
 
     def run(self):
