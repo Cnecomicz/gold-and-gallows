@@ -17,6 +17,12 @@ import gng.event_handlers.character_creator_event_handler as cceh
 import gng.event_handlers.character_sheet_event_handler as cseh
 import gng.event_handlers.dialogue_event_handler as deh
 
+import gng.listeners.character_creator_listener as ccl
+import gng.listeners.dialogue_listener as dl
+import gng.listeners.player_controls_event_handler_listener as pcehl
+
+import gng.updaters.character_creator_updater as ccu
+
 class Game(StateMachine):
     main_menu = State()
     overworld = State()
@@ -85,20 +91,38 @@ class Game(StateMachine):
         self.list_of_active_handlers.append(
             self.character_creator_event_handler
         )
+        self.list_of_active_updaters.append(
+            self.character_creator_updater
+        )
+        self.list_of_active_listeners.append(
+            self.character_creator_listener
+        )
 
     def on_exit_character_creation(self, event, state):
         self.list_of_active_handlers.remove(
             self.character_creator_event_handler
+        )
+        self.list_of_active_updaters.remove(
+            self.character_creator_updater
+        )
+        self.list_of_active_listeners.remove(
+            self.character_creator_listener
         )
 
     def on_enter_overworld(self, event, state):
         self.list_of_active_handlers.append(
             self.player_controls_event_handler
         )
+        self.list_of_active_listeners.append(
+            self.player_controls_event_handler_listener
+        )
 
     def on_exit_overworld(self, event, state):
         self.list_of_active_handlers.remove(
             self.player_controls_event_handler
+        )
+        self.list_of_active_listeners.remove(
+            self.player_controls_event_handler_listener
         )
         self.player_controls.send("to_stationary")
 
@@ -106,10 +130,16 @@ class Game(StateMachine):
         self.list_of_active_handlers.append(
             self.dialogue_event_handler
         )
+        self.list_of_active_listeners.append(
+            self.dialogue_listener
+        )
 
     def on_exit_dialogue(self, event, state):
         self.list_of_active_handlers.remove(
             self.dialogue_event_handler
+        )
+        self.list_of_active_listeners.remove(
+            self.dialogue_listener
         )
         self.dialogue_manager.leave_dialogue()
 
@@ -211,37 +241,26 @@ class Game(StateMachine):
             self.dialogue_manager
         )
         self.list_of_active_handlers = [self.system_event_handler,]
+        # Listeners ----------------------------------------------------
+        self.character_creator_listener = ccl.CharacterCreatorListener(
+            self.character_creator.spoken_queue,
+            self.end_character_creation
+        )
+        self.dialogue_listener = dl.DialogueListener(
+            self.dialogue_manager.spoken_queue,
+            self.end_dialogue
+        )
+        self.player_controls_event_handler_listener = pcehl.PlayerControlsEventHandlerListener(
+            self.player_controls_event_handler.spoken_queue,
+            self.begin_dialogue
+        )
+        self.list_of_active_listeners = []
         # Updaters -----------------------------------------------------
+        self.character_creator_updater = ccu.CharacterCreatorUpdater(
+            self.character_creator
+        )
         self.list_of_active_updaters = []
         super().__init__()
-
-    def character_creator_listener(self):
-        for speech in self.character_creator.spoken_queue:
-            if speech == "Finished character creation":
-                self.send("end_character_creation")
-                self.character_creator.spoken_queue.remove(speech)
-            else:
-                raise NotImplementedError(
-                    "You haven't yet written code for the listener to "
-                    "respond to that speech."
-                )
-
-    def dialogue_listener(self):
-        for speech in self.dialogue_manager.spoken_queue:
-            if speech == "Ending dialogue":
-                self.send("end_dialogue")
-                self.dialogue_manager.spoken_queue.remove(speech)
-            else:
-                raise NotImplementedError(
-                    "You haven't yet written code for the listener to "
-                    "respond to that speech."
-                )
-
-    def event_handler_listener(self):
-        for speech in self.player_controls_event_handler.spoken_queue:
-            if speech == "Go to dialogue state":
-                self.send("begin_dialogue")
-                self.player_controls_event_handler.spoken_queue.remove(speech)
 
     def quit_game(self, pygame_event):
         pygame.quit()
@@ -253,27 +272,20 @@ class Game(StateMachine):
                 handler.handle_pygame_event(pygame_event)
 
     def update(self):
-        # for updater in self.list_of_active_updaters:
-        #     updater.update()
+        for updater in self.list_of_active_updaters:
+            updater.update()
         self.player_controls.update()
         match self.current_state:
             case self.overworld:
                 self.camera_target.x = self.player.x
                 self.camera_target.y = self.player.y
-                self.event_handler_listener()
                 self.clock_manager.add_tick()
             case self.dialogue:
                 self.dialogue_manager.update()
-                self.dialogue_listener()
-            case self.turns:
-                pass
-            case self.main_menu:
-                pass
-            case self.character_sheet:
-                pass
-            case self.character_creation:
-                self.character_creator.update()
-                self.character_creator_listener()
+
+    def listen(self):
+        for listener in self.list_of_active_listeners:
+            listener.listen()
 
     def draw_in_game_world(self):
         for entity in self.list_of_entities:
@@ -370,6 +382,7 @@ class Game(StateMachine):
         while True:
             self.handle_pygame_events()
             self.update()
+            self.listen()
             self.draw()
             self.FPS_CLOCK.tick(gc.FPS)
 

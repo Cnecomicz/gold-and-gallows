@@ -148,6 +148,9 @@ class CharacterCreator(StateMachine):
         self.number_of_options = 10
         self.cursor_index = 0
 
+    def on_enter_choosing_name(self, event, state):
+        pass
+
     # ------------------------------------------------------------------
 
     def __init__(self, player):
@@ -196,15 +199,15 @@ class CharacterCreator(StateMachine):
             case 9:
                 self.send("chose_warlock")
 
-    def update(self):
-        match self.current_state:
-            case self.choosing_power_level:
-                pass
-            case self.choosing_class:
-                pass
-            case self.choosing_name:
-                if hasattr(self.player, "name"):
-                    self.spoken_queue.append("Finished character creation")
+    # def update(self):
+    #     match self.current_state:
+    #         case self.choosing_power_level:
+    #             pass
+    #         case self.choosing_class:
+    #             pass
+    #         case self.choosing_name:
+    #             if hasattr(self.player, "name"):
+    #                 self.spoken_queue.append("Finished character creation")
 
     def draw(self, DISPLAY_SURF):
         match self.current_state:

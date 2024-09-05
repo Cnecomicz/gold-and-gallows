@@ -32,7 +32,7 @@ Homepage = "https://github.com/cnecomicz/python-rpg-game"
 Issues = "https://github.com/cnecomicz/python-rpg-game/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/gng"]
+packages = ["src/gng", "tests"]
 
 [project.scripts]
 gng = "gng.main:main"
