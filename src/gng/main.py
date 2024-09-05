@@ -1,27 +1,28 @@
 import sys
 from statemachine import StateMachine, State
 import pygame
-
+# ----------------------------------------------------------------------
 import gng.camera_functions as cf
 import gng.character_statistics as cs
 import gng.clock_manager as cm
 import gng.dialogue_manager as dm
 import gng.entity_instances as ei
 import gng.global_constants as gc
-import gng.player_functions as pf
+import gng.manual_controls as mc
 import gng.text_handling as th
-
+# ----------------------------------------------------------------------
 import gng.event_handlers.pygame_event_handler as peh
-import gng.event_handlers.player_controls_event_handler as pceh
+import gng.event_handlers.manual_controls_event_handler as mceh
 import gng.event_handlers.character_creator_event_handler as cceh
 import gng.event_handlers.character_sheet_event_handler as cseh
 import gng.event_handlers.dialogue_event_handler as deh
-
+# ----------------------------------------------------------------------
+import gng.updaters.character_creator_updater as ccu
+import gng.updaters.manual_controls_updater as mcu
+# ----------------------------------------------------------------------
 import gng.listeners.character_creator_listener as ccl
 import gng.listeners.dialogue_listener as dl
-import gng.listeners.player_controls_event_handler_listener as pcehl
-
-import gng.updaters.character_creator_updater as ccu
+import gng.listeners.manual_controls_event_handler_listener as mcehl
 
 class Game(StateMachine):
     main_menu = State()
@@ -111,20 +112,26 @@ class Game(StateMachine):
 
     def on_enter_overworld(self, event, state):
         self.list_of_active_handlers.append(
-            self.player_controls_event_handler
+            self.manual_controls_event_handler
         )
         self.list_of_active_listeners.append(
-            self.player_controls_event_handler_listener
+            self.manual_controls_event_handler_listener
+        )
+        self.list_of_active_updaters.append(
+            self.manual_controls_updater
         )
 
     def on_exit_overworld(self, event, state):
         self.list_of_active_handlers.remove(
-            self.player_controls_event_handler
+            self.manual_controls_event_handler
         )
         self.list_of_active_listeners.remove(
-            self.player_controls_event_handler_listener
+            self.manual_controls_event_handler_listener
         )
-        self.player_controls.send("to_stationary")
+        self.list_of_active_updaters.remove(
+            self.manual_controls_updater
+        )
+        self.manual_controls.send("to_stationary")
 
     def on_enter_dialogue(self, event, state):
         self.list_of_active_handlers.append(
@@ -186,7 +193,7 @@ class Game(StateMachine):
         # Systems managers: --------------------------------------------
         self.debugging_flag = False
         self.dialogue_manager = dm.DialogueManager()
-        self.player_controls = pf.ManualControls(
+        self.manual_controls = mc.ManualControls(
             puppet=self.player,
             list_of_entities=self.list_of_entities,
             list_of_npcs=self.list_of_npcs,
@@ -225,8 +232,8 @@ class Game(StateMachine):
         )
         # TODO: Remove everything above this comment and below the 
         # previous. ----------------------------------------------------
-        self.player_controls_event_handler = pceh.PlayerControlsEventHandler(
-            self.player_controls, 
+        self.manual_controls_event_handler = mceh.ManualControlsEventHandler(
+            self.manual_controls, 
             self.list_of_npcs, 
             self.list_of_items_on_ground,
             self.dialogue_manager
@@ -250,14 +257,17 @@ class Game(StateMachine):
             self.dialogue_manager.spoken_queue,
             self.end_dialogue
         )
-        self.player_controls_event_handler_listener = pcehl.PlayerControlsEventHandlerListener(
-            self.player_controls_event_handler.spoken_queue,
+        self.manual_controls_event_handler_listener = mcehl.ManualControlsEventHandlerListener(
+            self.manual_controls_event_handler.spoken_queue,
             self.begin_dialogue
         )
         self.list_of_active_listeners = []
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
             self.character_creator
+        )
+        self.manual_controls_updater = mcu.ManualControlsUpdater(
+            self.manual_controls
         )
         self.list_of_active_updaters = []
         super().__init__()
@@ -274,7 +284,6 @@ class Game(StateMachine):
     def update(self):
         for updater in self.list_of_active_updaters:
             updater.update()
-        self.player_controls.update()
         match self.current_state:
             case self.overworld:
                 self.camera_target.x = self.player.x
@@ -308,22 +317,22 @@ class Game(StateMachine):
         # comment and the next one is temporary and will be deleted when
         # we implement sprites. ----------------------------------------
         arrow = "•"
-        match self.player_controls.current_direction_facing:
-            case self.player_controls.up:
+        match self.manual_controls.current_direction_facing:
+            case self.manual_controls.up:
                 arrow = "^"
-            case self.player_controls.down:
+            case self.manual_controls.down:
                 arrow = "v"
-            case self.player_controls.left:
+            case self.manual_controls.left:
                 arrow = "<"
-            case self.player_controls.right:
+            case self.manual_controls.right:
                 arrow = ">"
-            case self.player_controls.upleft:
+            case self.manual_controls.upleft:
                 arrow = "'\\"
-            case self.player_controls.upright:
+            case self.manual_controls.upright:
                 arrow = "/'"
-            case self.player_controls.downleft:
+            case self.manual_controls.downleft:
                 arrow = "./"
-            case self.player_controls.downright:
+            case self.manual_controls.downright:
                 arrow = "\\."
         coord_x, coord_y = cf.convert_world_to_camera_coordinates(
             self.camera_target, self.player

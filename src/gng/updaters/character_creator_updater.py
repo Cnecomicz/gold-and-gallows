@@ -1,5 +1,3 @@
-
-
 class CharacterCreatorUpdater:
     def __init__(self, character_creator):
         self.character_creator = character_creator
