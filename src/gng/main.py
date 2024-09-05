@@ -26,6 +26,7 @@ import gng.listeners.character_creator_listener as ccl
 import gng.listeners.current_dialogue_tree_listener as cdtl
 import gng.listeners.manual_controls_event_handler_listener as mcehl
 # ----------------------------------------------------------------------
+import gng.artists.character_creator_artist as cca
 import gng.artists.game_world_artist as gwa
 
 class Game(StateMachine):
@@ -102,6 +103,9 @@ class Game(StateMachine):
         self.list_of_active_listeners.append(
             self.character_creator_listener
         )
+        self.list_of_active_artists.append(
+            self.character_creator_artist
+        )
 
     def on_exit_character_creation(self, event, state):
         self.list_of_active_handlers.remove(
@@ -112,6 +116,9 @@ class Game(StateMachine):
         )
         self.list_of_active_listeners.remove(
             self.character_creator_listener
+        )
+        self.list_of_active_artists.remove(
+            self.character_creator_artist
         )
 
     def on_enter_overworld(self, event, state):
@@ -318,11 +325,14 @@ class Game(StateMachine):
         self.list_of_active_updaters = []
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
-            self.DISPLAY_SURF,
             self.list_of_entities, 
             self.list_of_collision_rects, 
             self.manual_controls,
             self.camera_target,
+            self.player
+        )
+        self.character_creator_artist = cca.CharacterCreatorArtist(
+            self.character_creator,
             self.player
         )
         self.list_of_active_artists = []
@@ -345,75 +355,17 @@ class Game(StateMachine):
         for listener in self.list_of_active_listeners:
             listener.listen()
 
-    # def draw_in_game_world(self):
-    #     for entity in self.list_of_entities:
-    #         if getattr(entity, "visible_on_world_map", False):
-    #             cf.draw_in_camera_coordinates(
-    #                 DISPLAY_SURF=self.DISPLAY_SURF,
-    #                 camera_target=self.camera_target,
-    #                 entity=entity,
-    #                 color=entity.color,
-    #             )
-    #     for block in self.list_of_collision_rects:
-    #         cf.draw_in_camera_coordinates(
-    #             DISPLAY_SURF=self.DISPLAY_SURF,
-    #             camera_target=self.camera_target,
-    #             entity=block,
-    #             color=gc.WHITE,
-    #         )
-    #     # Until we start drawing sprites, let's just draw an "arrow" to
-    #     # indicate the direction you are facing. Everything between this
-    #     # comment and the next one is temporary and will be deleted when
-    #     # we implement sprites. ----------------------------------------
-    #     arrow = "•"
-    #     match self.manual_controls.current_direction_facing:
-    #         case self.manual_controls.up:
-    #             arrow = "^"
-    #         case self.manual_controls.down:
-    #             arrow = "v"
-    #         case self.manual_controls.left:
-    #             arrow = "<"
-    #         case self.manual_controls.right:
-    #             arrow = ">"
-    #         case self.manual_controls.upleft:
-    #             arrow = "'\\"
-    #         case self.manual_controls.upright:
-    #             arrow = "/'"
-    #         case self.manual_controls.downleft:
-    #             arrow = "./"
-    #         case self.manual_controls.downright:
-    #             arrow = "\\."
-    #     coord_x, coord_y = cf.convert_world_to_camera_coordinates(
-    #         self.camera_target, self.player
-    #     )
-    #     th.make_text(
-    #         self.DISPLAY_SURF,
-    #         self.player.color,
-    #         coord_x,
-    #         coord_y,
-    #         self.player.width,
-    #         th.bdlr(arrow),
-    #     )
-    #     # --------------------------------------------------------------
-
     def draw(self):
         self.DISPLAY_SURF.fill(gc.BGCOLOR)
         for artist in self.list_of_active_artists:
-            artist.draw()
+            artist.draw(self.DISPLAY_SURF)
         match self.current_state:
-            # case self.overworld:
-            #     self.draw_in_game_world()
             case self.dialogue:
-                # self.draw_in_game_world()
                 self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-            # case self.turns:
-            #     self.draw_in_game_world()
-            case self.main_menu:
-                pass
             case self.character_sheet:
                 self.character_sheet_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-            case self.character_creation:
-                self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
+            # case self.character_creation:
+            #     self.character_creator.draw(DISPLAY_SURF=self.DISPLAY_SURF)
         if self.debugging_flag:
             th.make_text(
                 self.DISPLAY_SURF,
