@@ -28,21 +28,6 @@ class DialogueManager:
         self.hovered_index = 0
         self.hovered_response = th.TextBundle("")
 
-    def listener(self):
-        if self.conversation_partner is not None:
-            for speech in self.conversation_partner.dt.spoken_queue:
-                if speech == "Ending dialogue":
-                    self.spoken_queue.append("Ending dialogue")
-                    self.conversation_partner.dt.spoken_queue.remove(speech)
-                else:
-                    raise NotImplementedError(
-                        "You haven't yet written code for the listener to " \
-                        "respond to that speech."
-                    )
-
-    def update(self):
-        self.listener()
-
     def draw(self, DISPLAY_SURF):
         th.make_text(DISPLAY_SURF, gc.BGCOLOR, 400, 400, 800, self.current_dialogue)
         line = 0

@@ -1,6 +1,6 @@
 import gng.listeners.listener as l
 
-class DialogueListener(l.Listener):
+class CurrentDialogueTreeListener(l.Listener):
     def __init__(self, spoken_queue, end_dialogue):
         self.spoken_queue = spoken_queue
         self.end_dialogue = end_dialogue

@@ -21,7 +21,7 @@ import gng.updaters.character_creator_updater as ccu
 import gng.updaters.manual_controls_updater as mcu
 # ----------------------------------------------------------------------
 import gng.listeners.character_creator_listener as ccl
-import gng.listeners.dialogue_listener as dl
+import gng.listeners.current_dialogue_tree_listener as cdtl
 import gng.listeners.manual_controls_event_handler_listener as mcehl
 
 class Game(StateMachine):
@@ -137,8 +137,14 @@ class Game(StateMachine):
         self.list_of_active_handlers.append(
             self.dialogue_event_handler
         )
+        # Create the CDTL here, since it's new for every new 
+        # conversation partner.
+        self.current_dialogue_tree_listener = cdtl.CurrentDialogueTreeListener(
+            self.dialogue_manager.conversation_partner.dt.spoken_queue,
+            self.end_dialogue
+        )
         self.list_of_active_listeners.append(
-            self.dialogue_listener
+            self.current_dialogue_tree_listener
         )
 
     def on_exit_dialogue(self, event, state):
@@ -146,7 +152,7 @@ class Game(StateMachine):
             self.dialogue_event_handler
         )
         self.list_of_active_listeners.remove(
-            self.dialogue_listener
+            self.current_dialogue_tree_listener
         )
         self.dialogue_manager.leave_dialogue()
 
@@ -253,10 +259,6 @@ class Game(StateMachine):
             self.character_creator.spoken_queue,
             self.end_character_creation
         )
-        self.dialogue_listener = dl.DialogueListener(
-            self.dialogue_manager.spoken_queue,
-            self.end_dialogue
-        )
         self.manual_controls_event_handler_listener = mcehl.ManualControlsEventHandlerListener(
             self.manual_controls_event_handler.spoken_queue,
             self.begin_dialogue
@@ -289,8 +291,6 @@ class Game(StateMachine):
                 self.camera_target.x = self.player.x
                 self.camera_target.y = self.player.y
                 self.clock_manager.add_tick()
-            case self.dialogue:
-                self.dialogue_manager.update()
 
     def listen(self):
         for listener in self.list_of_active_listeners:
