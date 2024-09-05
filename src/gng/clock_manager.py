@@ -40,9 +40,6 @@ class ClockManager:
         # --------------------------------------------------------------
         # Clock starts January 1 at 00:00 midnight on year 0.
 
-    def add_tick(self):
-        self.ticks_passed += 1
-
     def add_seconds(self, number):
         self.ticks_passed += number*self.number_of_ticks_in_one_second
 

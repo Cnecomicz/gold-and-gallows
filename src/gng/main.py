@@ -17,7 +17,9 @@ import gng.event_handlers.character_creator_event_handler as cceh
 import gng.event_handlers.character_sheet_event_handler as cseh
 import gng.event_handlers.dialogue_event_handler as deh
 # ----------------------------------------------------------------------
+import gng.updaters.camera_targeting_updater as ctu
 import gng.updaters.character_creator_updater as ccu
+import gng.updaters.clock_updater as cu
 import gng.updaters.manual_controls_updater as mcu
 # ----------------------------------------------------------------------
 import gng.listeners.character_creator_listener as ccl
@@ -120,6 +122,12 @@ class Game(StateMachine):
         self.list_of_active_updaters.append(
             self.manual_controls_updater
         )
+        self.list_of_active_updaters.append(
+            self.clock_updater
+        )
+        self.list_of_active_updaters.append(
+            self.camera_targeting_updater
+        )
 
     def on_exit_overworld(self, event, state):
         self.list_of_active_handlers.remove(
@@ -129,7 +137,13 @@ class Game(StateMachine):
             self.manual_controls_event_handler_listener
         )
         self.list_of_active_updaters.remove(
-            self.manual_controls_updater
+            self.manual_controls_updater 
+        )
+        self.list_of_active_updaters.remove(
+            self.clock_updater
+        )
+        self.list_of_active_updaters.remove(
+            self.camera_targeting_updater
         )
         self.manual_controls.send("to_stationary")
 
@@ -149,7 +163,7 @@ class Game(StateMachine):
 
     def on_exit_dialogue(self, event, state):
         self.list_of_active_handlers.remove(
-            self.dialogue_event_handler
+            self.dialogue_event_handler,
         )
         self.list_of_active_listeners.remove(
             self.current_dialogue_tree_listener
@@ -271,6 +285,12 @@ class Game(StateMachine):
         self.manual_controls_updater = mcu.ManualControlsUpdater(
             self.manual_controls
         )
+        self.clock_updater = cu.ClockUpdater(
+            self.clock_manager
+        )
+        self.camera_targeting_updater = ctu.CameraTargetingUpdater(
+            self.camera_target, self.player
+        )
         self.list_of_active_updaters = []
         super().__init__()
 
@@ -286,11 +306,6 @@ class Game(StateMachine):
     def update(self):
         for updater in self.list_of_active_updaters:
             updater.update()
-        match self.current_state:
-            case self.overworld:
-                self.camera_target.x = self.player.x
-                self.camera_target.y = self.player.y
-                self.clock_manager.add_tick()
 
     def listen(self):
         for listener in self.list_of_active_listeners:

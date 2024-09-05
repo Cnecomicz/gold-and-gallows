@@ -9,8 +9,6 @@ def test_get_datetime_string_start_time():
 
 def test_get_datetime_string_adding_time():
     clock = ClockManager()
-    clock.add_tick() # Only one tick is not enough to affect the end 
-                     # result (unless your FPS is 1)
     clock.add_seconds(45)
     clock.add_minutes(100)
     clock.add_hours(48)
