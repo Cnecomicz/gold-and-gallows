@@ -2,10 +2,8 @@ import sys
 from statemachine import StateMachine, State
 import pygame
 # ----------------------------------------------------------------------
-import gng.camera_functions as cf
 import gng.entity_instances as ei
 import gng.global_constants as gc
-import gng.text_handling as th
 # ----------------------------------------------------------------------
 import gng.event_handlers.pygame_event_handler as peh
 import gng.event_handlers.manual_controls_event_handler as mceh
@@ -64,14 +62,18 @@ class Game():
         # Systems managers: --------------------------------------------
         self.dialogue_manager = dm.DialogueManager()
         self.manual_controls = mc.ManualControls(
-            puppet=self.player,
-            list_of_entities=self.list_of_entities,
-            list_of_npcs=self.list_of_npcs,
-            list_of_items_on_ground=self.list_of_items_on_ground,
-            list_of_collision_rects=self.list_of_collision_rects,
+            self.player,
+            self.list_of_entities,
+            self.list_of_npcs,
+            self.list_of_items_on_ground,
+            self.list_of_collision_rects,
         )
-        self.character_creator = cs.CharacterCreator(player=self.player)
-        self.character_sheet_manager = cs.CharacterSheetManager(player=self.player)
+        self.character_creator = cs.CharacterCreator(
+            self.player
+        )
+        self.character_sheet_manager = cs.CharacterSheetManager(
+            self.player
+        )
         self.clock_manager = cm.ClockManager()
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
@@ -91,7 +93,7 @@ class Game():
             self.list_of_npcs, 
             self.list_of_items_on_ground,
             self.dialogue_manager,
-            None
+            None # self.gameplay_state_machine_manager
         )
         self.character_creator_event_handler = cceh.CharacterCreatorEventHandler(
             self.character_creator
@@ -103,12 +105,12 @@ class Game():
             self.dialogue_manager
         )
         self.debugging_event_handler = dbeh.DebuggingEventHandler(
-            None
+            None # self.debugging_manager
         )
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
             self.character_creator,
-            None
+            None # self.gameplay_state_machine_manager
         )
         self.manual_controls_updater = mcu.ManualControlsUpdater(
             self.manual_controls
@@ -117,10 +119,11 @@ class Game():
             self.clock_manager
         )
         self.camera_targeting_updater = ctu.CameraTargetingUpdater(
-            self.camera_target, self.player
+            self.camera_target, 
+            self.player
         )
         self.debugging_updater = du.DebuggingUpdater(
-            None
+            None # self.debugging_manager
         )
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
@@ -135,7 +138,7 @@ class Game():
             self.player
         )
         self.debugging_artist = da.DebuggingArtist(
-            None, 
+            None, # self.debugging_manager
             self.clock_manager
         )
         self.dialogue_artist = dia.DialogueArtist(
@@ -167,8 +170,10 @@ class Game():
             self.character_sheet_artist
         )
         # Hodge-podge of things that need to go after creating GSMM ----
-        self.manual_controls_event_handler.gameplay_state_machine_manager = self.gameplay_state_machine_manager
-        self.character_creator_updater.gameplay_state_machine_manager = self.gameplay_state_machine_manager
+        self.manual_controls_event_handler.gameplay_state_machine_manager = \
+            self.gameplay_state_machine_manager
+        self.character_creator_updater.gameplay_state_machine_manager = \
+            self.gameplay_state_machine_manager
         self.guy1.dt = g1dt.Guy1DialogueTree(
             self.gameplay_state_machine_manager
         )
@@ -187,16 +192,19 @@ class Game():
 
     def handle_pygame_events(self):
         for pygame_event in pygame.event.get():
-            for handler in self.gameplay_state_machine_manager.list_of_active_handlers:
+            for handler in \
+            self.gameplay_state_machine_manager.list_of_active_handlers:
                 handler.handle_pygame_event(pygame_event)
 
     def update(self):
-        for updater in self.gameplay_state_machine_manager.list_of_active_updaters:
+        for updater in \
+        self.gameplay_state_machine_manager.list_of_active_updaters:
             updater.update()
 
     def draw(self):
         self.DISPLAY_SURF.fill(gc.BGCOLOR)
-        for artist in self.gameplay_state_machine_manager.list_of_active_artists: 
+        for artist in \
+        self.gameplay_state_machine_manager.list_of_active_artists: 
             artist.draw(self.DISPLAY_SURF)
         pygame.display.update()
 
