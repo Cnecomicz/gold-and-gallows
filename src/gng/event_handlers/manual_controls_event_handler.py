@@ -10,7 +10,7 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
         list_of_npcs, 
         list_of_items_on_ground,
         dialogue_manager,
-        gameplay_state_machine_manager
+        gameplay_state_machine_manager,
     ):
         self.manual_controls = manual_controls
         self.list_of_npcs = list_of_npcs

@@ -12,10 +12,12 @@ import gng.event_handlers.manual_controls_event_handler as mceh
 import gng.event_handlers.character_creator_event_handler as cceh
 import gng.event_handlers.character_sheet_event_handler as cseh
 import gng.event_handlers.dialogue_event_handler as deh
+import gng.event_handlers.debugging_event_handler as dbeh
 # ----------------------------------------------------------------------
 import gng.updaters.camera_targeting_updater as ctu
 import gng.updaters.character_creator_updater as ccu
 import gng.updaters.clock_updater as cu
+import gng.updaters.debugging_updater as du
 import gng.updaters.manual_controls_updater as mcu
 # ----------------------------------------------------------------------
 import gng.artists.character_creator_artist as cca
@@ -71,15 +73,6 @@ class Game():
         self.character_creator = cs.CharacterCreator(player=self.player)
         self.character_sheet_manager = cs.CharacterSheetManager(player=self.player)
         self.clock_manager = cm.ClockManager()
-        self.debugging_manager = dbm.DebuggingManager(
-            {
-                "FPS": self.FPS_CLOCK.get_fps(),
-                # "Current state name": self.current_state.name,
-                "Inventory": self.player.inventory,
-                "Character sheet current state": self.character_sheet_manager.current_state,
-                "Sword rect": self.sword.rect,
-            }
-        )
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
         self.system_event_handler.register_event_handler(
@@ -109,6 +102,9 @@ class Game():
         self.dialogue_event_handler = deh.DialogueEventHandler(
             self.dialogue_manager
         )
+        self.debugging_event_handler = dbeh.DebuggingEventHandler(
+            None
+        )
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
             self.character_creator,
@@ -123,6 +119,9 @@ class Game():
         self.camera_targeting_updater = ctu.CameraTargetingUpdater(
             self.camera_target, self.player
         )
+        self.debugging_updater = du.DebuggingUpdater(
+            None
+        )
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
             self.list_of_entities, 
@@ -136,7 +135,7 @@ class Game():
             self.player
         )
         self.debugging_artist = da.DebuggingArtist(
-            self.debugging_manager, 
+            None, 
             self.clock_manager
         )
         self.dialogue_artist = dia.DialogueArtist(
@@ -146,7 +145,7 @@ class Game():
             self.character_sheet_manager,
             self.player
         )
-        # --------------------------------------------------------------
+        # Gameplay state machine manager -------------------------------
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
             self.manual_controls,
             self.dialogue_manager,
@@ -155,21 +154,32 @@ class Game():
             self.character_creator_event_handler,
             self.character_sheet_event_handler,
             self.dialogue_event_handler,
+            self.debugging_event_handler,
             self.character_creator_updater,
             self.manual_controls_updater,
             self.clock_updater,
             self.camera_targeting_updater,
+            self.debugging_updater,
             self.game_world_artist,
             self.character_creator_artist,
             self.debugging_artist,
             self.dialogue_artist,
             self.character_sheet_artist
         )
+        # Hodge-podge of things that need to go after creating GSMM ----
         self.manual_controls_event_handler.gameplay_state_machine_manager = self.gameplay_state_machine_manager
         self.character_creator_updater.gameplay_state_machine_manager = self.gameplay_state_machine_manager
         self.guy1.dt = g1dt.Guy1DialogueTree(
             self.gameplay_state_machine_manager
         )
+        self.debugging_manager = dbm.DebuggingManager(
+            self.FPS_CLOCK, 
+            self.gameplay_state_machine_manager,
+            self.player,
+        )
+        self.debugging_event_handler.debugging_manager = self.debugging_manager
+        self.debugging_updater.debugging_manager = self.debugging_manager
+        self.debugging_artist.debugging_manager = self.debugging_manager
 
     def quit_game(self, pygame_event):
         pygame.quit()
@@ -188,28 +198,6 @@ class Game():
         self.DISPLAY_SURF.fill(gc.BGCOLOR)
         for artist in self.gameplay_state_machine_manager.list_of_active_artists: 
             artist.draw(self.DISPLAY_SURF)
-        # if self.debugging_flag:
-        #     th.make_text(
-        #         self.DISPLAY_SURF,
-        #         gc.BGCOLOR,
-        #         10,
-        #         10,
-        #         gc.WINDOW_WIDTH - 20,
-        #         th.bdlr(text="Debug menu: (toggle with `) \n"),
-        #         th.bdlr(
-        #             text=self.clock_manager.get_datetime_string() + " \n",
-        #             color=gc.GREEN,
-        #         ),
-        #         th.bdlr(
-        #             # Add more values here when you want to track them.
-        #             text=f"FPS = {self.FPS_CLOCK.get_fps()} \n "
-        #             f"{self.current_state.name = } \n "
-        #             f"{self.player.inventory = } \n "
-        #             f"{self.character_sheet_manager.current_state = } \n "
-        #             f"{self.sword.rect = } \n ",
-        #             color=gc.BLUE,
-        #         ),
-        #     )
         pygame.display.update()
 
     def run(self):

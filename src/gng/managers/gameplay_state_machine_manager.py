@@ -183,10 +183,12 @@ class GameplayStateMachineManager(StateMachine):
         character_creator_event_handler,
         character_sheet_event_handler,
         dialogue_event_handler,
+        debugging_event_handler,
         character_creator_updater,
         manual_controls_updater,
         clock_updater,
         camera_targeting_updater,
+        debugging_updater,
         game_world_artist,
         character_creator_artist,
         debugging_artist,
@@ -200,17 +202,19 @@ class GameplayStateMachineManager(StateMachine):
         self.character_creator_event_handler = character_creator_event_handler
         self.character_sheet_event_handler = character_sheet_event_handler
         self.dialogue_event_handler = dialogue_event_handler
+        self.debugging_event_handler = debugging_event_handler
         self.character_creator_updater = character_creator_updater
         self.manual_controls_updater = manual_controls_updater
         self.clock_updater = clock_updater
         self.camera_targeting_updater = camera_targeting_updater
+        self.debugging_updater = debugging_updater
         self.game_world_artist = game_world_artist
         self.character_creator_artist = character_creator_artist
         self.debugging_artist = debugging_artist
         self.dialogue_artist = dialogue_artist
         self.character_sheet_artist = character_sheet_artist
         # --------------------------------------------------------------
-        self.list_of_active_handlers = [self.system_event_handler,]
-        self.list_of_active_updaters = []
+        self.list_of_active_handlers = [self.system_event_handler,self.debugging_event_handler,]
+        self.list_of_active_updaters = [self.debugging_updater,]
         self.list_of_active_artists = [self.debugging_artist,]
         super().__init__()

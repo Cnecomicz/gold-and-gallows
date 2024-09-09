@@ -25,9 +25,3 @@ class DebuggingArtist:
                     color=gc.BLUE,
                 ),
             )
-
-            # f"FPS = {self.FPS_CLOCK.get_fps()} \n "
-            # f"{self.current_state.name = } \n "
-            # f"{self.player.inventory = } \n "
-            # f"{self.character_sheet_manager.current_state = } \n "
-            # f"{self.sword.rect = } \n ",

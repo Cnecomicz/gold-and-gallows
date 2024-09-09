@@ -32,6 +32,7 @@ DOWN = [K_s, K_DOWN]
 LEFT = [K_a, K_LEFT]
 RIGHT = [K_d, K_RIGHT]
 USE = [K_e, K_z]
+DEBUG = [K_BACKQUOTE,]
 
 AVERAGE_HP_PER_HD = 4.5
 
