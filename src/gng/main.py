@@ -19,6 +19,7 @@ import gng.updaters.clock_updater as cu
 import gng.updaters.manual_controls_updater as mcu
 # ----------------------------------------------------------------------
 import gng.artists.character_creator_artist as cca
+import gng.artists.character_sheet_artist as csa
 import gng.artists.debugging_artist as da
 import gng.artists.dialogue_artist as dia
 import gng.artists.game_world_artist as gwa
@@ -68,9 +69,7 @@ class Game():
             list_of_collision_rects=self.list_of_collision_rects,
         )
         self.character_creator = cs.CharacterCreator(player=self.player)
-        self.character_sheet_manager = cs.CharacterSheetManager(
-            player=self.player
-        )
+        self.character_sheet_manager = cs.CharacterSheetManager(player=self.player)
         self.clock_manager = cm.ClockManager()
         self.debugging_manager = dbm.DebuggingManager(
             {
@@ -143,6 +142,10 @@ class Game():
         self.dialogue_artist = dia.DialogueArtist(
             self.dialogue_manager
         )
+        self.character_sheet_artist = csa.CharacterSheetArtist(
+            self.character_sheet_manager,
+            self.player
+        )
         # --------------------------------------------------------------
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
             self.manual_controls,
@@ -159,7 +162,8 @@ class Game():
             self.game_world_artist,
             self.character_creator_artist,
             self.debugging_artist,
-            self.dialogue_artist
+            self.dialogue_artist,
+            self.character_sheet_artist
         )
         self.manual_controls_event_handler.gameplay_state_machine_manager = self.gameplay_state_machine_manager
         self.character_creator_updater.gameplay_state_machine_manager = self.gameplay_state_machine_manager
@@ -182,15 +186,8 @@ class Game():
 
     def draw(self):
         self.DISPLAY_SURF.fill(gc.BGCOLOR)
-        for artist in reversed(self.gameplay_state_machine_manager.list_of_active_artists): 
-            # TODO: this is reversed because we're handling debugging
-            # differently. Reconsider this!
+        for artist in self.gameplay_state_machine_manager.list_of_active_artists: 
             artist.draw(self.DISPLAY_SURF)
-        # match self.current_state:
-        #     case self.dialogue:
-        #         self.dialogue_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
-        #     case self.character_sheet:
-        #         self.character_sheet_manager.draw(DISPLAY_SURF=self.DISPLAY_SURF)
         # if self.debugging_flag:
         #     th.make_text(
         #         self.DISPLAY_SURF,

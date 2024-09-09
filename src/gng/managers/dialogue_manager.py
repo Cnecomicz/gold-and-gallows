@@ -5,7 +5,6 @@ import gng.text_handling as th
 class DialogueManager:
     def __init__(self):
         self.leave_dialogue()
-        self.spoken_queue = []
 
     def enter_dialogue_with(self, conversation_partner):
         self.conversation_partner = conversation_partner

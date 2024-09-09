@@ -17,7 +17,6 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
         self.list_of_items_on_ground = list_of_items_on_ground
         self.dialogue_manager = dialogue_manager
         self.gameplay_state_machine_manager = gameplay_state_machine_manager
-        self.spoken_queue = []
         super().__init__()
         for up_key in gc.UP:
             self.register_keydown_event_handler(
@@ -95,6 +94,9 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
             self.gameplay_state_machine_manager.send("begin_dialogue")
         elif entity in self.list_of_items_on_ground:
             self.manual_controls.pick_up(entity)
+        # TODO: DELETE BELOW, WAS FOR TESTING ONLY
+        # else:
+        #     self.gameplay_state_machine_manager.send("to_character_sheet")
 
 
 

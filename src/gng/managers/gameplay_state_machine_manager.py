@@ -149,10 +149,16 @@ class GameplayStateMachineManager(StateMachine):
         self.list_of_active_handlers.append(
             self.character_sheet_event_handler
         )
+        self.list_of_active_artists.append(
+            self.character_sheet_artist
+        )
 
     def on_exit_character_sheet(self, event, state):
         self.list_of_active_handlers.remove(
             self.character_sheet_event_handler
+        )
+        self.list_of_active_artists.remove(
+            self.character_sheet_artist
         )
         self.character_sheet_manager.send("reset")
 
@@ -185,6 +191,7 @@ class GameplayStateMachineManager(StateMachine):
         character_creator_artist,
         debugging_artist,
         dialogue_artist,
+        character_sheet_artist,
     ):
         self.manual_controls = manual_controls
         self.dialogue_manager = dialogue_manager
@@ -201,6 +208,7 @@ class GameplayStateMachineManager(StateMachine):
         self.character_creator_artist = character_creator_artist
         self.debugging_artist = debugging_artist
         self.dialogue_artist = dialogue_artist
+        self.character_sheet_artist = character_sheet_artist
         # --------------------------------------------------------------
         self.list_of_active_handlers = [self.system_event_handler,]
         self.list_of_active_updaters = []
