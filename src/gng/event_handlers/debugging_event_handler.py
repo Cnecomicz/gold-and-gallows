@@ -16,4 +16,5 @@ class DebuggingEventHandler(peh.PygameEventHandler):
             )
 
     def handle_keydown_debug(self, pygame_event):
-        self.debugging_manager.debugging_flag = not self.debugging_manager.debugging_flag
+        self.debugging_manager.debugging_flag = \
+            not self.debugging_manager.debugging_flag

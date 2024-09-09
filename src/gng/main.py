@@ -75,6 +75,7 @@ class Game():
             self.player
         )
         self.clock_manager = cm.ClockManager()
+        self.debugging_manager = dbm.DebuggingManager()
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
         self.system_event_handler.register_event_handler(
@@ -105,7 +106,7 @@ class Game():
             self.dialogue_manager
         )
         self.debugging_event_handler = dbeh.DebuggingEventHandler(
-            None # self.debugging_manager
+            self.debugging_manager
         )
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
@@ -123,7 +124,10 @@ class Game():
             self.player
         )
         self.debugging_updater = du.DebuggingUpdater(
-            None # self.debugging_manager
+            self.debugging_manager,
+            self.FPS_CLOCK, 
+            None, # self.gameplay_state_machine_manager
+            self.player,
         )
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
@@ -138,7 +142,7 @@ class Game():
             self.player
         )
         self.debugging_artist = da.DebuggingArtist(
-            None, # self.debugging_manager
+            self.debugging_manager,
             self.clock_manager
         )
         self.dialogue_artist = dia.DialogueArtist(
@@ -174,17 +178,11 @@ class Game():
             self.gameplay_state_machine_manager
         self.character_creator_updater.gameplay_state_machine_manager = \
             self.gameplay_state_machine_manager
+        self.debugging_updater.gameplay_state_machine_manager = \
+            self.gameplay_state_machine_manager
         self.guy1.dt = g1dt.Guy1DialogueTree(
             self.gameplay_state_machine_manager
         )
-        self.debugging_manager = dbm.DebuggingManager(
-            self.FPS_CLOCK, 
-            self.gameplay_state_machine_manager,
-            self.player,
-        )
-        self.debugging_event_handler.debugging_manager = self.debugging_manager
-        self.debugging_updater.debugging_manager = self.debugging_manager
-        self.debugging_artist.debugging_manager = self.debugging_manager
 
     def quit_game(self, pygame_event):
         pygame.quit()
