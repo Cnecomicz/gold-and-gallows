@@ -3,7 +3,7 @@ import pytest
 
 import gng.dice_roller as dr
 import gng.global_constants as gc
-import gng.DialogueTrees.guy1_dialogue_tree
+import gng.dialogue_trees.guy1_dialogue_tree
 
 from tests.create_test_methods import (
     create_test_player,
@@ -116,8 +116,9 @@ def test_you_cannot_create_equippable_items_without_assigning_a_slot():
 def test_you_should_not_give_dialogue_trees_to_noninteractable_entities():
     ghost = Entity()
     give_world_map_component(ghost, 0, 0, 0, 0, gc.WHITE, interactable=False)
+    fake_gsmm = flexmock()
     with pytest.raises(UnreachableDialogue):
-        give_dialogue_component(ghost, gng.DialogueTrees.guy1_dialogue_tree.guy1dt)
+        give_dialogue_component(ghost, gng.dialogue_trees.guy1_dialogue_tree.Guy1DialogueTree(fake_gsmm))
 
 def test_NoSuchHD():
     with pytest.raises(NoSuchHD):

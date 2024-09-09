@@ -1,6 +1,5 @@
 import gng.entities_and_components as ec
 import gng.global_constants as gc
-from gng.DialogueTrees.guy1_dialogue_tree import *
 
 
 list_of_collision_rects = [
@@ -82,7 +81,6 @@ guy1 = ec.Entity(
     width=30,
     height=30,
     color=gc.GREEN,
-    dt=guy1dt,
     visible_on_world_map=True,
     interactable=True,
 )

@@ -543,9 +543,6 @@ class CharacterSheetManager(StateMachine):
                     5,
                 )
 
-    def update(self):
-        pass
-
     def draw(self, DISPLAY_SURF):
         self.draw_controls(DISPLAY_SURF)
         match self.current_state:

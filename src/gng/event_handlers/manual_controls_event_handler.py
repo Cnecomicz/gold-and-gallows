@@ -10,11 +10,13 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
         list_of_npcs, 
         list_of_items_on_ground,
         dialogue_manager,
+        gameplay_state_machine_manager
     ):
         self.manual_controls = manual_controls
         self.list_of_npcs = list_of_npcs
         self.list_of_items_on_ground = list_of_items_on_ground
         self.dialogue_manager = dialogue_manager
+        self.gameplay_state_machine_manager = gameplay_state_machine_manager
         self.spoken_queue = []
         super().__init__()
         for up_key in gc.UP:
@@ -90,7 +92,7 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
         entity = self.manual_controls.get_entity_facing()
         if entity in self.list_of_npcs:
             self.dialogue_manager.enter_dialogue_with(entity)
-            self.spoken_queue.append("Go to dialogue state")
+            self.gameplay_state_machine_manager.send("begin_dialogue")
         elif entity in self.list_of_items_on_ground:
             self.manual_controls.pick_up(entity)
 

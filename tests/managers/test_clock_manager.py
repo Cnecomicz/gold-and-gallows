@@ -1,7 +1,7 @@
 from flexmock import flexmock
 import pytest
 
-from gng.clock_manager import ClockManager
+from gng.managers.clock_manager import ClockManager
 
 def test_get_datetime_string_start_time():
     clock = ClockManager()

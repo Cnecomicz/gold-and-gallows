@@ -1,4 +1,3 @@
-
 import gng.global_constants as gc
 import gng.text_handling as th
 

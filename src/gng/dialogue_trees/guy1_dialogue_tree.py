@@ -39,15 +39,12 @@ class Guy1DialogueTree(StateMachine):
         self.current_responses = {}
 
     def on_to1(self, event, state):
-        self.spoken_queue.append("Ending dialogue")
+        self.gameplay_state_machine_manager.send("end_dialogue")
         self.maybe_flag = not self.maybe_flag
 
-    def __init__(self):
+    def __init__(self, gameplay_state_machine_manager):
+        self.gameplay_state_machine_manager = gameplay_state_machine_manager
         self.current_dialogue = bdlr("")
         self.current_responses = {}  # Text : Transition
         self.maybe_flag = False
-        self.spoken_queue = []
         super().__init__()
-
-
-guy1dt = Guy1DialogueTree()
