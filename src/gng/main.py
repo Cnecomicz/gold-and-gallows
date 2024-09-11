@@ -103,7 +103,8 @@ class Game():
             self.character_sheet_manager
         )
         self.dialogue_event_handler = deh.DialogueEventHandler(
-            self.dialogue_manager
+            self.dialogue_manager,
+            self.clock_manager
         )
         self.debugging_event_handler = dbeh.DebuggingEventHandler(
             self.debugging_manager

@@ -4,8 +4,9 @@ import gng.global_constants as gc
 import gng.event_handlers.pygame_event_handler as peh
 
 class DialogueEventHandler(peh.PygameEventHandler):
-    def __init__(self, dialogue_manager):
+    def __init__(self, dialogue_manager, clock_manager):
         self.dialogue_manager = dialogue_manager
+        self.clock_manager = clock_manager
         super().__init__()
         for up_key in gc.UP:
             self.register_keydown_event_handler(
@@ -44,4 +45,5 @@ class DialogueEventHandler(peh.PygameEventHandler):
                 self.dialogue_manager.hovered_response
             ]
         )
+        self.clock_manager.add_seconds(6)
         self.dialogue_manager.refresh_dialogue()

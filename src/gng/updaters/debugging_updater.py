@@ -6,8 +6,8 @@ class DebuggingUpdater:
         gameplay_state_machine_manager,
         player
     ):
-        # The inputs of the DebuggingUpdater will change as our needs to
-        # track various values change.
+        # The inputs of the DebuggingUpdater will change as our need to
+        # track various values changes.
         self.debugging_manager = debugging_manager
         self.FPS_CLOCK = FPS_CLOCK
         self.gameplay_state_machine_manager = gameplay_state_machine_manager
