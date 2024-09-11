@@ -210,6 +210,8 @@ class CharacterSheetManager(StateMachine):
     co_portrait = State()
     co_spells = State()
     co_abilities = State()
+    co_quit = State()
+    co_log = State()
 
     # "is_" stands for "in_submenu_"
     is_stats_HP_AC_and_AV = State()
@@ -218,21 +220,26 @@ class CharacterSheetManager(StateMachine):
     is_portrait = State()
     is_spells = State()
     is_abilities = State()
+    is_quit = State()
+    is_log = State()
 
     # LAYOUT: (not to scale)
     # Arrows indicate transitions when in "co_" states.
-    #  ___________   ________________
-    # | Equipment |→| Spells         |
-    # |___________|←|________________|
-    #  ____↑_↓____   ______↑_↓_______
-    # | Abilities |→| Portrait       |
-    # |           |←|________________|
-    # |           |  ______↑_↓_______
-    # |           | | Class & level  |
-    # |           |←|________________|
-    # |           |  ______↑_↓_______
-    # |           | | Stats/HP/AC/AV |
-    # |___________|←|________________|
+    #  ______________   ________________
+    # | Equipment    |→| Spells         |
+    # |______________|←|________________|
+    #  ____↑_↓_______   ______↑_↓_______
+    # | Abilities    |→| Portrait       |
+    # |              |←|________________|
+    # |              |  ______↑_↓_______
+    # |              | | Class & level  |
+    # |              |←|________________|
+    # |              |  ______↑_↓_______
+    # |              | | Stats/HP/AC/AV |
+    # |______________|←|________________|
+    #  __↑_↓_   _↑___
+    # | Quit |→| Log |
+    # |______|←|_____|
 
     cursor_up = (
         co_stats_HP_AC_and_AV.to(co_class_and_level)
@@ -241,6 +248,8 @@ class CharacterSheetManager(StateMachine):
         | co_portrait.to(co_spells)
         | co_spells.to(co_spells)
         | co_abilities.to(co_equipment)
+        | co_quit.to(co_abilities)
+        | co_log.to(co_abilities)
     )
     cursor_down = (
         co_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV)
@@ -248,7 +257,9 @@ class CharacterSheetManager(StateMachine):
         | co_equipment.to(co_abilities)
         | co_portrait.to(co_class_and_level)
         | co_spells.to(co_portrait)
-        | co_abilities.to(co_abilities)
+        | co_abilities.to(co_quit)
+        | co_quit.to(co_quit)
+        | co_log.to(co_log)
     )
     cursor_left = (
         co_stats_HP_AC_and_AV.to(co_abilities)
@@ -257,6 +268,8 @@ class CharacterSheetManager(StateMachine):
         | co_portrait.to(co_abilities)
         | co_spells.to(co_equipment)
         | co_abilities.to(co_abilities)
+        | co_quit.to(co_quit)
+        | co_log.to(co_quit)
     )
     cursor_right = (
         co_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV)
@@ -265,6 +278,8 @@ class CharacterSheetManager(StateMachine):
         | co_portrait.to(co_portrait)
         | co_spells.to(co_spells)
         | co_abilities.to(co_portrait)
+        | co_quit.to(co_log)
+        | co_log.to(co_log)
     )
     into_submenu = (
         co_stats_HP_AC_and_AV.to(is_stats_HP_AC_and_AV)
@@ -273,6 +288,8 @@ class CharacterSheetManager(StateMachine):
         | co_portrait.to(is_portrait)
         | co_spells.to(is_spells)
         | co_abilities.to(is_abilities)
+        | co_quit.to(is_quit)
+        | co_log.to(is_log)
     )
     out_of_submenu = (
         is_stats_HP_AC_and_AV.to(co_stats_HP_AC_and_AV)
@@ -281,6 +298,8 @@ class CharacterSheetManager(StateMachine):
         | is_portrait.to(co_portrait)
         | is_spells.to(co_spells)
         | is_abilities.to(co_abilities)
+        | is_quit.to(co_quit)
+        | is_log.to(co_log)
     )
     reset = (
         co_stats_HP_AC_and_AV.to(co_equipment)
@@ -289,12 +308,16 @@ class CharacterSheetManager(StateMachine):
         | co_portrait.to(co_equipment)
         | co_spells.to(co_equipment)
         | co_abilities.to(co_equipment)
+        | co_quit.to(co_equipment)
+        | co_log.to(co_equipment)
         | is_stats_HP_AC_and_AV.to(co_equipment)
         | is_class_and_level.to(co_equipment)
         | is_equipment.to(co_equipment)
         | is_portrait.to(co_equipment)
         | is_spells.to(co_equipment)
         | is_abilities.to(co_equipment)
+        | is_quit.to(co_equipment)
+        | is_log.to(co_equipment)
     )
 
     def on_enter_is_equipment(self, event, state):

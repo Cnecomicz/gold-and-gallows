@@ -81,14 +81,6 @@ class Game():
         self.system_event_handler.register_event_handler(
             pygame.QUIT, self.quit_game
         )
-        # TODO: Remove everything below this comment and above the next. 
-        # The Escape key should eventually be replaced with pause 
-        # functionality. -----------------------------------------------
-        self.system_event_handler.register_keydown_event_handler(
-            pygame.K_ESCAPE, self.quit_game
-        )
-        # TODO: Remove everything above this comment and below the 
-        # previous. ----------------------------------------------------
         self.manual_controls_event_handler = mceh.ManualControlsEventHandler(
             self.manual_controls, 
             self.list_of_npcs, 
@@ -100,7 +92,8 @@ class Game():
             self.character_creator
         )
         self.character_sheet_event_handler = cseh.CharacterSheetEventHandler(
-            self.character_sheet_manager
+            self.character_sheet_manager,
+            None # self.gameplay_state_machine_manager
         )
         self.dialogue_event_handler = deh.DialogueEventHandler(
             self.dialogue_manager,
@@ -157,6 +150,7 @@ class Game():
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
             self.manual_controls,
             self.dialogue_manager,
+            self.character_sheet_manager,
             self.system_event_handler,
             self.manual_controls_event_handler,
             self.character_creator_event_handler,
@@ -176,6 +170,8 @@ class Game():
         )
         # Hodge-podge of things that need to go after creating GSMM ----
         self.manual_controls_event_handler.gameplay_state_machine_manager = \
+            self.gameplay_state_machine_manager
+        self.character_sheet_event_handler.gameplay_state_machine_manager = \
             self.gameplay_state_machine_manager
         self.character_creator_updater.gameplay_state_machine_manager = \
             self.gameplay_state_machine_manager

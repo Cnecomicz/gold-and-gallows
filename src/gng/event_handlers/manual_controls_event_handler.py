@@ -50,6 +50,10 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
             self.register_keydown_event_handler(
                 use_key, self.handle_keydown_use
             )
+        for pause_key in gc.PAUSE:
+            self.register_keydown_event_handler(
+                pause_key, self.handle_keydown_pause
+            )
 
     def handle_keydown_up(self, pygame_event):
         self.manual_controls.send("press_up")
@@ -94,9 +98,10 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
             self.gameplay_state_machine_manager.send("begin_dialogue")
         elif entity in self.list_of_items_on_ground:
             self.manual_controls.pick_up(entity)
-        # TODO: DELETE BELOW, WAS FOR TESTING ONLY
-        # else:
-        #     self.gameplay_state_machine_manager.send("to_character_sheet")
+
+    def handle_keydown_pause(self, pygame_event):
+        self.gameplay_state_machine_manager.send("pause")
+
 
 
 

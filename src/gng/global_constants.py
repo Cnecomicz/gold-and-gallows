@@ -1,5 +1,4 @@
 import json, pygame
-from pygame.locals import *
 
 pygame.init() 
 # TODO: move pygame.init() to main. Reason for delay: without 
@@ -27,12 +26,14 @@ WHITE = (255, 255, 255)
 BGCOLOR = BLACK
 TEXT_COLOR = WHITE
 
-UP = [K_w, K_UP]
-DOWN = [K_s, K_DOWN]
-LEFT = [K_a, K_LEFT]
-RIGHT = [K_d, K_RIGHT]
-USE = [K_e, K_z]
-DEBUG = [K_BACKQUOTE,]
+UP = [pygame.K_w, pygame.K_UP,]
+DOWN = [pygame.K_s, pygame.K_DOWN,]
+LEFT = [pygame.K_a, pygame.K_LEFT,]
+RIGHT = [pygame.K_d, pygame.K_RIGHT,]
+USE = [pygame.K_e, pygame.K_z,]
+DEBUG = [pygame.K_BACKQUOTE,]
+PAUSE = [pygame.K_ESCAPE,]
+
 
 AVERAGE_HP_PER_HD = 4.5
 

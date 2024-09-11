@@ -64,6 +64,7 @@ class GameplayStateMachineManager(StateMachine):
     begin_dialogue = overworld.to(dialogue)
     end_dialogue = dialogue.to(overworld)
     end_character_creation = character_creation.to(overworld)
+    pause = overworld.to(character_sheet) | character_sheet.to(overworld)
 
     def on_enter_character_creation(self, event, state):
         self.list_of_active_handlers.append(
@@ -178,6 +179,7 @@ class GameplayStateMachineManager(StateMachine):
         self,
         manual_controls,
         dialogue_manager,
+        character_sheet_manager,
         system_event_handler,
         manual_controls_event_handler,
         character_creator_event_handler,
@@ -197,6 +199,7 @@ class GameplayStateMachineManager(StateMachine):
     ):
         self.manual_controls = manual_controls
         self.dialogue_manager = dialogue_manager
+        self.character_sheet_manager = character_sheet_manager
         self.system_event_handler = system_event_handler
         self.manual_controls_event_handler = manual_controls_event_handler
         self.character_creator_event_handler = character_creator_event_handler
