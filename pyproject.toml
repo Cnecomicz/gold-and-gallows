@@ -22,6 +22,7 @@ dependencies = [
   "pytest-cov",
   "python-statemachine",
   "black",
+  "sphinx", # TODO: REMOVE DEV DEPENDENCIES
 ]
 
 [template.plugins.default]

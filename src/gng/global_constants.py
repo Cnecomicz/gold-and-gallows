@@ -13,8 +13,8 @@ WINDOW_HEIGHT = 720
 # TODO: Add global data paths 
 FONT_SIZE = 20
 BASIC_FONT = pygame.font.Font("freesansbold.ttf", FONT_SIZE)
-ALCH_FONT = pygame.font.Font("Fonts/1651_Alchemy.ttf", FONT_SIZE)
-BB_FONT = pygame.font.Font("Fonts/BlackBeard_Regular.otf", FONT_SIZE)
+ALCH_FONT = pygame.font.Font("./Fonts/1651_Alchemy.ttf", FONT_SIZE)
+BB_FONT = pygame.font.Font("./Fonts/BlackBeard_Regular.otf", FONT_SIZE)
 
 
 BLACK = (0, 0, 0)
