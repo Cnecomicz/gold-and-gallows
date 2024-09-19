@@ -1,4 +1,4 @@
-src.gng.updaters.debugging\_updater
+﻿src.gng.updaters.debugging\_updater
 ===================================
 
 .. automodule:: src.gng.updaters.debugging_updater

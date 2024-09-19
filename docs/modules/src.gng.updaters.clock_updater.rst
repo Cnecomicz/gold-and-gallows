@@ -1,4 +1,4 @@
-src.gng.updaters.clock\_updater
+﻿src.gng.updaters.clock\_updater
 ===============================
 
 .. automodule:: src.gng.updaters.clock_updater

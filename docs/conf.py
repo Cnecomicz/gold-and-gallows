@@ -29,7 +29,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'classic'
 html_theme_options = {
-    "sidebarwidth": "35em",
+    "sidebarwidth": "30em",
 }
 html_static_path = ['_static']
 

@@ -1,4 +1,4 @@
-src.gng.text\_handling
+﻿src.gng.text\_handling
 ======================
 
 .. automodule:: src.gng.text_handling

@@ -1,4 +1,4 @@
-src.gng.dice\_roller
+﻿src.gng.dice\_roller
 ====================
 
 .. automodule:: src.gng.dice_roller

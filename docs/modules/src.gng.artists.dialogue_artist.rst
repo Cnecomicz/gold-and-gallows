@@ -1,4 +1,4 @@
-src.gng.artists.dialogue\_artist
+﻿src.gng.artists.dialogue\_artist
 ================================
 
 .. automodule:: src.gng.artists.dialogue_artist

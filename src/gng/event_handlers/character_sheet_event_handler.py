@@ -44,7 +44,9 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             self.character_sheet_manager.co_equipment,
             self.character_sheet_manager.co_portrait,
             self.character_sheet_manager.co_spells,
-            self.character_sheet_manager.co_stats_HP_AC_and_AV
+            self.character_sheet_manager.co_stats_HP_AC_and_AV,
+            self.character_sheet_manager.co_quit,
+            self.character_sheet_manager.co_log,
         }:
             self.character_sheet_manager.send("cursor_up")
         elif self.character_sheet_manager.current_state == \
@@ -60,7 +62,9 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             self.character_sheet_manager.co_equipment,
             self.character_sheet_manager.co_portrait,
             self.character_sheet_manager.co_spells,
-            self.character_sheet_manager.co_stats_HP_AC_and_AV
+            self.character_sheet_manager.co_stats_HP_AC_and_AV,
+            self.character_sheet_manager.co_quit,
+            self.character_sheet_manager.co_log,
         }:
             self.character_sheet_manager.send("cursor_down")
         elif self.character_sheet_manager.current_state == \
@@ -76,7 +80,9 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             self.character_sheet_manager.co_equipment,
             self.character_sheet_manager.co_portrait,
             self.character_sheet_manager.co_spells,
-            self.character_sheet_manager.co_stats_HP_AC_and_AV
+            self.character_sheet_manager.co_stats_HP_AC_and_AV,
+            self.character_sheet_manager.co_quit,
+            self.character_sheet_manager.co_log,
         }:
             self.character_sheet_manager.send("cursor_left")
 
@@ -87,7 +93,9 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             self.character_sheet_manager.co_equipment,
             self.character_sheet_manager.co_portrait,
             self.character_sheet_manager.co_spells,
-            self.character_sheet_manager.co_stats_HP_AC_and_AV
+            self.character_sheet_manager.co_stats_HP_AC_and_AV,
+            self.character_sheet_manager.co_quit,
+            self.character_sheet_manager.co_log,
         }:
             self.character_sheet_manager.send("cursor_right")
 
@@ -98,7 +106,9 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             self.character_sheet_manager.co_equipment,
             self.character_sheet_manager.co_portrait,
             self.character_sheet_manager.co_spells,
-            self.character_sheet_manager.co_stats_HP_AC_and_AV
+            self.character_sheet_manager.co_stats_HP_AC_and_AV,
+            self.character_sheet_manager.co_quit,
+            self.character_sheet_manager.co_log,
         }:
             self.character_sheet_manager.send("into_submenu")
 

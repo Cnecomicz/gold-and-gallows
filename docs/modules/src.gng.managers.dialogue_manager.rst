@@ -1,4 +1,4 @@
-src.gng.managers.dialogue\_manager
+﻿src.gng.managers.dialogue\_manager
 ==================================
 
 .. automodule:: src.gng.managers.dialogue_manager

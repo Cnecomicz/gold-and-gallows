@@ -1,4 +1,4 @@
-src.gng.managers.clock\_manager
+﻿src.gng.managers.clock\_manager
 ===============================
 
 .. automodule:: src.gng.managers.clock_manager

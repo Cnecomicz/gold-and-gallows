@@ -1,4 +1,4 @@
-src.gng.event\_handlers.character\_creator\_event\_handler
+﻿src.gng.event\_handlers.character\_creator\_event\_handler
 ==========================================================
 
 .. automodule:: src.gng.event_handlers.character_creator_event_handler

@@ -16,11 +16,11 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+  "python-statemachine",
   "flexmock",
   "pylint",
   "pytest",
   "pytest-cov",
-  "python-statemachine",
   "black",
   "sphinx", # TODO: REMOVE DEV DEPENDENCIES
 ]

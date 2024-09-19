@@ -1,4 +1,4 @@
-src.gng.managers.debugging\_manager
+﻿src.gng.managers.debugging\_manager
 ===================================
 
 .. automodule:: src.gng.managers.debugging_manager

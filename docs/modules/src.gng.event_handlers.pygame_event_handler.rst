@@ -1,4 +1,4 @@
-src.gng.event\_handlers.pygame\_event\_handler
+﻿src.gng.event\_handlers.pygame\_event\_handler
 ==============================================
 
 .. automodule:: src.gng.event_handlers.pygame_event_handler

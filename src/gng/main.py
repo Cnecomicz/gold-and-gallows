@@ -122,6 +122,7 @@ class Game():
             self.FPS_CLOCK, 
             None, # self.gameplay_state_machine_manager
             self.player,
+            self.character_sheet_manager
         )
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
