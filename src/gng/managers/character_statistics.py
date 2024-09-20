@@ -224,7 +224,18 @@ class CharacterSheetManager(StateMachine):
         | quit_submenu.to(home)
     )
 
-    
+    # TEMPORARY:
+    to_equipment = home.to(equipment_submenu)
+    to_spells = home.to(spells_submenu)
+    to_abilities = home.to(abilities_submenu)
+    to_portrait = home.to(portrait_submenu)
+    to_class = home.to(class_and_level_submenu)
+    to_stats = home.to(stats_HP_AC_and_AV_submenu)
+    to_log = home.to(log_submenu)
+    to_quit = home.to(quit_submenu)
+
+    def on_enter_home(self, event, state):
+        self.number_of_options = 8 # The number of submenus
 
 
     def on_enter_equipment_submenu(self, event, state):
@@ -240,8 +251,17 @@ class CharacterSheetManager(StateMachine):
 
     # ------------------------------------------------------------------
 
-    def __init__(self, player):
+    def __init__(
+            self, 
+            player,
+            list_of_active_handlers,
+            list_of_active_updaters,
+            list_of_active_artists
+        ):
         self.player = player
+        self.list_of_active_handlers = list_of_active_handlers
+        self.list_of_active_updaters = list_of_active_updaters
+        self.list_of_active_artists = list_of_active_artists
         self.cursor_index = 0
         self.number_of_options = 0
         super().__init__()

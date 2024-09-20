@@ -67,116 +67,101 @@ class GameplayStateMachineManager(StateMachine):
     pause = overworld.to(character_sheet) | character_sheet.to(overworld)
 
     def on_enter_character_creation(self, event, state):
-        self.list_of_active_handlers.append(
+        self.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
             self.character_creator_event_handler
-        )
-        self.list_of_active_updaters.append(
+        ]
+        self.list_of_active_updaters = [
+            self.debugging_updater,
             self.character_creator_updater
-        )
-        self.list_of_active_artists.append(
+        ]
+        self.list_of_active_artists = [
+            self.debugging_artist,
             self.character_creator_artist
-        )
+        ]
 
     def on_exit_character_creation(self, event, state):
-        self.list_of_active_handlers.remove(
-            self.character_creator_event_handler
-        )
-        self.list_of_active_updaters.remove(
-            self.character_creator_updater
-        )
-        self.list_of_active_artists.remove(
-            self.character_creator_artist
-        )
+        pass
 
     def on_enter_overworld(self, event, state):
-        self.list_of_active_handlers.append(
+        self.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
             self.manual_controls_event_handler
-        )
-        self.list_of_active_updaters.append(
-            self.manual_controls_updater
-        )
-        self.list_of_active_updaters.append(
-            self.clock_updater
-        )
-        self.list_of_active_updaters.append(
+        ]
+        self.list_of_active_updaters = [
+            self.debugging_updater,
+            self.manual_controls_updater,
+            self.clock_updater,
             self.camera_targeting_updater
-        )
-        self.list_of_active_artists.append(
+        ]
+        self.list_of_active_artists = [
+            self.debugging_artist,
             self.game_world_artist
-        )
+        ]
 
     def on_exit_overworld(self, event, state):
-        self.list_of_active_handlers.remove(
-            self.manual_controls_event_handler
-        )
-        self.list_of_active_updaters.remove(
-            self.manual_controls_updater 
-        )
-        self.list_of_active_updaters.remove(
-            self.clock_updater
-        )
-        self.list_of_active_updaters.remove(
-            self.camera_targeting_updater
-        )
-        self.list_of_active_artists.remove(
-            self.game_world_artist
-        )
         self.manual_controls.send("to_stationary")
 
     def on_enter_dialogue(self, event, state):
-        self.list_of_active_handlers.append(
+        self.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
             self.dialogue_event_handler
-        )
-        self.list_of_active_artists.append(
-            self.game_world_artist
-        )
-        self.list_of_active_artists.append(
+        ]
+        self.list_of_active_updaters = [
+            self.debugging_updater
+        ]
+        self.list_of_active_artists = [
+            self.debugging_artist,
+            self.game_world_artist,
             self.dialogue_artist
-        )
+        ]
 
     def on_exit_dialogue(self, event, state):
-        self.list_of_active_handlers.remove(
-            self.dialogue_event_handler,
-        )
-        self.list_of_active_artists.remove(
-            self.game_world_artist
-        )
-        self.list_of_active_artists.remove(
-            self.dialogue_artist
-        )
         self.dialogue_manager.leave_dialogue()
 
     def on_enter_character_sheet(self, event, state):
-        self.list_of_active_handlers.append(
+        self.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
             self.character_sheet_event_handler
-        )
-        self.list_of_active_artists.append(
+        ]
+        self.list_of_active_updaters = [
+            self.debugging_updater
+        ]
+        self.list_of_active_artists = [
+            self.debugging_artist,
             self.character_sheet_artist
-        )
+        ]
 
     def on_exit_character_sheet(self, event, state):
-        self.list_of_active_handlers.remove(
-            self.character_sheet_event_handler
-        )
-        self.list_of_active_artists.remove(
-            self.character_sheet_artist
-        )
         self.character_sheet_manager.send("reset")
 
     def on_enter_turns(self, event, state):
-        self.list_of_active_artists.append(
+        self.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler
+        ]
+        self.list_of_active_updaters = [
+            self.debugging_updater
+        ]
+        self.list_of_active_artists = [
+            self.debugging_artist,
             self.game_world_artist
-        )
+        ]
 
     def on_exit_turns(self, event, state):
-        self.list_of_active_artists.remove(
-            self.game_world_artist
-        )
+        pass
 
     # ------------------------------------------------------------------
 
     def __init__(
         self,
+        list_of_active_handlers,
+        list_of_active_updaters,
+        list_of_active_artists,
         manual_controls,
         dialogue_manager,
         character_sheet_manager,
@@ -197,6 +182,9 @@ class GameplayStateMachineManager(StateMachine):
         dialogue_artist,
         character_sheet_artist,
     ):
+        self.list_of_active_handlers = list_of_active_handlers
+        self.list_of_active_updaters = list_of_active_updaters
+        self.list_of_active_artists = list_of_active_artists
         self.manual_controls = manual_controls
         self.dialogue_manager = dialogue_manager
         self.character_sheet_manager = character_sheet_manager
@@ -216,8 +204,4 @@ class GameplayStateMachineManager(StateMachine):
         self.debugging_artist = debugging_artist
         self.dialogue_artist = dialogue_artist
         self.character_sheet_artist = character_sheet_artist
-        # --------------------------------------------------------------
-        self.list_of_active_handlers = [self.system_event_handler,self.debugging_event_handler,]
-        self.list_of_active_updaters = [self.debugging_updater,]
-        self.list_of_active_artists = [self.debugging_artist,]
         super().__init__()

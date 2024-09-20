@@ -72,7 +72,10 @@ class Game():
             self.player
         )
         self.character_sheet_manager = cs.CharacterSheetManager(
-            self.player
+            self.player,
+            None, # self.list_of_active_handlers
+            None, # self.list_of_active_updaters
+            None # self.list_of_active_artists
         )
         self.clock_manager = cm.ClockManager()
         self.debugging_manager = dbm.DebuggingManager()
@@ -102,6 +105,7 @@ class Game():
         self.debugging_event_handler = dbeh.DebuggingEventHandler(
             self.debugging_manager
         )
+        self.list_of_active_handlers = []
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
             self.character_creator,
@@ -124,6 +128,7 @@ class Game():
             self.player,
             self.character_sheet_manager
         )
+        self.list_of_active_updaters = []
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
             self.list_of_entities, 
@@ -147,8 +152,19 @@ class Game():
             self.character_sheet_manager,
             self.player
         )
+        self.list_of_active_artists = []
+        # --------------------------------------------------------------
+        self.character_sheet_manager.list_of_active_handlers = \
+            self.list_of_active_handlers
+        self.character_sheet_manager.list_of_active_updaters = \
+            self.list_of_active_updaters
+        self.character_sheet_manager.list_of_active_artists = \
+            self.list_of_active_artists
         # Gameplay state machine manager -------------------------------
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
+            self.list_of_active_handlers,
+            self.list_of_active_updaters,
+            self.list_of_active_artists,
             self.manual_controls,
             self.dialogue_manager,
             self.character_sheet_manager,
