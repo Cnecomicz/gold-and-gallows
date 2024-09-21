@@ -243,33 +243,14 @@ class CharacterSheetArtist:
                 )
 
     def draw(self, DISPLAY_SURF):
-        self.draw_controls(DISPLAY_SURF)
-        match self.character_sheet_manager.current_state:
-            case (
-                self.character_sheet_manager.co_abilities
-                | self.character_sheet_manager.co_class_and_level
-                | self.character_sheet_manager.co_equipment
-                | self.character_sheet_manager.co_portrait
-                | self.character_sheet_manager.co_spells
-                | self.character_sheet_manager.co_stats_HP_AC_and_AV
-            ):
-                self.draw_co_equipment(DISPLAY_SURF)
-                self.draw_co_spells(DISPLAY_SURF)
-                self.draw_co_abilities(DISPLAY_SURF)
-                self.draw_co_portrait(DISPLAY_SURF)
-                self.draw_co_class_and_level(DISPLAY_SURF)
-                self.draw_co_stats_HP_AC_and_AV(DISPLAY_SURF)
-                self.draw_cursor(DISPLAY_SURF)
-            case self.character_sheet_manager.is_abilities:
-                pass
-            case self.character_sheet_manager.is_class_and_level:
-                pass
-            case self.character_sheet_manager.is_equipment:
-                pass
-                # FILL IN
-            case self.character_sheet_manager.is_portrait:
-                pass
-            case self.character_sheet_manager.is_spells:
-                pass
-            case self.character_sheet_manager.is_stats_HP_AC_and_AV:
-                pass
+        text = f"{self.character_sheet_manager.current_state.name = } \n {self.character_sheet_manager.cursor_index = } \n "
+        # for state in self.character_sheet_manager.list_of_submenus:
+        #     text += f"{state.name} \n "
+        th.make_text(
+            DISPLAY_SURF,
+            gc.BGCOLOR,
+            10, # Fiddle with these constants (left / top / width) later
+            10,
+            800,
+            th.bdlr(text),
+        )

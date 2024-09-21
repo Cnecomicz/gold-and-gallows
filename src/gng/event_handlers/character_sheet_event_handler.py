@@ -40,17 +40,8 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             % self.character_sheet_manager.number_of_options
 
     def handle_keydown_use(self, pygame_event):
-        if self.character_sheet_manager.current_state in {
-            self.character_sheet_manager.co_abilities,
-            self.character_sheet_manager.co_class_and_level,
-            self.character_sheet_manager.co_equipment,
-            self.character_sheet_manager.co_portrait,
-            self.character_sheet_manager.co_spells,
-            self.character_sheet_manager.co_stats_HP_AC_and_AV,
-            self.character_sheet_manager.co_quit,
-            self.character_sheet_manager.co_log,
-        }:
-            self.character_sheet_manager.send("into_submenu")
+        event = self.character_sheet_manager.list_of_events_to_submenus_strings[self.character_sheet_manager.cursor_index]
+        self.character_sheet_manager.send(event)
 
     def handle_keydown_pause(self, pygame_event):
         self.gameplay_state_machine_manager.send("pause")

@@ -137,7 +137,7 @@ class GameplayStateMachineManager(StateMachine):
         ]
 
     def on_exit_character_sheet(self, event, state):
-        self.character_sheet_manager.send("reset")
+        self.character_sheet_manager.reset()
 
     def on_enter_turns(self, event, state):
         self.list_of_active_handlers = [
