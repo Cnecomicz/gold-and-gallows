@@ -42,7 +42,7 @@ class CharacterCreatorArtist:
                         "CLASSIC. Your stats will average about 10.5. "
                         "The highest a stat can be is 18 and the lowest "
                         "is 3."
-                    )
+                    ),
                 )
             case self.character_creator.choosing_class:
                 th.make_text(

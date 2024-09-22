@@ -95,6 +95,34 @@ def make_hovered_option(
     )
     make_text(DISPLAY_SURF, bgcolor, left, top, text_width, text_bundle)
 
+def get_number_of_lines(left, text_width, *text_bundles):
+    # TODO: lot of overlap with make_text, maybe DRY
+    lines = 1
+    ending_position = left
+    for text_bundle in text_bundles:
+        words = text_bundle.text.split(" ")
+        current_line = ""
+        for word in words:
+            textSurf = text_bundle.font.render(
+                current_line, True, text_bundle.color#, bgcolor
+            )
+            nextSurf = text_bundle.font.render(
+                current_line + word + " ", True, text_bundle.color#, bgcolor
+            )
+            if (
+                nextSurf.get_width() + (ending_position - left) <= text_width
+            ) and word != "\n":
+                current_line += word + " "
+            else:
+                ending_position = left
+                if word != "\n":
+                    current_line = "" + word + " "
+                else:
+                    current_line = ""
+                lines += 1
+    return lines
+
+
 def make_all_options(
     DISPLAY_SURF, 
     bgcolor, 
@@ -124,7 +152,7 @@ def make_all_options(
                 text_width,
                 option
             )
-        line += 1
+        line += get_number_of_lines(left, text_width, option)
 
 
 def keylogger(DISPLAY_SURF, bgcolor, left, top, text_width, font, color):
