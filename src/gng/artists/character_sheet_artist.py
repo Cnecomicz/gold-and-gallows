@@ -11,14 +11,23 @@ class CharacterSheetArtist:
         self.player = player
 
     def draw(self, DISPLAY_SURF):
-        text = f"{self.character_sheet_manager.current_state.name = } \n {self.character_sheet_manager.cursor_index = } \n "
-        for state in self.character_sheet_manager.list_of_submenus:
-            text += f"{state.name} \n "
         th.make_text(
             DISPLAY_SURF,
             gc.BGCOLOR,
-            10, # Fiddle with these constants (left / top / width) later
-            10,
+            50,
+            50,
             800,
-            th.bdlr(text),
+            th.bdlr(f"{self.character_sheet_manager.current_state.name = }")
+        )
+        list_of_options = []
+        for state in self.character_sheet_manager.list_of_submenus:
+            list_of_options.append(th.bdlr(f"{state.name}"))
+        th.make_all_options(
+            DISPLAY_SURF,
+            gc.BGCOLOR,
+            50, # Fiddle with these constants (left / top / width) later
+            100,
+            800,
+            self.character_sheet_manager.cursor_index,
+            *list_of_options
         )
