@@ -62,139 +62,24 @@ class CharacterCreatorArtist:
                         "What class would you like to be?"
                     ),
                 )
-                match self.character_creator.cursor_index:
-                    case 0:
-                        text = (
-                            "CLERIC: Lorem ipsum. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                        )
-                    case 1:
-                        text = (
-                            "DRUID: Lorem ipsum. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                        )
-                    case 2:
-                        text = (
-                            "DWARF: Lorem ipsum. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                        )
-                    case 3:
-                        text = (
-                            "ELF: Lorem ipsum. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                        )
-                    case 4:
-                        text = (
-                            "FIGHTER: Lorem ipsum. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                        )
-                    case 5:
-                        text = (
-                            "HALFLING: Lorem ipsum. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                        )
-                    case 6:
-                        text = (
-                            "MAGIC-USER: Lorem ipsum. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                        )
-                    case 7:
-                        text = (
-                            "PALADIN: Lorem ipsum. \n "
-                            "Ranger. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                        )
-                    case 8:
-                        text = (
-                            "RANGER: Lorem ipsum. \n "
-                            "Warlock. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                        )
-                    case 9:
-                        text = (
-                            "WARLOCK: Lorem ipsum. \n "
-                            "Cleric. \n "
-                            "Druid. \n "
-                            "Dwarf. \n "
-                            "Elf. \n "
-                            "Fighter. \n "
-                            "Halfling. \n "
-                            "Magic-User. \n "
-                            "Paladin. \n "
-                            "Ranger. \n "
-                        )
-                th.make_hovered_option(
-                    DISPLAY_SURF, gc.BGCOLOR, 100, 300, 800, th.bdlr(text)
+                th.make_all_options(
+                    DISPLAY_SURF, 
+                    gc.BGCOLOR, 
+                    100, 
+                    300, 
+                    800,
+                    self.character_creator.cursor_index,
+                    th.bdlr("Cleric"),
+                    th.bdlr("Druid"),
+                    th.bdlr("Dwarf"),
+                    th.bdlr("Elf"),
+                    th.bdlr("Fighter"),
+                    th.bdlr("Halfling"),
+                    th.bdlr("Magic-User"),
+                    th.bdlr("Paladin"),
+                    th.bdlr("Ranger"),
+                    th.bdlr("Warlock")
+
                 )
             case self.character_creator.choosing_name:
                 th.make_text(
@@ -217,13 +102,4 @@ class CharacterCreatorArtist:
                         800,
                         gc.BASIC_FONT,
                         gc.TEXT_COLOR,
-                    )
-                else:
-                    th.make_hovered_option(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200,
-                        800,
-                        th.bdlr(self.player.name),
                     )
