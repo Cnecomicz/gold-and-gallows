@@ -21,84 +21,29 @@ class CharacterCreatorArtist:
                     800,
                     th.bdlr("Choose your capability."),
                 )
-                if self.character_creator.cursor_index == 0:
-                    th.make_hovered_option(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200,
-                        800,
-                        th.bdlr(
-                            "EXTREME. Your stats will average about 15.5. "
-                            "The highest a stat can be is 20 and the lowest "
-                            "is 1."
-                        ),
+                th.make_all_options(
+                    DISPLAY_SURF,
+                    gc.BGCOLOR,
+                    100,
+                    200,
+                    800,
+                    self.character_creator.cursor_index,
+                    th.bdlr(
+                        "EXTREME. Your stats will average about 15.5. "
+                        "The highest a stat can be is 20 and the lowest "
+                        "is 1."
+                    ),
+                    th.bdlr(
+                        "STANDARD. Your stats will average about 13.5. "
+                        "The highest a stat can be is 20 and the lowest "
+                        "is 2."
+                    ),
+                    th.bdlr(
+                        "CLASSIC. Your stats will average about 10.5. "
+                        "The highest a stat can be is 18 and the lowest "
+                        "is 3."
                     )
-                else:
-                    th.make_text(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200,
-                        800,
-                        th.bdlr(
-                            "EXTREME. Your stats will average about 15.5. "
-                            "The highest a stat can be is 20 and the lowest "
-                            "is 1."
-                        ),
-                    )
-                if self.character_creator.cursor_index == 1:
-                    th.make_hovered_option(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200 + 2 * gc.BASIC_FONT.get_height(),
-                        800,
-                        th.bdlr(
-                            "STANDARD. Your stats will average about 13.5. "
-                            "The highest a stat can be is 20 and the lowest "
-                            "is 2."
-                        ),
-                    )
-                else:
-                    th.make_text(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200 + 2 * gc.BASIC_FONT.get_height(),
-                        800,
-                        th.bdlr(
-                            "STANDARD. Your stats will average about 13.5. "
-                            "The highest a stat can be is 20 and the lowest "
-                            "is 2."
-                        ),
-                    )
-                if self.character_creator.cursor_index == 2:
-                    th.make_hovered_option(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200 + 4 * gc.BASIC_FONT.get_height(),
-                        800,
-                        th.bdlr(
-                            "CLASSIC. Your stats will average about 10.5. "
-                            "The highest a stat can be is 18 and the lowest "
-                            "is 3."
-                        ),
-                    )
-                else:
-                    th.make_text(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200 + 4 * gc.BASIC_FONT.get_height(),
-                        800,
-                        th.bdlr(
-                            "CLASSIC. Your stats will average about 10.5. "
-                            "The highest a stat can be is 18 and the lowest "
-                            "is 3."
-                        ),
-                    )
+                )
             case self.character_creator.choosing_class:
                 th.make_text(
                     DISPLAY_SURF,

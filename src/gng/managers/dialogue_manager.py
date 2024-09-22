@@ -16,8 +16,8 @@ class DialogueManager:
             self.current_responses_dict = self.conversation_partner.dt.current_responses
             self.current_responses_list = list(self.current_responses_dict.keys())
             self.number_of_responses = len(self.current_responses_list)
-            self.hovered_index = 0
-            self.hovered_response = self.current_responses_list[self.hovered_index]
+            self.cursor_index = 0
+            self.chosen_response = self.current_responses_list[self.cursor_index]
 
     def leave_dialogue(self):
         self.conversation_partner = None
@@ -25,5 +25,5 @@ class DialogueManager:
         self.current_responses_dict = {}
         self.current_responses_list = []
         self.number_of_responses = 0
-        self.hovered_index = 0
-        self.hovered_response = th.TextBundle("")
+        self.cursor_index = 0
+        self.chosen_response = th.TextBundle("")

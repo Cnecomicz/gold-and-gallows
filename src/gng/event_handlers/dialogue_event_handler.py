@@ -22,27 +22,27 @@ class DialogueEventHandler(peh.PygameEventHandler):
             )
 
     def handle_keydown_up(self, pygame_event):
-        self.dialogue_manager.hovered_index = \
-            (self.dialogue_manager.hovered_index - 1) \
+        self.dialogue_manager.cursor_index = \
+            (self.dialogue_manager.cursor_index - 1) \
             % self.dialogue_manager.number_of_responses
         self.dialogue_manager.hovered_response = \
             self.dialogue_manager.current_responses_list[
-                self.dialogue_manager.hovered_index
+                self.dialogue_manager.cursor_index
             ]
 
     def handle_keydown_down(self, pygame_event):
-        self.dialogue_manager.hovered_index = \
-            (self.dialogue_manager.hovered_index + 1) \
+        self.dialogue_manager.cursor_index = \
+            (self.dialogue_manager.cursor_index + 1) \
             % self.dialogue_manager.number_of_responses
         self.dialogue_manager.hovered_response = \
             self.dialogue_manager.current_responses_list[
-                self.dialogue_manager.hovered_index
+                self.dialogue_manager.cursor_index
             ]
 
     def handle_keydown_use(self, pygame_event):
         self.dialogue_manager.conversation_partner.dt.send(
             self.dialogue_manager.current_responses_dict[
-                self.dialogue_manager.hovered_response
+                self.dialogue_manager.chosen_response
             ]
         )
         self.clock_manager.add_seconds(6)

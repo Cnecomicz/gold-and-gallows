@@ -5,7 +5,11 @@ import gng.global_constants as gc
 
 class TextBundle:
     def __init__(
-        self, text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR, font_size=gc.FONT_SIZE
+        self, 
+        text, 
+        font=gc.BASIC_FONT, 
+        color=gc.TEXT_COLOR, 
+        font_size=gc.FONT_SIZE
     ):
         self.text = text
         self.font = font
@@ -68,7 +72,14 @@ def make_text(DISPLAY_SURF, bgcolor, left, top, text_width, *text_bundles):
             DISPLAY_SURF.blit(textSurf, textRect)
 
 
-def make_hovered_option(DISPLAY_SURF, bgcolor, left, top, text_width, text_bundle):
+def make_hovered_option(
+    DISPLAY_SURF, 
+    bgcolor, 
+    left, 
+    top, 
+    text_width, 
+    text_bundle
+):
     hovered_symbol = "> "
     hoveredSurf = text_bundle.font.render(
         hovered_symbol, True, text_bundle.color, bgcolor
@@ -83,6 +94,37 @@ def make_hovered_option(DISPLAY_SURF, bgcolor, left, top, text_width, text_bundl
         bdlr(hovered_symbol, text_bundle.font, text_bundle.color),
     )
     make_text(DISPLAY_SURF, bgcolor, left, top, text_width, text_bundle)
+
+def make_all_options(
+    DISPLAY_SURF, 
+    bgcolor, 
+    left, 
+    top, 
+    text_width, 
+    cursor_index, 
+    *text_bundles
+):
+    line = 0
+    for option in text_bundles:
+        if option == text_bundles[cursor_index]:
+            make_hovered_option(
+                DISPLAY_SURF,
+                bgcolor,
+                left,
+                top + line * option.font.get_height(),
+                text_width,
+                option
+            )
+        else:
+            make_text(
+                DISPLAY_SURF,
+                bgcolor,
+                left,
+                top + line * option.font.get_height(),
+                text_width,
+                option
+            )
+        line += 1
 
 
 def keylogger(DISPLAY_SURF, bgcolor, left, top, text_width, font, color):
@@ -105,6 +147,11 @@ def keylogger(DISPLAY_SURF, bgcolor, left, top, text_width, font, color):
                     user_string += pygame_event.unicode
 
         make_hovered_option(
-            DISPLAY_SURF, bgcolor, left, top, text_width, bdlr(user_string, font, color)
+            DISPLAY_SURF, 
+            bgcolor, 
+            left, 
+            top, 
+            text_width, 
+            bdlr(user_string, font, color)
         )
         pygame.display.update()

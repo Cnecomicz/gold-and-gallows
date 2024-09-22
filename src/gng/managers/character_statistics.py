@@ -204,6 +204,7 @@ class CharacterCreator(StateMachine):
 
 class CharacterSheetManager(StateMachine):
     home = State(initial=True)
+
     list_of_submenus = [
         equipment_submenu := State(),
         spells_submenu := State(),
@@ -225,7 +226,6 @@ class CharacterSheetManager(StateMachine):
         to_log_submenu := home.to(log_submenu),
         to_quit_submenu := home.to(quit_submenu),
     ]
-
 
     to_home = (
         equipment_submenu.to(home)
