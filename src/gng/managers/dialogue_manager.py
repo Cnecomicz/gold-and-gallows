@@ -1,5 +1,4 @@
 import gng.global_constants as gc
-import gng.text_handling as th
 
 
 class DialogueManager:
@@ -21,9 +20,9 @@ class DialogueManager:
 
     def leave_dialogue(self):
         self.conversation_partner = None
-        self.current_dialogue = th.TextBundle("")
+        self.current_dialogue = None
         self.current_responses_dict = {}
         self.current_responses_list = []
         self.number_of_responses = 0
         self.cursor_index = 0
-        self.chosen_response = th.TextBundle("")
+        self.chosen_response = None

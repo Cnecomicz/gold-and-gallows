@@ -14,6 +14,7 @@ class TextBundle:
         self.text = text
         self.font = font
         self.color = color
+        self.font_size = font_size
 
 
 def bdlr(text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR):

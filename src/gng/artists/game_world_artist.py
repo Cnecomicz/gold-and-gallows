@@ -1,6 +1,6 @@
-import gng.camera_functions as cf
+import gng.functions.camera_functions as cf
 import gng.global_constants as gc
-import gng.text_handling as th
+import gng.functions.text_handling as th
 
 class GameWorldArtist:
     def __init__(

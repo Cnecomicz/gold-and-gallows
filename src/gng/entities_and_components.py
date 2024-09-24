@@ -1,6 +1,6 @@
 from functools import partial
 
-import gng.dice_roller as dr
+import gng.functions.dice_roller as dr
 import gng.global_constants as gc
 
 

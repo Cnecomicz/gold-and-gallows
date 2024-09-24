@@ -1,9 +1,9 @@
 from flexmock import flexmock
 import pytest
 
-import gng.dice_roller as dr
+import gng.functions.dice_roller as dr
 
-from gng.dice_roller import (
+from gng.functions.dice_roller import (
 	roll_above,
 	roll_below,
 	thread_the_needle

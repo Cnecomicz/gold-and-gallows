@@ -2,9 +2,8 @@ import math
 
 from statemachine import StateMachine, State
 
-import gng.dice_roller as dr
+import gng.functions.dice_roller as dr
 import gng.global_constants as gc
-import gng.text_handling as th
 
 
 class CharacterCreator(StateMachine):

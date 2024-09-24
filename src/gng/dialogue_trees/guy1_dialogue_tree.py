@@ -2,7 +2,7 @@ from statemachine import StateMachine, State
 
 import gng.global_constants as gc
 
-from gng.text_handling import *
+from gng.functions.text_handling import *
 
 
 class Guy1DialogueTree(StateMachine):

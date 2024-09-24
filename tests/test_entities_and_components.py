@@ -1,7 +1,7 @@
 from flexmock import flexmock
 import pytest
 
-import gng.dice_roller as dr
+import gng.functions.dice_roller as dr
 import gng.global_constants as gc
 import gng.dialogue_trees.guy1_dialogue_tree
 
