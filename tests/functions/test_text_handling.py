@@ -92,21 +92,21 @@ def test_make_all_options(bgcolor_left_top_text_width):
             bundle_three
         )
 
-def test_keylogger(bgcolor_left_top_text_width):
-    fake_a = flexmock()
-    flexmock(fake_a).should_receive("type").and_return(pygame.KEYDOWN)
-    flexmock(fake_a).should_receive("key")
-    flexmock(fake_a).should_receive("unicode").and_return("a")
-    fake_enter = flexmock()
-    flexmock(fake_enter).should_receive("type").and_return(pygame.KEYDOWN)
-    flexmock(fake_a).should_receive("key").and_return(pygame.K_RETURN)
-    flexmock(pygame.event).should_receive("get").and_return([fake_a, fake_enter])
+# def test_keylogger(bgcolor_left_top_text_width):
+#     fake_a = flexmock()
+#     flexmock(fake_a).should_receive("type").and_return(pygame.KEYDOWN)
+#     flexmock(fake_a).should_receive("key")
+#     flexmock(fake_a).should_receive("unicode").and_return("a")
+#     fake_enter = flexmock()
+#     flexmock(fake_enter).should_receive("type").and_return(pygame.KEYDOWN)
+#     flexmock(fake_a).should_receive("key").and_return(pygame.K_RETURN)
+#     flexmock(pygame.event).should_receive("get").and_return([fake_a, fake_enter])
 
-    DISPLAY_SURF = flexmock()
-    flexmock(DISPLAY_SURF).should_receive("blit")
-    font = gc.BASIC_FONT
-    color = (255, 0, 0)
+#     DISPLAY_SURF = flexmock()
+#     flexmock(DISPLAY_SURF).should_receive("blit")
+#     font = gc.BASIC_FONT
+#     color = (255, 0, 0)
 
-    flexmock(pygame.display).should_receive("update")
+#     flexmock(pygame.display).should_receive("update")
 
-    assert keylogger(DISPLAY_SURF, *bgcolor_left_top_text_width, font, color) == "a"
+#     assert keylogger(DISPLAY_SURF, *bgcolor_left_top_text_width, font, color) == "a"

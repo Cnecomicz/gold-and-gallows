@@ -5,12 +5,22 @@ import pygame
 import gng.entity_instances as ei
 import gng.global_constants as gc
 # ----------------------------------------------------------------------
+import gng.managers.character_creator_manager as ccm
+import gng.managers.character_sheet_manager as csm
+import gng.managers.clock_manager as cm
+import gng.managers.dialogue_manager as dm
+import gng.managers.debugging_manager as dbm
+import gng.managers.gameplay_state_machine_manager as gsmm
+import gng.managers.keylogger_manager as km
+import gng.managers.manual_controls as mc
+# ----------------------------------------------------------------------
 import gng.event_handlers.pygame_event_handler as peh
 import gng.event_handlers.manual_controls_event_handler as mceh
 import gng.event_handlers.character_creator_event_handler as cceh
 import gng.event_handlers.character_sheet_event_handler as cseh
 import gng.event_handlers.dialogue_event_handler as deh
 import gng.event_handlers.debugging_event_handler as dbeh
+import gng.event_handlers.keylogger_event_handler as keh
 # ----------------------------------------------------------------------
 import gng.updaters.camera_targeting_updater as ctu
 import gng.updaters.character_creator_updater as ccu
@@ -23,13 +33,7 @@ import gng.artists.character_sheet_artist as csa
 import gng.artists.debugging_artist as da
 import gng.artists.dialogue_artist as dia
 import gng.artists.game_world_artist as gwa
-# ----------------------------------------------------------------------
-import gng.managers.character_statistics as cs
-import gng.managers.clock_manager as cm
-import gng.managers.dialogue_manager as dm
-import gng.managers.debugging_manager as dbm
-import gng.managers.gameplay_state_machine_manager as gsmm
-import gng.managers.manual_controls as mc
+import gng.artists.keylogger_artist as ka
 # ----------------------------------------------------------------------
 import gng.dialogue_trees.guy1_dialogue_tree as g1dt
 
@@ -68,10 +72,10 @@ class Game():
             self.list_of_items_on_ground,
             self.list_of_collision_rects,
         )
-        self.character_creator = cs.CharacterCreator(
+        self.character_creator_manager = ccm.CharacterCreatorManager(
             self.player
         )
-        self.character_sheet_manager = cs.CharacterSheetManager(
+        self.character_sheet_manager = csm.CharacterSheetManager(
             self.player,
             None, # self.list_of_active_handlers
             None, # self.list_of_active_updaters
@@ -79,6 +83,10 @@ class Game():
         )
         self.clock_manager = cm.ClockManager()
         self.debugging_manager = dbm.DebuggingManager()
+        self.player_name_keylogger_manager = km.KeyloggerManager(
+            self.player, 
+            "name"
+        )
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
         self.system_event_handler.register_event_handler(
@@ -92,7 +100,7 @@ class Game():
             None # self.gameplay_state_machine_manager
         )
         self.character_creator_event_handler = cceh.CharacterCreatorEventHandler(
-            self.character_creator
+            self.character_creator_manager
         )
         self.character_sheet_event_handler = cseh.CharacterSheetEventHandler(
             self.character_sheet_manager,
@@ -105,10 +113,13 @@ class Game():
         self.debugging_event_handler = dbeh.DebuggingEventHandler(
             self.debugging_manager
         )
+        self.player_name_keylogger_event_handler = keh.KeyloggerEventHandler(
+            self.player_name_keylogger_manager
+        )
         self.list_of_active_handlers = []
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
-            self.character_creator,
+            self.character_creator_manager,
             None # self.gameplay_state_machine_manager
         )
         self.manual_controls_updater = mcu.ManualControlsUpdater(
@@ -138,7 +149,7 @@ class Game():
             self.player
         )
         self.character_creator_artist = cca.CharacterCreatorArtist(
-            self.character_creator,
+            self.character_creator_manager,
             self.player
         )
         self.debugging_artist = da.DebuggingArtist(
@@ -152,8 +163,11 @@ class Game():
             self.character_sheet_manager,
             self.player
         )
+        self.player_name_keylogger_artist = ka.KeyloggerArtist(
+            self.player_name_keylogger_manager
+        )
         self.list_of_active_artists = []
-        # --------------------------------------------------------------
+        # Giving nested FSMs access to the list_of_active_*s------------
         self.character_sheet_manager.list_of_active_handlers = \
             self.list_of_active_handlers
         self.character_sheet_manager.list_of_active_updaters = \

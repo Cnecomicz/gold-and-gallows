@@ -2,11 +2,7 @@ import gng.global_constants as gc
 import gng.functions.text_handling as th
 
 class CharacterCreatorArtist:
-    def __init__(
-        self,
-        character_creator,
-        player,
-    ):
+    def __init__(self, character_creator, player):
         self.character_creator = character_creator
         self.player = player
 

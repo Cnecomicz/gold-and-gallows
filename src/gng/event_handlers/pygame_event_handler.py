@@ -21,11 +21,7 @@ class KeyEventHandler:
     def __call__(self, pygame_event):
         if (key_event := self.key_event_handlers.get(pygame_event.key)) \
         is not None:
-            key_event(pygame_event)
-
-class GamepadEventHandler:
-    # TODO much later, for gamepad support. Mirror KeyEventHandler.
-    pass
+            key_event(pygame_event)  
 
 
 class PygameEventHandler:

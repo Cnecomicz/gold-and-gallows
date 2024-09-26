@@ -3,8 +3,6 @@ import pygame
 import gng.global_constants as gc
 import gng.functions.text_handling as th
 
-import gng.managers.character_statistics as cs
-
 class CharacterSheetArtist:
     def __init__(self, character_sheet_manager, player):
         self.character_sheet_manager = character_sheet_manager
