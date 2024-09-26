@@ -154,33 +154,3 @@ def make_all_options(
                 option
             )
         line += get_number_of_lines(left, text_width, option)
-
-
-def keylogger(DISPLAY_SURF, bgcolor, left, top, text_width, font, color):
-    """Returns the result of the player's keypresses, as a string.
-    Listens for backspaces and escapes. Draws the typed string to the
-    screen, because otherwise you're stuck in the "while True" loop with
-    no feedback."""
-    user_string = ""
-    while True:
-        for pygame_event in pygame.event.get():
-            if pygame_event.type == pygame.KEYDOWN:
-                if pygame_event.key == pygame.K_RETURN and user_string != "":
-                    return user_string
-                    break
-                elif pygame_event.key == pygame.K_BACKSPACE and user_string != "":
-                    user_string = user_string[:-1]
-                elif pygame_event.key == pygame.K_ESCAPE:
-                    pass
-                else:
-                    user_string += pygame_event.unicode
-
-        make_hovered_option(
-            DISPLAY_SURF, 
-            bgcolor, 
-            left, 
-            top, 
-            text_width, 
-            bdlr(user_string, font, color)
-        )
-        pygame.display.update()
