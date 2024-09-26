@@ -1,18 +1,33 @@
 import math
 
+class InvalidClass(Exception):
+    pass
+
 def calculate_AV(character_class, level):
     match character_class:
         case "Cleric":
-            return round(2 / 5 * (level - 1) + 10 + (4 / 5))
+            slope = 0.4
+            yint = 10.8
         case "Druid":
-            return round(2 / 5 * (level - 1) + 7 + (4 / 5))
+            slope = 0.4
+            yint = 7.8
         case "Dwarf" | "Paladin" | "Ranger":
-            return math.floor(1 / 2 * (level - 1) + 11)
+            slope = 0.5
+            yint = 10.5
         case "Elf":
-            return round(2 / 3 * (level - 1) + 10 + (2 / 3))
+            slope = 0.66
+            yint = 10.66
         case "Fighter":
-            return math.ceil(2 / 3 * (level - 1) + 10 + (2 / 3))
+            slope = 0.66
+            yint = 11
         case "Halfling":
-            return math.floor(1 / 4 * (level - 1) + 12)
+            slope = 0.25
+            yint = 11.75
         case "Magic-User" | "Warlock":
-            return math.ceil(1 / 3 * (level - 1) + 7 + (1 / 3))
+            slope = 0.33
+            yint = 8
+        case _:
+            raise InvalidClass(
+                "The inputted character class does not exist. Check if typo."
+            )
+    return math.floor(slope*level + yint)
