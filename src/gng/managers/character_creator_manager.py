@@ -145,12 +145,44 @@ class CharacterCreatorManager(StateMachine):
         self.cursor_index = 0
 
     def on_enter_choosing_name(self, event, state):
-        pass
+        self.list_of_active_x_manager.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
+            self.player_name_keylogger_event_handler
+        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [
+            self.debugging_updater
+        ]
+        self.list_of_active_x_manager.list_of_active_artists = [
+            self.debugging_artist,
+            self.character_creator_artist,
+            self.player_name_keylogger_artist
+
+        ]
 
     # ------------------------------------------------------------------
 
-    def __init__(self, player):
+    def __init__(
+        self, 
+        player, 
+        list_of_active_x_manager,
+        system_event_handler,
+        debugging_event_handler,
+        player_name_keylogger_event_handler,
+        debugging_updater,
+        debugging_artist,
+        character_creator_artist,
+        player_name_keylogger_artist
+    ):
         self.player = player
+        self.list_of_active_x_manager = list_of_active_x_manager
+        self.system_event_handler = system_event_handler
+        self.debugging_event_handler = debugging_event_handler
+        self.player_name_keylogger_event_handler = player_name_keylogger_event_handler
+        self.debugging_updater = debugging_updater
+        self.debugging_artist = debugging_artist
+        self.character_creator_artist = character_creator_artist
+        self.player_name_keylogger_artist = player_name_keylogger_artist
         self.cursor_index = 0
         self.number_of_options = 0
         super().__init__()

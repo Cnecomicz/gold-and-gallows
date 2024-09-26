@@ -24,7 +24,6 @@ import gng.event_handlers.debugging_event_handler as dbeh
 import gng.event_handlers.keylogger_event_handler as keh
 # ----------------------------------------------------------------------
 import gng.updaters.camera_targeting_updater as ctu
-import gng.updaters.character_creator_updater as ccu
 import gng.updaters.clock_updater as cu
 import gng.updaters.debugging_updater as du
 import gng.updaters.manual_controls_updater as mcu
@@ -75,7 +74,15 @@ class Game():
             self.list_of_collision_rects,
         )
         self.character_creator_manager = ccm.CharacterCreatorManager(
-            self.player
+            self.player,
+            self.list_of_active_x_manager,
+            None, # self.system_event_handler
+            None, # self.debugging_event_handler
+            None, # self.player_name_keylogger_event_handler
+            None, # self.debugging_updater
+            None, # self.debugging_artist
+            None, # self.character_creator_artist
+            None # self.player_name_keylogger_artist
         )
         self.character_sheet_manager = csm.CharacterSheetManager(
             self.player,
@@ -85,7 +92,9 @@ class Game():
         self.debugging_manager = dbm.DebuggingManager()
         self.player_name_keylogger_manager = km.KeyloggerManager(
             self.player, 
-            "name"
+            "name",
+            None, # self.gameplay_state_machine_manager
+            "end_character_creation"
         )
         # Event handlers: ----------------------------------------------
         self.system_event_handler = peh.PygameEventHandler()
@@ -117,10 +126,6 @@ class Game():
             self.player_name_keylogger_manager
         )
         # Updaters -----------------------------------------------------
-        self.character_creator_updater = ccu.CharacterCreatorUpdater(
-            self.character_creator_manager,
-            None # self.gameplay_state_machine_manager
-        )
         self.manual_controls_updater = mcu.ManualControlsUpdater(
             self.manual_controls
         )
@@ -164,6 +169,21 @@ class Game():
         self.player_name_keylogger_artist = ka.KeyloggerArtist(
             self.player_name_keylogger_manager
         )
+        # Assigning active_*s to nested FSMs ---------------------------
+        self.character_creator_manager.system_event_handler = \
+            self.system_event_handler
+        self.character_creator_manager.debugging_event_handler = \
+            self.debugging_event_handler
+        self.character_creator_manager.player_name_keylogger_event_handler = \
+            self.player_name_keylogger_event_handler
+        self.character_creator_manager.debugging_updater = \
+            self.debugging_updater
+        self.character_creator_manager.debugging_artist = \
+            self.debugging_artist
+        self.character_creator_manager.character_creator_artist = \
+            self.character_creator_artist
+        self.character_creator_manager.player_name_keylogger_artist = \
+            self.player_name_keylogger_artist
         # Gameplay state machine manager -------------------------------
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
             self.list_of_active_x_manager,
@@ -176,7 +196,6 @@ class Game():
             self.character_sheet_event_handler,
             self.dialogue_event_handler,
             self.debugging_event_handler,
-            self.character_creator_updater,
             self.manual_controls_updater,
             self.clock_updater,
             self.camera_targeting_updater,
@@ -192,9 +211,9 @@ class Game():
             self.gameplay_state_machine_manager
         self.character_sheet_event_handler.gameplay_state_machine_manager = \
             self.gameplay_state_machine_manager
-        self.character_creator_updater.gameplay_state_machine_manager = \
-            self.gameplay_state_machine_manager
         self.debugging_updater.gameplay_state_machine_manager = \
+            self.gameplay_state_machine_manager
+        self.player_name_keylogger_manager.finite_state_machine = \
             self.gameplay_state_machine_manager
         self.guy1.dt = g1dt.Guy1DialogueTree(
             self.gameplay_state_machine_manager

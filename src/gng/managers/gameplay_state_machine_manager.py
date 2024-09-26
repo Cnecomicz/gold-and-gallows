@@ -73,8 +73,7 @@ class GameplayStateMachineManager(StateMachine):
             self.character_creator_event_handler
         ]
         self.list_of_active_x_manager.list_of_active_updaters = [
-            self.debugging_updater,
-            self.character_creator_updater
+            self.debugging_updater
         ]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
@@ -169,7 +168,6 @@ class GameplayStateMachineManager(StateMachine):
         character_sheet_event_handler,
         dialogue_event_handler,
         debugging_event_handler,
-        character_creator_updater,
         manual_controls_updater,
         clock_updater,
         camera_targeting_updater,
@@ -190,7 +188,6 @@ class GameplayStateMachineManager(StateMachine):
         self.character_sheet_event_handler = character_sheet_event_handler
         self.dialogue_event_handler = dialogue_event_handler
         self.debugging_event_handler = debugging_event_handler
-        self.character_creator_updater = character_creator_updater
         self.manual_controls_updater = manual_controls_updater
         self.clock_updater = clock_updater
         self.camera_targeting_updater = camera_targeting_updater

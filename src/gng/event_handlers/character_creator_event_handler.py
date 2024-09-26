@@ -3,6 +3,9 @@ import pygame
 import gng.global_constants as gc
 import gng.event_handlers.pygame_event_handler as peh
 
+class YouShouldNotBeHere(Exception):
+    pass
+
 class CharacterCreatorEventHandler(peh.PygameEventHandler):
     def __init__(self, character_creator):
         self.character_creator = character_creator
@@ -37,4 +40,6 @@ class CharacterCreatorEventHandler(peh.PygameEventHandler):
             case self.character_creator.choosing_class:
                 self.character_creator.choose_class()
             case self.character_creator.choosing_name:
-                pass
+                raise YouShouldNotBeHere(
+                    "This handler should not be active at this time."
+                )

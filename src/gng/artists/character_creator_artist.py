@@ -89,13 +89,13 @@ class CharacterCreatorArtist:
                         "Please type your name."
                     ),
                 )
-                if not hasattr(self.player, "name"):
-                    self.player.name = th.keylogger(
-                        DISPLAY_SURF,
-                        gc.BGCOLOR,
-                        100,
-                        200,
-                        800,
-                        gc.BASIC_FONT,
-                        gc.TEXT_COLOR,
-                    )
+                # if not hasattr(self.player, "name"):
+                #     self.player.name = th.keylogger(
+                #         DISPLAY_SURF,
+                #         gc.BGCOLOR,
+                #         100,
+                #         200,
+                #         800,
+                #         gc.BASIC_FONT,
+                #         gc.TEXT_COLOR,
+                #     )
