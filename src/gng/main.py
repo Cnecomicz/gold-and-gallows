@@ -12,6 +12,7 @@ import gng.managers.dialogue_manager as dm
 import gng.managers.debugging_manager as dbm
 import gng.managers.gameplay_state_machine_manager as gsmm
 import gng.managers.keylogger_manager as km
+import gng.managers.list_of_active_x_manager as loaxm
 import gng.managers.manual_controls as mc
 # ----------------------------------------------------------------------
 import gng.event_handlers.pygame_event_handler as peh
@@ -64,6 +65,7 @@ class Game():
 
         self.list_of_collision_rects = ei.list_of_collision_rects
         # Systems managers: --------------------------------------------
+        self.list_of_active_x_manager = loaxm.ListOfActiveXManager()
         self.dialogue_manager = dm.DialogueManager()
         self.manual_controls = mc.ManualControls(
             self.player,
@@ -77,9 +79,7 @@ class Game():
         )
         self.character_sheet_manager = csm.CharacterSheetManager(
             self.player,
-            None, # self.list_of_active_handlers
-            None, # self.list_of_active_updaters
-            None # self.list_of_active_artists
+            self.list_of_active_x_manager
         )
         self.clock_manager = cm.ClockManager()
         self.debugging_manager = dbm.DebuggingManager()
@@ -116,7 +116,6 @@ class Game():
         self.player_name_keylogger_event_handler = keh.KeyloggerEventHandler(
             self.player_name_keylogger_manager
         )
-        self.list_of_active_handlers = []
         # Updaters -----------------------------------------------------
         self.character_creator_updater = ccu.CharacterCreatorUpdater(
             self.character_creator_manager,
@@ -139,7 +138,6 @@ class Game():
             self.player,
             self.character_sheet_manager
         )
-        self.list_of_active_updaters = []
         # Artists ------------------------------------------------------
         self.game_world_artist = gwa.GameWorldArtist(
             self.list_of_entities, 
@@ -166,19 +164,9 @@ class Game():
         self.player_name_keylogger_artist = ka.KeyloggerArtist(
             self.player_name_keylogger_manager
         )
-        self.list_of_active_artists = []
-        # Giving nested FSMs access to the list_of_active_*s------------
-        self.character_sheet_manager.list_of_active_handlers = \
-            self.list_of_active_handlers
-        self.character_sheet_manager.list_of_active_updaters = \
-            self.list_of_active_updaters
-        self.character_sheet_manager.list_of_active_artists = \
-            self.list_of_active_artists
         # Gameplay state machine manager -------------------------------
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
-            self.list_of_active_handlers,
-            self.list_of_active_updaters,
-            self.list_of_active_artists,
+            self.list_of_active_x_manager,
             self.manual_controls,
             self.dialogue_manager,
             self.character_sheet_manager,
@@ -219,18 +207,18 @@ class Game():
     def handle_pygame_events(self):
         for pygame_event in pygame.event.get():
             for handler in \
-            self.gameplay_state_machine_manager.list_of_active_handlers:
+            self.list_of_active_x_manager.list_of_active_handlers:
                 handler.handle_pygame_event(pygame_event)
 
     def update(self):
         for updater in \
-        self.gameplay_state_machine_manager.list_of_active_updaters:
+        self.list_of_active_x_manager.list_of_active_updaters:
             updater.update()
 
     def draw(self):
         self.DISPLAY_SURF.fill(gc.BGCOLOR)
         for artist in \
-        self.gameplay_state_machine_manager.list_of_active_artists: 
+        self.list_of_active_x_manager.list_of_active_artists: 
             artist.draw(self.DISPLAY_SURF)
         pygame.display.update()
 

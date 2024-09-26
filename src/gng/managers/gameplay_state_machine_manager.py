@@ -67,16 +67,16 @@ class GameplayStateMachineManager(StateMachine):
     pause = overworld.to(character_sheet) | character_sheet.to(overworld)
 
     def on_enter_character_creation(self, event, state):
-        self.list_of_active_handlers = [
+        self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
             self.character_creator_event_handler
         ]
-        self.list_of_active_updaters = [
+        self.list_of_active_x_manager.list_of_active_updaters = [
             self.debugging_updater,
             self.character_creator_updater
         ]
-        self.list_of_active_artists = [
+        self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.character_creator_artist
         ]
@@ -85,18 +85,18 @@ class GameplayStateMachineManager(StateMachine):
         pass
 
     def on_enter_overworld(self, event, state):
-        self.list_of_active_handlers = [
+        self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
             self.manual_controls_event_handler
         ]
-        self.list_of_active_updaters = [
+        self.list_of_active_x_manager.list_of_active_updaters = [
             self.debugging_updater,
             self.manual_controls_updater,
             self.clock_updater,
             self.camera_targeting_updater
         ]
-        self.list_of_active_artists = [
+        self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.game_world_artist
         ]
@@ -105,15 +105,15 @@ class GameplayStateMachineManager(StateMachine):
         self.manual_controls.send("to_stationary")
 
     def on_enter_dialogue(self, event, state):
-        self.list_of_active_handlers = [
+        self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
             self.dialogue_event_handler
         ]
-        self.list_of_active_updaters = [
+        self.list_of_active_x_manager.list_of_active_updaters = [
             self.debugging_updater
         ]
-        self.list_of_active_artists = [
+        self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.game_world_artist,
             self.dialogue_artist
@@ -123,15 +123,15 @@ class GameplayStateMachineManager(StateMachine):
         self.dialogue_manager.leave_dialogue()
 
     def on_enter_character_sheet(self, event, state):
-        self.list_of_active_handlers = [
+        self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
             self.character_sheet_event_handler
         ]
-        self.list_of_active_updaters = [
+        self.list_of_active_x_manager.list_of_active_updaters = [
             self.debugging_updater
         ]
-        self.list_of_active_artists = [
+        self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.character_sheet_artist
         ]
@@ -140,14 +140,14 @@ class GameplayStateMachineManager(StateMachine):
         self.character_sheet_manager.reset()
 
     def on_enter_turns(self, event, state):
-        self.list_of_active_handlers = [
+        self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler
         ]
-        self.list_of_active_updaters = [
+        self.list_of_active_x_manager.list_of_active_updaters = [
             self.debugging_updater
         ]
-        self.list_of_active_artists = [
+        self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.game_world_artist
         ]
@@ -159,9 +159,7 @@ class GameplayStateMachineManager(StateMachine):
 
     def __init__(
         self,
-        list_of_active_handlers,
-        list_of_active_updaters,
-        list_of_active_artists,
+        list_of_active_x_manager,
         manual_controls,
         dialogue_manager,
         character_sheet_manager,
@@ -182,9 +180,7 @@ class GameplayStateMachineManager(StateMachine):
         dialogue_artist,
         character_sheet_artist,
     ):
-        self.list_of_active_handlers = list_of_active_handlers
-        self.list_of_active_updaters = list_of_active_updaters
-        self.list_of_active_artists = list_of_active_artists
+        self.list_of_active_x_manager = list_of_active_x_manager
         self.manual_controls = manual_controls
         self.dialogue_manager = dialogue_manager
         self.character_sheet_manager = character_sheet_manager

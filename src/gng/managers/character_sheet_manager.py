@@ -59,14 +59,10 @@ class CharacterSheetManager(StateMachine):
     def __init__(
             self, 
             player,
-            list_of_active_handlers,
-            list_of_active_updaters,
-            list_of_active_artists
+            list_of_active_x_manager
         ):
         self.player = player
-        self.list_of_active_handlers = list_of_active_handlers
-        self.list_of_active_updaters = list_of_active_updaters
-        self.list_of_active_artists = list_of_active_artists
+        self.list_of_active_x_manager = list_of_active_x_manager
         self.cursor_index = 0
         self.number_of_options = 0 
         super().__init__()
