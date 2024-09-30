@@ -8,7 +8,6 @@
 
    .. autosummary::
    
-      GamepadEventHandler
       KeyEventHandler
       PygameEventHandler
    

@@ -10,3 +10,9 @@
    
       CharacterCreatorEventHandler
    
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      YouShouldNotBeHere
+   

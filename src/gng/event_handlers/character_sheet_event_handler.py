@@ -40,7 +40,10 @@ class CharacterSheetEventHandler(peh.PygameEventHandler):
             % self.character_sheet_manager.number_of_options
 
     def handle_keydown_use(self, pygame_event):
-        event_string = self.character_sheet_manager.list_of_events_to_submenus_strings[self.character_sheet_manager.cursor_index]
+        event_string = \
+            self.character_sheet_manager.list_of_events_to_submenus_strings[
+                self.character_sheet_manager.cursor_index
+            ]
         self.character_sheet_manager.send(event_string)
 
     def handle_keydown_pause(self, pygame_event):

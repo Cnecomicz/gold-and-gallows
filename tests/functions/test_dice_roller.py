@@ -55,6 +55,20 @@ def test_roll_usage_downgrade_track_is_20_12_10_8_6_4_None():
 	assert roll_usage(6) == 4
 	assert roll_usage(4) == None
 
+def test_roll_usage_does_not_downgrade_if_the_roll_is_not_a_1_or_2():
+	flexmock(dr).should_receive("roll_x_d_n").with_args(1,20).and_return(3).once()
+	flexmock(dr).should_receive("roll_x_d_n").with_args(1,12).and_return(3).once()
+	flexmock(dr).should_receive("roll_x_d_n").with_args(1,10).and_return(3).once()
+	flexmock(dr).should_receive("roll_x_d_n").with_args(1,8).and_return(3).once()
+	flexmock(dr).should_receive("roll_x_d_n").with_args(1,6).and_return(3).once()
+	flexmock(dr).should_receive("roll_x_d_n").with_args(1,4).and_return(3).once()
+	assert roll_usage(20) == 20
+	assert roll_usage(12) == 12
+	assert roll_usage(10) == 10
+	assert roll_usage(8) == 8
+	assert roll_usage(6) == 6
+	assert roll_usage(4) == 4
+
 def test_usage_exception():
 	with pytest.raises(UnexpectedDiceSyntax):
 		roll_usage("u5")
