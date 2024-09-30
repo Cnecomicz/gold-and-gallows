@@ -16,7 +16,6 @@ class DialogueManager:
             self.current_responses_list = list(self.current_responses_dict.keys())
             self.number_of_responses = len(self.current_responses_list)
             self.cursor_index = 0
-            self.chosen_response = self.current_responses_list[self.cursor_index]
 
     def leave_dialogue(self):
         self.conversation_partner = None
