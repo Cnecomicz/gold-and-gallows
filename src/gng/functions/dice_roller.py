@@ -5,9 +5,9 @@ class UnexpectedDiceSyntax(Exception):
     pass
 
 def roll_x_d_n_and_keep_highest_k(x, n, k):
-    if k > n:
+    if k > x:
         raise UnexpectedDiceSyntax(
-            f"You are keeping {k} dice but only rolling {x} dice."
+            f"You are trying to keep {k} d{n}s but only rolling {x} d{n}s."
         )
     else:
         result = 0
@@ -72,7 +72,6 @@ def roll(dice_syntax_string):
             x, n = int(values[0]), int(values[1])
         else:
             x, n = 1, int(values[1])
-            print(values)
         return roll_x_d_n(x, n)
     elif re.match(xdnkk_regex, dice_syntax_string):
         first_split = re.split("d", dice_syntax_string)

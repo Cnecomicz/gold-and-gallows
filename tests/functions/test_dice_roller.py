@@ -4,6 +4,7 @@ import pytest
 import gng.functions.dice_roller as dr
 
 from gng.functions.dice_roller import (
+	roll_x_d_n_and_keep_highest_k,
 	roll_above,
 	roll_below,
 	thread_the_needle,
@@ -11,6 +12,10 @@ from gng.functions.dice_roller import (
 	roll,
 	UnexpectedDiceSyntax,
 )
+
+def test_you_cannot_keep_more_dice_than_you_roll():
+	with pytest.raises(UnexpectedDiceSyntax):
+		roll_x_d_n_and_keep_highest_k(1,4,2)
 
 def test_thread_the_needle_extrema_always_fail():
 	flexmock(dr).should_receive("roll_x_d_n").with_args(1,20).and_return(1).once()
