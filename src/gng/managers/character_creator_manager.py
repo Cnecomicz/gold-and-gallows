@@ -23,28 +23,28 @@ class CharacterCreatorManager(StateMachine):
     chose_warlock = choosing_class.to(choosing_name)
 
     def on_chose_extreme(self, event, state):
-        self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
-        self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
-        self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
-        self.player.INT = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
-        self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
-        self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3, 20, 1)
+        self.player.CHA = dr.roll("3d20k1")
+        self.player.CON = dr.roll("3d20k1")
+        self.player.DEX = dr.roll("3d20k1")
+        self.player.INT = dr.roll("3d20k1")
+        self.player.STR = dr.roll("3d20k1")
+        self.player.WIS = dr.roll("3d20k1")
 
     def on_chose_standard(self, event, state):
-        self.player.CHA = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
-        self.player.CON = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
-        self.player.DEX = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
-        self.player.INT = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
-        self.player.STR = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
-        self.player.WIS = dr.roll_x_d_n_and_keep_highest_k(3, 10, 2)
+        self.player.CHA = dr.roll("3d10k2")
+        self.player.CON = dr.roll("3d10k2")
+        self.player.DEX = dr.roll("3d10k2")
+        self.player.INT = dr.roll("3d10k2")
+        self.player.STR = dr.roll("3d10k2")
+        self.player.WIS = dr.roll("3d10k2")
 
     def on_chose_classic(self, event, state):
-        self.player.CHA = dr.roll_x_d_n(3, 6)
-        self.player.CON = dr.roll_x_d_n(3, 6)
-        self.player.DEX = dr.roll_x_d_n(3, 6)
-        self.player.INT = dr.roll_x_d_n(3, 6)
-        self.player.STR = dr.roll_x_d_n(3, 6)
-        self.player.WIS = dr.roll_x_d_n(3, 6)
+        self.player.CHA = dr.roll("3d6")
+        self.player.CON = dr.roll("3d6")
+        self.player.DEX = dr.roll("3d6")
+        self.player.INT = dr.roll("3d6")
+        self.player.STR = dr.roll("3d6")
+        self.player.WIS = dr.roll("3d6")
 
     def on_chose_cleric(self, event, state):
         self.player.character_class = "Cleric"
@@ -188,7 +188,7 @@ class CharacterCreatorManager(StateMachine):
         super().__init__()
 
     def roll_starting_HP(self):
-        self.player.max_HP = 4 + dr.roll_x_d_n(1, self.player.class_die_size)
+        self.player.max_HP = 4 + dr.roll(f"d{self.player.class_die_size}")
         self.player.current_HP = self.player.max_HP
 
     def set_initial_AV(self):

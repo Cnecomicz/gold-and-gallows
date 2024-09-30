@@ -240,7 +240,7 @@ def give_damage_dealing_component(entity, number_of_dice, damage_die):
     entity.number_of_dice = number_of_dice
 
     def damages(self, entity):
-        damage_roll = dr.roll_x_d_n(self.number_of_dice, self.damage_die)
+        damage_roll = dr.roll(f"{self.number_of_dice}d{self.damage_die}")
         entity.HP -= damage_roll
 
     entity.damages = partial(damages, entity)
