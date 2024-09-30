@@ -1,5 +1,8 @@
 from statemachine import StateMachine, State
 
+import gng.event_handlers.character_sheet_event_handlers as cseh
+import gng.artists.character_sheet_artists as csa
+
 class CharacterSheetManager(StateMachine):
     home = State(initial=True)
 
@@ -26,7 +29,8 @@ class CharacterSheetManager(StateMachine):
     ]
 
     to_home = (
-        equipment_submenu.to(home)
+        home.to(home)
+        | equipment_submenu.to(home)
         | spells_submenu.to(home)
         | abilities_submenu.to(home)
         | portrait_submenu.to(home)
@@ -41,28 +45,66 @@ class CharacterSheetManager(StateMachine):
 
     def on_enter_home(self, event, state):
         self.number_of_options = len(self.list_of_submenus)
+        self.list_of_active_x_manager.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
+            self.character_sheet_event_handler
+        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [
+            self.debugging_updater
+        ]
+        self.list_of_active_x_manager.list_of_active_artists = [
+            self.debugging_artist,
+            self.character_sheet_artist
+        ]
+
+    def on_exit_home(self, event, state):
+        pass
 
     def on_enter_equipment_submenu(self, event, state):
-        print("You entered equipment submenu TODO DELETE")
         self.cursor_index = 0
         if self.player.inventory != []:
             self.number_of_options = len(self.player.inventory)
         else:
             self.number_of_options = 1
-            # OR we could do:
-            # self.send("out_of_submenu")
-            # This would keep you from entering the submenu at all if
-            # you had no items.
+
+        self.list_of_active_x_manager.list_of_active_handlers = [
+            self.system_event_handler,
+            self.debugging_event_handler,
+            cseh.CharacterSheetEventHandlerEquipment(self)
+        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [
+            self.debugging_updater
+        ]
+        self.list_of_active_x_manager.list_of_active_artists = [
+            self.debugging_artist,
+            csa.CharacterSheetArtistEquipment(self, self.player)
+        ]
+
+    def on_exit_equipment_submenu(self, event, state):
+        pass
 
     # ------------------------------------------------------------------
 
     def __init__(
             self, 
             player,
-            list_of_active_x_manager
+            list_of_active_x_manager,
+            system_event_handler,
+            debugging_event_handler,
+            character_sheet_event_handler,
+            debugging_updater,
+            debugging_artist,
+            character_sheet_artist,
         ):
         self.player = player
         self.list_of_active_x_manager = list_of_active_x_manager
+        self.system_event_handler = system_event_handler
+        self.debugging_event_handler = debugging_event_handler
+        self.character_sheet_event_handler = character_sheet_event_handler
+        self.debugging_updater = debugging_updater
+        self.debugging_artist = debugging_artist
+        self.character_sheet_artist = character_sheet_artist
         self.cursor_index = 0
         self.number_of_options = 0 
         super().__init__()

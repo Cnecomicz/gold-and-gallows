@@ -18,7 +18,7 @@ import gng.managers.manual_controls as mc
 import gng.event_handlers.pygame_event_handler as peh
 import gng.event_handlers.manual_controls_event_handler as mceh
 import gng.event_handlers.character_creator_event_handler as cceh
-import gng.event_handlers.character_sheet_event_handler as cseh
+import gng.event_handlers.character_sheet_event_handlers as cseh
 import gng.event_handlers.dialogue_event_handler as deh
 import gng.event_handlers.debugging_event_handler as dbeh
 import gng.event_handlers.keylogger_event_handler as keh
@@ -29,7 +29,7 @@ import gng.updaters.debugging_updater as du
 import gng.updaters.manual_controls_updater as mcu
 # ----------------------------------------------------------------------
 import gng.artists.character_creator_artist as cca
-import gng.artists.character_sheet_artist as csa
+import gng.artists.character_sheet_artists as csa
 import gng.artists.debugging_artist as da
 import gng.artists.dialogue_artist as dia
 import gng.artists.game_world_artist as gwa
@@ -86,7 +86,13 @@ class Game():
         )
         self.character_sheet_manager = csm.CharacterSheetManager(
             self.player,
-            self.list_of_active_x_manager
+            self.list_of_active_x_manager,
+            None, # self.system_event_handler
+            None, # self.debugging_event_handler
+            None, # self.character_sheet_event_handler
+            None, # self.debugging_updater
+            None, # self.debugging_artist
+            None # self.character_sheet_artist
         )
         self.clock_manager = cm.ClockManager()
         self.debugging_manager = dbm.DebuggingManager()
@@ -170,6 +176,7 @@ class Game():
             self.player_name_keylogger_manager
         )
         # Assigning active_*s to nested FSMs ---------------------------
+        # ---- Character creator manager ------------------------------- 
         self.character_creator_manager.system_event_handler = \
             self.system_event_handler
         self.character_creator_manager.debugging_event_handler = \
@@ -184,6 +191,19 @@ class Game():
             self.character_creator_artist
         self.character_creator_manager.player_name_keylogger_artist = \
             self.player_name_keylogger_artist
+        # ---- Character sheet manager ------------------------------- 
+        self.character_sheet_manager.system_event_handler = \
+            self.system_event_handler
+        self.character_sheet_manager.debugging_event_handler = \
+            self.debugging_event_handler
+        self.character_sheet_manager.character_sheet_event_handler = \
+            self.character_sheet_event_handler
+        self.character_sheet_manager.debugging_updater = \
+            self.debugging_updater
+        self.character_sheet_manager.debugging_artist = \
+            self.debugging_artist
+        self.character_sheet_manager.character_sheet_artist = \
+            self.character_sheet_artist
         # Gameplay state machine manager -------------------------------
         self.gameplay_state_machine_manager = gsmm.GameplayStateMachineManager(
             self.list_of_active_x_manager,

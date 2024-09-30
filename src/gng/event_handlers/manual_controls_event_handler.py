@@ -100,7 +100,7 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
             self.manual_controls.pick_up(entity)
 
     def handle_keydown_pause(self, pygame_event):
-        self.gameplay_state_machine_manager.send("pause")
+        self.gameplay_state_machine_manager.send("toggle_pause")
 
 
 

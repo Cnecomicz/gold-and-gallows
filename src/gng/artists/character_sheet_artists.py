@@ -29,3 +29,28 @@ class CharacterSheetArtist:
             self.character_sheet_manager.cursor_index,
             *list_of_options
         )
+
+
+class CharacterSheetArtistEquipment:
+    def __init__(self, character_sheet_manager, player):
+        self.character_sheet_manager = character_sheet_manager
+        self.player = player
+
+    def draw(self, DISPLAY_SURF):
+        th.make_text(
+            DISPLAY_SURF,
+            gc.BGCOLOR,
+            50,
+            50,
+            800,
+            th.bdlr(f"{self.character_sheet_manager.current_state.name = }")
+        )
+        th.make_text(
+            DISPLAY_SURF,
+            gc.BGCOLOR,
+            50,
+            100,
+            800,
+            th.bdlr("EQUIPMENT TEST")
+        )
+

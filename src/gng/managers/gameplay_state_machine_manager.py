@@ -64,7 +64,10 @@ class GameplayStateMachineManager(StateMachine):
     begin_dialogue = overworld.to(dialogue)
     end_dialogue = dialogue.to(overworld)
     end_character_creation = character_creation.to(overworld)
-    pause = overworld.to(character_sheet) | character_sheet.to(overworld)
+    toggle_pause = (
+        overworld.to(character_sheet) 
+        | character_sheet.to(overworld)
+    )
 
     def on_enter_character_creation(self, event, state):
         self.list_of_active_x_manager.list_of_active_handlers = [
