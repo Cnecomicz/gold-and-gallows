@@ -2,6 +2,7 @@ import pygame
 
 import gng.global_constants as gc
 
+
 class ManualControlsUpdater:
     def __init__(self, manual_controls):
         self.manual_controls = manual_controls
@@ -27,10 +28,18 @@ class ManualControlsUpdater:
         # direction" wins, but it's minor enough I'm not addressing at
         # this time.
         check = pygame.key.get_pressed()
-        self.current_frame_obstruction_up = self.manual_controls.next_wall(self.manual_controls.up)
-        self.current_frame_obstruction_down = self.manual_controls.next_wall(self.manual_controls.down)
-        self.current_frame_obstruction_left = self.manual_controls.next_wall(self.manual_controls.left)
-        self.current_frame_obstruction_right = self.manual_controls.next_wall(self.manual_controls.right)
+        self.current_frame_obstruction_up = self.manual_controls.next_wall(
+            self.manual_controls.up
+        )
+        self.current_frame_obstruction_down = self.manual_controls.next_wall(
+            self.manual_controls.down
+        )
+        self.current_frame_obstruction_left = self.manual_controls.next_wall(
+            self.manual_controls.left
+        )
+        self.current_frame_obstruction_right = self.manual_controls.next_wall(
+            self.manual_controls.right
+        )
         if self.current_frame_obstruction_up is not None:
             self.manual_controls.send("obstruction_up")
         elif self.previous_frame_obstruction_up is not None:
@@ -52,7 +61,7 @@ class ManualControlsUpdater:
         if self.current_frame_obstruction_right is not None:
             self.manual_controls.send("obstruction_right")
         elif self.previous_frame_obstruction_right is not None:
-            for key in gc.RIGHT: 
+            for key in gc.RIGHT:
                 if check[key]:
                     self.manual_controls.send("press_right")
         self.previous_frame_obstruction_up = self.current_frame_obstruction_up
@@ -64,12 +73,17 @@ class ManualControlsUpdater:
         # should be the total of the directions you are pressing and the
         # non-obstructed directions. Thus we can move simply by using
         # the current_state.
-        (self.manual_controls.puppet.x, self.manual_controls.puppet.y) = self.manual_controls.next_coordinates(self.manual_controls.current_state)
+        (self.manual_controls.puppet.x, self.manual_controls.puppet.y) = (
+            self.manual_controls.next_coordinates(self.manual_controls.current_state)
+        )
         # Call this function after all the collision checking.
         self.manual_controls.get_direction_facing()
         # Make sure to update the rect, not just the x and y
         # coordinates.
         if hasattr(self.manual_controls.puppet, "rect"):
             self.manual_controls.puppet.rect = pygame.Rect(
-                self.manual_controls.puppet.x, self.manual_controls.puppet.y, self.manual_controls.puppet.width, self.manual_controls.puppet.height
+                self.manual_controls.puppet.x,
+                self.manual_controls.puppet.y,
+                self.manual_controls.puppet.width,
+                self.manual_controls.puppet.height,
             )

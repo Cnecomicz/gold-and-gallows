@@ -1,7 +1,8 @@
 from statemachine import StateMachine, State
 
 import gng.turns.player_turn as pt
-import gng.turns.npc_turn    as nt
+import gng.turns.npc_turn as nt
+
 
 class TurnsManager(StateMachine):
     roll_initiative = State(initial=True)
@@ -31,9 +32,7 @@ class TurnsManager(StateMachine):
             npc_turn_fsm = nt.NPCTurn(self.current_actor)
 
     def on_exit_turn(self, event, state):
-        self.current_turn_index = \
-            (self.current_turn_index + 1) % self.number_of_actors
-
+        self.current_turn_index = (self.current_turn_index + 1) % self.number_of_actors
 
     def on_enter_not_in_combat(self, event, state):
         self.party_list = []
@@ -43,8 +42,6 @@ class TurnsManager(StateMachine):
         self.number_of_actors = 0
         self.current_actor = None
 
-
-
     # ------------------------------------------------------------------
     def __init__(self, player, other_party_list, other_npcs_list):
         self.player = player
@@ -52,8 +49,7 @@ class TurnsManager(StateMachine):
         self.other_npcs_list = other_npcs_list
         self.turn_order_list = []
         self.current_turn_index = 0
-        self.number_of_actors = \
-            len(self.party_list) + len(self.other_npcs_list)
+        self.number_of_actors = len(self.party_list) + len(self.other_npcs_list)
         self.current_actor = None
         super().__init__()
 
@@ -65,7 +61,3 @@ class TurnsManager(StateMachine):
 
     def draw(self):
         pass
-
-
-
-

@@ -70,6 +70,7 @@ player = ec.Entity(
     armor_slot=[],  # Max size: number_of_torsos
     back_slot=[],  # Max size: number_of_torsos
     number_of_torsos=1,
+    spells=[],
 )
 player.rect = gc.pygame.Rect(player.x, player.y, player.width, player.height)
 player.number_of_fingers = (player.number_of_arms * player.number_of_fingers_on_a_hand,)

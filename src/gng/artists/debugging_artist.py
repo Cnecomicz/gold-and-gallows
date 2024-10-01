@@ -1,6 +1,6 @@
-
 import gng.global_constants as gc
 import gng.functions.text_handling as th
+
 
 class DebuggingArtist:
     def __init__(self, debugging_manager, clock_manager):

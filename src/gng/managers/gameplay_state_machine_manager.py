@@ -1,6 +1,7 @@
 import pygame
 from statemachine import StateMachine, State
 
+
 class GameplayStateMachineManager(StateMachine):
     main_menu = State()
     overworld = State()
@@ -64,23 +65,18 @@ class GameplayStateMachineManager(StateMachine):
     begin_dialogue = overworld.to(dialogue)
     end_dialogue = dialogue.to(overworld)
     end_character_creation = character_creation.to(overworld)
-    toggle_pause = (
-        overworld.to(character_sheet) 
-        | character_sheet.to(overworld)
-    )
+    toggle_pause = overworld.to(character_sheet) | character_sheet.to(overworld)
 
     def on_enter_character_creation(self, event, state):
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
-            self.character_creator_event_handler
+            self.character_creator_event_handler,
         ]
-        self.list_of_active_x_manager.list_of_active_updaters = [
-            self.debugging_updater
-        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [self.debugging_updater]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
-            self.character_creator_artist
+            self.character_creator_artist,
         ]
 
     def on_exit_character_creation(self, event, state):
@@ -90,17 +86,17 @@ class GameplayStateMachineManager(StateMachine):
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
-            self.manual_controls_event_handler
+            self.manual_controls_event_handler,
         ]
         self.list_of_active_x_manager.list_of_active_updaters = [
             self.debugging_updater,
             self.manual_controls_updater,
             self.clock_updater,
-            self.camera_targeting_updater
+            self.camera_targeting_updater,
         ]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
-            self.game_world_artist
+            self.game_world_artist,
         ]
 
     def on_exit_overworld(self, event, state):
@@ -110,15 +106,13 @@ class GameplayStateMachineManager(StateMachine):
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
-            self.dialogue_event_handler
+            self.dialogue_event_handler,
         ]
-        self.list_of_active_x_manager.list_of_active_updaters = [
-            self.debugging_updater
-        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [self.debugging_updater]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.game_world_artist,
-            self.dialogue_artist
+            self.dialogue_artist,
         ]
 
     def on_exit_dialogue(self, event, state):
@@ -128,14 +122,12 @@ class GameplayStateMachineManager(StateMachine):
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
-            self.character_sheet_event_handler
+            self.character_sheet_event_handler,
         ]
-        self.list_of_active_x_manager.list_of_active_updaters = [
-            self.debugging_updater
-        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [self.debugging_updater]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
-            self.character_sheet_artist
+            self.character_sheet_artist,
         ]
 
     def on_exit_character_sheet(self, event, state):
@@ -144,14 +136,12 @@ class GameplayStateMachineManager(StateMachine):
     def on_enter_turns(self, event, state):
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
-            self.debugging_event_handler
+            self.debugging_event_handler,
         ]
-        self.list_of_active_x_manager.list_of_active_updaters = [
-            self.debugging_updater
-        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [self.debugging_updater]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
-            self.game_world_artist
+            self.game_world_artist,
         ]
 
     def on_exit_turns(self, event, state):

@@ -5,11 +5,7 @@ import gng.global_constants as gc
 
 class TextBundle:
     def __init__(
-        self, 
-        text, 
-        font=gc.BASIC_FONT, 
-        color=gc.TEXT_COLOR, 
-        font_size=gc.FONT_SIZE
+        self, text, font=gc.BASIC_FONT, color=gc.TEXT_COLOR, font_size=gc.FONT_SIZE
     ):
         self.text = text
         self.font = font
@@ -73,14 +69,7 @@ def make_text(DISPLAY_SURF, bgcolor, left, top, text_width, *text_bundles):
             DISPLAY_SURF.blit(textSurf, textRect)
 
 
-def make_hovered_option(
-    DISPLAY_SURF, 
-    bgcolor, 
-    left, 
-    top, 
-    text_width, 
-    text_bundle
-):
+def make_hovered_option(DISPLAY_SURF, bgcolor, left, top, text_width, text_bundle):
     hovered_symbol = "> "
     hoveredSurf = text_bundle.font.render(
         hovered_symbol, True, text_bundle.color, bgcolor
@@ -96,6 +85,7 @@ def make_hovered_option(
     )
     make_text(DISPLAY_SURF, bgcolor, left, top, text_width, text_bundle)
 
+
 def get_number_of_lines(left, text_width, *text_bundles):
     # TODO: lot of overlap with make_text, maybe DRY
     lines = 1
@@ -105,10 +95,10 @@ def get_number_of_lines(left, text_width, *text_bundles):
         current_line = ""
         for word in words:
             textSurf = text_bundle.font.render(
-                current_line, True, text_bundle.color#, bgcolor
+                current_line, True, text_bundle.color  # , bgcolor
             )
             nextSurf = text_bundle.font.render(
-                current_line + word + " ", True, text_bundle.color#, bgcolor
+                current_line + word + " ", True, text_bundle.color  # , bgcolor
             )
             if (
                 nextSurf.get_width() + (ending_position - left) <= text_width
@@ -125,13 +115,7 @@ def get_number_of_lines(left, text_width, *text_bundles):
 
 
 def make_all_options(
-    DISPLAY_SURF, 
-    bgcolor, 
-    left, 
-    top, 
-    text_width, 
-    cursor_index, 
-    *text_bundles
+    DISPLAY_SURF, bgcolor, left, top, text_width, cursor_index, *text_bundles
 ):
     line = 0
     for option in text_bundles:
@@ -142,7 +126,7 @@ def make_all_options(
                 left,
                 top + line * option.font.get_height(),
                 text_width,
-                option
+                option,
             )
         else:
             make_text(
@@ -151,6 +135,6 @@ def make_all_options(
                 left,
                 top + line * option.font.get_height(),
                 text_width,
-                option
+                option,
             )
         line += get_number_of_lines(left, text_width, option)

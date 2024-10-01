@@ -2,6 +2,7 @@ from statemachine import StateMachine, State
 
 import gng.global_constants as gc
 
+
 class PlayerTurn(StateMachine):
     awaiting_input = State(initial=True)
     handling_movement = State()
@@ -12,9 +13,11 @@ class PlayerTurn(StateMachine):
     act = awaiting_input.to(handling_action, cond="can_act")
     stop_move = handling_movement.to(awaiting_input)
     stop_act = handling_action.to(awaiting_input)
-    done = (awaiting_input.to(end_turn)
+    done = (
+        awaiting_input.to(end_turn)
         | handling_movement.to(end_turn)
-        | handling_action.to(end_turn))
+        | handling_action.to(end_turn)
+    )
 
     # def on_stop_move(self, event, state):
     #     if self.movement_spent >= self.player.movement_allotment:
@@ -43,9 +46,7 @@ class PlayerTurn(StateMachine):
                 case self.awaiting_input:
                     pass
                 case self.handling_movement:
-                    if pygame_event.key in (
-                        gc.UP + gc.DOWN + gc.LEFT + gc.RIGHT
-                    ):
+                    if pygame_event.key in (gc.UP + gc.DOWN + gc.LEFT + gc.RIGHT):
                         # TODO: player movement
                         self.check_if_movement_remains()
                 case self.handling_action:
@@ -58,7 +59,7 @@ class PlayerTurn(StateMachine):
 
     def draw(self):
         pass
-    
+
     # def tracking_movement(self):
     #     distance = delta(player_last_frame, player_this_frame)
     #     self.movement_spent += distance

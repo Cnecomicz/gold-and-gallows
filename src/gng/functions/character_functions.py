@@ -1,7 +1,9 @@
 import math
 
+
 class InvalidClass(Exception):
     pass
+
 
 def calculate_AV(character_class, level):
     match character_class:
@@ -30,4 +32,4 @@ def calculate_AV(character_class, level):
             raise InvalidClass(
                 "The inputted character class does not exist. Check if typo."
             )
-    return math.floor(slope*level + yint)
+    return math.floor(slope * level + yint)

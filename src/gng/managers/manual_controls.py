@@ -221,9 +221,7 @@ class ManualControls(StateMachine):
 
     def next_wall(self, direction):
         (next_x, next_y) = self.next_coordinates(direction)
-        next_rect = pygame.Rect(
-            next_x, next_y, self.puppet.height, self.puppet.width
-        )
+        next_rect = pygame.Rect(next_x, next_y, self.puppet.height, self.puppet.width)
         for wall in self.list_of_collision_rects:
             if pygame.Rect.colliderect(next_rect, wall):
                 return wall

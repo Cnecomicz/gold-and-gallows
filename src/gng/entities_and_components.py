@@ -38,7 +38,9 @@ class Entity:
         return "<entity(id=%s, name='%s')>" % (hex(id(self)), self.name)
 
 
-def create_item(name, equippable=False, slot="", number_of_dice=0, damage_die=0, AC_value=0):
+def create_item(
+    name, equippable=False, slot="", number_of_dice=0, damage_die=0, AC_value=0
+):
     entity = Entity()
     give_name_component(entity, name)
     give_item_component(entity, equippable, slot, number_of_dice, damage_die, AC_value)
@@ -78,19 +80,18 @@ def create_npc(name, x, y, width, height, HD, dialogue_tree):
 
 # ----------------------------------------------------------------------
 
+
 def convert_HD_to_default_damage(HD):
-    """Input: an int representing monster HD. 
-    Output: (int, int) corresponding to 
+    """Input: an int representing monster HD.
+    Output: (int, int) corresponding to
     gc.MONSTER_HP_AND_DAMAGE_LIST_OF_DICT"""
     for dictionary in gc.MONSTER_HP_AND_DAMAGE_LIST_OF_DICT:
         if dictionary["hit_die"] == HD:
-            return dictionary["number_of_damage_dice"], \
-            dictionary["type_of_damage_dice"]
+            return (
+                dictionary["number_of_damage_dice"],
+                dictionary["type_of_damage_dice"],
+            )
     raise NoSuchHD(f"The inputted HD {HD} was not found in the JSON.")
-
-
-    
-
 
 
 def create_default_weapon(entity, number_of_dice=1, damage_die=1):
@@ -210,7 +211,9 @@ def give_player_stats_component(entity, CHA, CON, DEX, INT, STR, WIS, max_HP, AC
 
     def gets_attacked_by(self, enemy):
         if not dr.thread_the_needle(enemy.HD, entity.AC):
-            enemy.default_weapon.damages(self) # TODO: add logic for if the enemy uses a non default weapon
+            enemy.default_weapon.damages(
+                self
+            )  # TODO: add logic for if the enemy uses a non default weapon
 
     entity.gets_attacked_by = partial(gets_attacked_by, entity)
 
@@ -231,8 +234,6 @@ def give_HD_component(entity, HD):
     entity.max_HP = round(entity.HD * gc.AVERAGE_HP_PER_HD)
     entity.HP = entity.max_HP
     create_default_weapon(entity)
-
-
 
 
 def give_damage_dealing_component(entity, number_of_dice, damage_die):

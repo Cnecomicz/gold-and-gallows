@@ -1,8 +1,10 @@
 import random
 import re
 
+
 class UnexpectedDiceSyntax(Exception):
     pass
+
 
 def roll_x_d_n_and_keep_highest_k(x, n, k):
     if k > x:
@@ -36,19 +38,18 @@ def roll_below(value):
 def roll_above(value):
     return thread_the_needle(value, 21)
 
+
 def roll_usage(value):
     usage_dice_list = [4, 6, 8, 10, 12, 20]
     if value not in usage_dice_list:
-        raise UnexpectedDiceSyntax(
-            f"You cannot roll a usage die with {value} sides."
-        )
+        raise UnexpectedDiceSyntax(f"You cannot roll a usage die with {value} sides.")
     else:
         usage_die_index = usage_dice_list.index(value)
         if roll(f"d{value}") <= 2:
             if value == 4:
                 return None
             else:
-                return usage_dice_list[usage_die_index-1]
+                return usage_dice_list[usage_die_index - 1]
         else:
             return value
 
@@ -84,6 +85,3 @@ def roll(dice_syntax_string):
         return f"u{roll_usage(value)}"
     else:
         raise UnexpectedDiceSyntax(dice_syntax_string)
-
-
-

@@ -3,11 +3,12 @@ import pygame
 import gng.global_constants as gc
 import gng.event_handlers.pygame_event_handler as peh
 
+
 class ManualControlsEventHandler(peh.PygameEventHandler):
     def __init__(
-        self, 
-        manual_controls, 
-        list_of_npcs, 
+        self,
+        manual_controls,
+        list_of_npcs,
         list_of_items_on_ground,
         dialogue_manager,
         gameplay_state_machine_manager,
@@ -19,41 +20,21 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
         self.gameplay_state_machine_manager = gameplay_state_machine_manager
         super().__init__()
         for up_key in gc.UP:
-            self.register_keydown_event_handler(
-                up_key, self.handle_keydown_up
-            )
-            self.register_keyup_event_handler(
-                up_key, self.handle_keyup_up
-            )
+            self.register_keydown_event_handler(up_key, self.handle_keydown_up)
+            self.register_keyup_event_handler(up_key, self.handle_keyup_up)
         for down_key in gc.DOWN:
-            self.register_keydown_event_handler(
-                down_key, self.handle_keydown_down
-            )
-            self.register_keyup_event_handler(
-                down_key, self.handle_keyup_down
-            )
+            self.register_keydown_event_handler(down_key, self.handle_keydown_down)
+            self.register_keyup_event_handler(down_key, self.handle_keyup_down)
         for left_key in gc.LEFT:
-            self.register_keydown_event_handler(
-                left_key, self.handle_keydown_left
-            )
-            self.register_keyup_event_handler(
-                left_key, self.handle_keyup_left
-            )
+            self.register_keydown_event_handler(left_key, self.handle_keydown_left)
+            self.register_keyup_event_handler(left_key, self.handle_keyup_left)
         for right_key in gc.RIGHT:
-            self.register_keydown_event_handler(
-                right_key, self.handle_keydown_right
-            )
-            self.register_keyup_event_handler(
-                right_key, self.handle_keyup_right
-            )
+            self.register_keydown_event_handler(right_key, self.handle_keydown_right)
+            self.register_keyup_event_handler(right_key, self.handle_keyup_right)
         for use_key in gc.USE:
-            self.register_keydown_event_handler(
-                use_key, self.handle_keydown_use
-            )
+            self.register_keydown_event_handler(use_key, self.handle_keydown_use)
         for pause_key in gc.PAUSE:
-            self.register_keydown_event_handler(
-                pause_key, self.handle_keydown_pause
-            )
+            self.register_keydown_event_handler(pause_key, self.handle_keydown_pause)
 
     def handle_keydown_up(self, pygame_event):
         self.manual_controls.send("press_up")
@@ -101,8 +82,3 @@ class ManualControlsEventHandler(peh.PygameEventHandler):
 
     def handle_keydown_pause(self, pygame_event):
         self.gameplay_state_machine_manager.send("toggle_pause")
-
-
-
-
-

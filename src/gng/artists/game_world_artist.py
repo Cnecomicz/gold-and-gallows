@@ -2,14 +2,15 @@ import gng.functions.camera_functions as cf
 import gng.global_constants as gc
 import gng.functions.text_handling as th
 
+
 class GameWorldArtist:
     def __init__(
-        self, 
-        list_of_entities, 
-        list_of_collision_rects, 
+        self,
+        list_of_entities,
+        list_of_collision_rects,
         manual_controls,
         camera_target,
-        player
+        player,
     ):
         self.list_of_entities = list_of_entities
         self.list_of_collision_rects = list_of_collision_rects

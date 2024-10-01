@@ -19,9 +19,8 @@ class KeyEventHandler:
         self.key_event_handlers[key] = handler_method
 
     def __call__(self, pygame_event):
-        if (key_event := self.key_event_handlers.get(pygame_event.key)) \
-        is not None:
-            key_event(pygame_event)  
+        if (key_event := self.key_event_handlers.get(pygame_event.key)) is not None:
+            key_event(pygame_event)
 
 
 class PygameEventHandler:
@@ -29,8 +28,7 @@ class PygameEventHandler:
         self.event_handlers = {}
 
     def handle_pygame_event(self, pygame_event):
-        if (event_handler := self.event_handlers.get(pygame_event.type)) \
-        is not None:
+        if (event_handler := self.event_handlers.get(pygame_event.type)) is not None:
             event_handler(pygame_event)
 
     def register_event_handler(self, event_type, handler_method):
@@ -49,8 +47,8 @@ class PygameEventHandler:
     def register_key_event_handler(self, event_type, key, handler_method):
         if event_type not in self.event_handlers:
             self.event_handlers[event_type] = KeyEventHandler()
-        # If it blows up here because NoMethodError for 
-        # register_key_event, it means something is already configured 
-        # to listen to this event_type that isn't using a 
+        # If it blows up here because NoMethodError for
+        # register_key_event, it means something is already configured
+        # to listen to this event_type that isn't using a
         # KeyEventHandler.
         self.event_handlers[event_type].register_key_event(key, handler_method)

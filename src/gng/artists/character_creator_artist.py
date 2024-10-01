@@ -1,6 +1,7 @@
 import gng.global_constants as gc
 import gng.functions.text_handling as th
 
+
 class CharacterCreatorArtist:
     def __init__(self, character_creator, player):
         self.character_creator = character_creator
@@ -59,10 +60,10 @@ class CharacterCreatorArtist:
                     ),
                 )
                 th.make_all_options(
-                    DISPLAY_SURF, 
-                    gc.BGCOLOR, 
-                    100, 
-                    300, 
+                    DISPLAY_SURF,
+                    gc.BGCOLOR,
+                    100,
+                    300,
                     800,
                     self.character_creator.cursor_index,
                     th.bdlr("Cleric"),
@@ -74,8 +75,7 @@ class CharacterCreatorArtist:
                     th.bdlr("Magic-User"),
                     th.bdlr("Paladin"),
                     th.bdlr("Ranger"),
-                    th.bdlr("Warlock")
-
+                    th.bdlr("Warlock"),
                 )
             case self.character_creator.choosing_name:
                 th.make_text(

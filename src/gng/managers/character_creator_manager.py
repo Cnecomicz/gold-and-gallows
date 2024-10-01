@@ -3,6 +3,7 @@ from statemachine import StateMachine, State
 import gng.functions.character_functions as cf
 import gng.functions.dice_roller as dr
 
+
 class CharacterCreatorManager(StateMachine):
     choosing_power_level = State(initial=True)
     choosing_class = State()
@@ -148,23 +149,20 @@ class CharacterCreatorManager(StateMachine):
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
             self.debugging_event_handler,
-            self.player_name_keylogger_event_handler
+            self.player_name_keylogger_event_handler,
         ]
-        self.list_of_active_x_manager.list_of_active_updaters = [
-            self.debugging_updater
-        ]
+        self.list_of_active_x_manager.list_of_active_updaters = [self.debugging_updater]
         self.list_of_active_x_manager.list_of_active_artists = [
             self.debugging_artist,
             self.character_creator_artist,
-            self.player_name_keylogger_artist
-
+            self.player_name_keylogger_artist,
         ]
 
     # ------------------------------------------------------------------
 
     def __init__(
-        self, 
-        player, 
+        self,
+        player,
         list_of_active_x_manager,
         system_event_handler,
         debugging_event_handler,
@@ -172,7 +170,7 @@ class CharacterCreatorManager(StateMachine):
         debugging_updater,
         debugging_artist,
         character_creator_artist,
-        player_name_keylogger_artist
+        player_name_keylogger_artist,
     ):
         self.player = player
         self.list_of_active_x_manager = list_of_active_x_manager
