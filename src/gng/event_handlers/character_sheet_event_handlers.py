@@ -83,7 +83,12 @@ class CharacterSheetEventHandlerEquipment(peh.PygameEventHandler):
             % self.character_sheet_manager.number_of_options
 
     def handle_keydown_use(self, pygame_event):
-        pass
+        # -1 because we count from 0
+        if self.character_sheet_manager.cursor_index == \
+        self.character_sheet_manager.number_of_options-1:
+            self.character_sheet_manager.to_home()
+        else:
+            pass
 
     def handle_keydown_pause(self, pygame_event):
         self.character_sheet_manager.to_home()

@@ -45,12 +45,17 @@ class CharacterSheetArtistEquipment:
             800,
             th.bdlr(f"{self.character_sheet_manager.current_state.name = }")
         )
-        th.make_text(
+        list_of_items = []
+        for item in self.player.inventory:
+            list_of_items.append(th.bdlr(item.name))
+        list_of_items.append(th.bdlr("Back"))
+        th.make_all_options(
             DISPLAY_SURF,
             gc.BGCOLOR,
-            50,
+            50, # Fiddle with these constants (left / top / width) later
             100,
             800,
-            th.bdlr("EQUIPMENT TEST")
+            self.character_sheet_manager.cursor_index,
+            *list_of_items
         )
 

@@ -58,15 +58,9 @@ class CharacterSheetManager(StateMachine):
             self.character_sheet_artist
         ]
 
-    def on_exit_home(self, event, state):
-        pass
-
     def on_enter_equipment_submenu(self, event, state):
         self.cursor_index = 0
-        if self.player.inventory != []:
-            self.number_of_options = len(self.player.inventory)
-        else:
-            self.number_of_options = 1
+        self.number_of_options = len(self.player.inventory)+1 # +1 for "Back"
 
         self.list_of_active_x_manager.list_of_active_handlers = [
             self.system_event_handler,
@@ -81,8 +75,32 @@ class CharacterSheetManager(StateMachine):
             csa.CharacterSheetArtistEquipment(self, self.player)
         ]
 
-    def on_exit_equipment_submenu(self, event, state):
+    def on_exit_home(self, event, state):
         pass
+
+    def on_exit_equipment_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_spells_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_abilities_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_portrait_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_class_and_level_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_stats_HP_AC_and_AV_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_log_submenu(self, event, state):
+        self.put_cursor_back(state)
+
+    def on_exit_quit_submenu(self, event, state):
+        self.put_cursor_back(state)
 
     # ------------------------------------------------------------------
 
@@ -116,3 +134,6 @@ class CharacterSheetManager(StateMachine):
         self.cursor_index = 0
         self.number_of_options = 0
         self.to_home()
+
+    def put_cursor_back(self, state):
+        self.cursor_index = self.list_of_submenus.index(state)
