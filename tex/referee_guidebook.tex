@@ -1,0 +1,463 @@
+% !TeX program = xelatex
+\documentclass[twoside]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage{mathspec}
+\usepackage{calc}
+\setmainfont[Path=../fonts/,BoldFont={Futura_Heavy.ttf},ItalicFont={Futura_Medium_Italic.ttf},BoldItalicFont={Futura_Bold_Italic.ttf}]{Futura_Medium.ttf}
+\setmathfont[Path=../fonts/]{Futura_Book.ttf}
+\setmathrm[Path=../fonts/]{Futura_Book.ttf}
+\newfontfamily\myfonta[Path=../fonts/]{Friz_Quadrata_Bold.otf}
+\newfontfamily\myfontb[Path=../fonts/]{Korinna_Bold.ttf}
+\usepackage[inner=0.7in,outer=0.3in,top=0.3in,bottom=0.5in]{geometry}
+\usepackage{moresize}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{hhline}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\bfseries}
+\titleformat*{\subsubsection}{\bfseries}
+\titleformat*{\paragraph}{\bfseries}
+\titleformat*{\subparagraph}{\bfseries}
+\usepackage[titles]{tocloft}
+\renewcommand{\contentsname}{\hfill\large CONTENTS\hfill}   
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{0pt}
+\renewcommand\cftsecfont{\mdseries}
+\renewcommand\cftsecpagefont{\mdseries}
+\usepackage{parskip}
+\usepackage{caption}
+\captionsetup{singlelinecheck = false,justification=raggedright,font={bf},tablename=TABLE}
+\renewcommand{\thetable}{\Roman{table}.}
+\usepackage{faktor}
+\usepackage{enumitem}
+
+\usepackage{showframe}
+\begin{document}
+\begin{titlepage}
+\newgeometry{left=0in,right=0in,top=0.3in,bottom=0.5in}
+\centering
+
+\phantom{x}
+
+\vspace{1in}
+
+{\myfonta\raisebox{1ex}{\large \phantom{Official}} \HUGE{\phantom{Advanced}\\Gold \& Gallows}}
+
+\vspace{3ex}
+
+{\myfontb\HUGE{REFEREE GUIDEBOOK}}
+
+WORK IN PROGRESS DRAFT
+\end{titlepage}
+\pagebreak
+
+\restoregeometry
+\begin{center}
+\tableofcontents
+\end{center}
+
+\twocolumn
+
+\section*{INTRODUCTION}
+\addcontentsline{toc}{section}{INTRODUCTION}
+
+This booklet provides you, the Referee, the frame of mind and guiding principles for running a \textbf{GOLD \& GALLOWS} or similar old school game. In it, we discuss the design philosophy of old school gaming, best practices for Referees, and helpful advice for running the game.
+
+\subsection*{Design Philosophy - Our Guiding Principles}
+\addcontentsline{toc}{subsection}{Design Philosophy - Our Guiding Principles}
+
+What is \textbf{GOLD \& GALLOWS}?
+
+\bigbreak
+
+What \textit{isn't} \textbf{GOLD \& GALLOWS}? 
+
+\bigbreak
+
+This question is neither meant to be contrarian nor to imply that the game can do everything. Rather, since it is by construction rules-lite, reductionist, and built with old school (as opposed to modern) sensibilities in mind, it is helpful to frame the question of what \textbf{GOLD \& GALLOWS} is by what it purposefully isn't.
+
+\bigbreak
+
+It is not complex. The core system, rolling under or \textbf{Threading the Needle}, is nearly universal, easily understood, and quick to resolve with no math involved. Despite its simplification mechanically, it does not reduce the gameplay to meaningless choice or the absence of choice; rather, its simplicity allows it to step out of the way and let the true gameplay happen. RPG gameplay is \textit{not} getting to roll dice, despite what it seems to outside onlookers. Thus, \textbf{GOLD \& GALLOWS} is accessible to newcomers and the mechanically disinterested while still remaining rich with possibility space and depth of gameplay.
+
+\bigbreak
+
+It is not hands-off. This is perhaps a result of its simplicity; there are no gameplay moments where the players sit back and let dice mechanics entirely resolve a scene. The players have to get involved: they cannot hide behind a skill check when checking for traps or deceiving guards. The Referee has to get involved: adjudicating and making calls in situations that the rulebook can not, will not, and could never anticipate. Neither of these things are bad in our eyes! As a result, player skill trumps ``character skill" (though the distinction must be minimized), and neither Referee nor player has the luxury of passively playing - though, why would you want to?
+
+\bigbreak
+
+Further, \textbf{GOLD \& GALLOWS} isn't necessarily ``rulings, not rules," like other old school systems. Certainly there is an encouragement that the Referee is not beholden to the rules as written, and should never let rules or the lack of rules impede progress or fun. But on its face ``rulings, not rules" conveys a disregard for the system and its mechanics. That is not necessarily the case here (indeed, look to the \textbf{MODULAR RULES} to see the vanilla system expanded and developed). Rather, the ``rulings, not rules" mantra for us means the idea that a player or Referee should not feel unable to do something because a rule for it does not appear (a very common problem we will discuss many times over in this booklet).
+
+\bigbreak
+
+So, with everything that \textbf{GOLD \& GALLOWS} isn't laid out to bear, we hopefully now begin to see what it must be. These were the goals when designing \textbf{GOLD \& GALLOWS}: to build a system that is light, expandable, challenging, deep. At each stage, rules were ruthlessly revised or cut to adhere to our goals. (Some of those rules found their way to the \textbf{MODULAR RULES}, because there's plenty of fantastic rules that don't meet our strict requirements but still deserve a chance.)
+
+\bigbreak
+
+That doesn't necessarily mean that you must share our goals or that your house rules must fit our mold, but the knowledge of \textit{why} we did the things we did is valuable and too often kept from the reader, which is bizarre and needs to change. Let us begin that change.
+
+\subsubsection*{\footnotesize{H}\scriptsize{ANG ON: WHY MUST THE DISTINCTION BETWEEN PLAYER AND CHARACTER SKILL BE MINIMIZED?}\normalsize}
+\addcontentsline{toc}{subsubsection}{Hang on: why must the distinction between player and character skill be minimized?}
+
+Glad you asked.
+
+\bigbreak
+
+Principally, skills are antithetical to our design ethos. A skill list mechanizes and standardizes the possible options a player can take. In other games, when confronted with a problem or situation, players often turn to their skill list for ideas, or worse still, opt out for lack of a certain skill. (Later on in this booklet, we discuss how to address these situations if they occur during this game.) This means that there are no skills in \textbf{GOLD \& GALLOWS}, so there's no skills to check, ergo there's no character skill to distinguish from player skill.
+
+\bigbreak
+
+But that's not the entire story. Certainly, there are still character skills, even if there's no ``skill list;" a character's six stats determines capability and skill. Even still, player skill reigns supreme. An opponent of this concept might argue: are we to believe that a 4 INT character that's never seen a troll knows to kill it with fire to keep it from regenerating? There's no way they'd know that! You're metagaming! To which we reply: there's no such thing!
+
+\subsubsection*{\footnotesize{W}\scriptsize{AIT: THERE'S NO SUCH THING AS METAGAMING?}\normalsize}
+\addcontentsline{toc}{subsubsection}{Wait: there's no such thing as metagaming?}
+
+That's right.
+
+\bigbreak
+
+Metagaming, i.e., acting out of character or using real world knowledge from outside the game, isn't a problem and isn't even a point of consideration in \textbf{GOLD \& GALLOWS}. The character either cooks the troll or not; whether there's a song and dance of figuring it out in character when the player already knows to is an exercise that only appeases the sensibilities of those that require it. But combat is deadly and unfair, and on that note alone players should take what advantages they can. If the monster is intelligent, the Referee has an obligation to play them strategically and attack the party's weak points, so the party has just as much a responsibility to fight back. We therefore strongly encourage your table not to require appeasing.
+
+\bigbreak
+
+And even if those sensibilities must be appeased, to do so is trivial. Characters are adventurers, and expected to have adventuring knowledge and capable technique. Or, for another argument: gameplay has not consisted of every moment without break from a character's birth, so surely in some moment skipped over, they have heard rumor or fairy tale or studied and learned about the troll's weakness.
+
+\bigbreak
+
+Also, trolls aren't real. The player isn't using real world knowledge to know to kill them with fire. They're not killed with fire because they aren't real. It's the Thermian argument. Referees can accept that fire kills trolls, and then it does, or reject it wholesale, and then it doesn't. In either case, it's become in-universe knowledge, not real world knowledge.
+
+\bigbreak
+
+This mentality extends to all reaches of metagaming. Players need not be concerned with talking out of character; their dialogue is an abstraction of what the in-universe character says, in the same way that a die roll is an abstraction of the in-universe character's axe swing. In no other game do we concern ourselves with the distinction between character and player; we do not distinguish ourselves from the Monopoly shoe.
+
+\subsection*{General Advice}
+\addcontentsline{toc}{subsection}{General Advice}
+
+Perhaps one of the best pieces of advice is: treat the world as if it were real. This is not to say that your games must be realistic (after all, how realistic is it for wizards to fight dragons?), but that they should be portrayed with a suspension of disbelief and an adherence to verisimilitude. Goblins aren't raiding the village because they're an appropriate threat for a group of level 1 characters, but because the road being built cuts through their woodland burrows. The skeletons in this dungeon have come from somewhere; where is that, and why?
+
+\bigbreak
+
+Next, listen to the players. They will tell you, in not so many words, what type of game they would like to play. A party of suave, swashbuckling, swarthy seamen will play much differently than the dark wizard cult of the High Demon Prince Akante. But talk to the players as well, and establish expectations together. A ``Session 0" before gameplay and character creation can help to get everyone on the same page.
+
+\bigbreak
+
+During gameplay, remember that the stories you create are neither yours nor your players' alone, but a cooperative endeavor. If a question arises and you don't know the answer, ask for input. And remember that you are always your players' biggest fan. The job of a Referee is not to be antagonist to the players, even though one role is to play the antagonist to the characters. You should root for them to succeed, even as you throw at them insurmountable obstacles.
+
+\bigbreak
+
+Similarly, kill your darlings. Any plan you make will no doubt change once it interacts with PCs, so be prepared to revise and adapt to them. If your setting resists PC input, you're writing a book, not a game. In fact, it is generally advisable to make as few plans as possible. Tend not to prepare plots; prepare settings and catalysts, and let the players take the situations in the directions they choose. To make the world feel unrestricted and alive, a good quick question to ask is, ``What would happen next if the party did nothing?"
+
+\bigbreak
+
+When players propose things, or ask questions, it is a good habit to respond to them with ``Yes, and;" that is to say, to take their suggestions and build upon them. If it isn't possible to adhere to them, ``No, but" is a good response. For example, if a character attempts to bribe an NPC, the game simply halts if the Referee says, ``No, the NPC is too disciplined to take a bribe." A ``Yes, and" response would have the NPC take the bribe, and later turn the PC in. If the NPC absolutely would not take a bribe, a ``No, but" response would have the NPC turn down the bribe, but be impressed with the PC's gusto and help them in another way.
+
+\bigbreak
+
+Spice up the gameplay. Combat should seldom be an exchange of ``I roll, I hit, she rolls, she hits." Describe how combatants slide on the floor between foes, taunt opponents into running into pit traps, swing from the masts and hack at the enemies below. Lead by example and your players will soon follow suit.
+
+\bigbreak
+
+Provide surprising and exciting rewards. Magic items should not be a ``+1 Longsword," they should be ``Elthar, the Wise Golden Blade, Bane of Banshees." Even non-magical rewards can be exciting; a deed to a far off property or a treasure map is much more interesting than a sack of gold and jewels.
+
+\bigbreak
+
+Never let the game stall; usually this is due to players not having any choices, or the Referee not clearly communicating what those choices are. Don't be afraid to give players hints, either; you have the entire world in your mind, while they only know what you tell them. So give players plenty of options and meaningful choices to make.
+
+\bigbreak
+
+Let it ride. Neither player nor Referee should make a check more than once, unless something significant changes. Embrace ``failures;" they are an opportunity for unplanned excitement and improvisation. 
+
+
+\bigbreak
+
+Finally, read the room. Your friends have invested their time to play \textbf{GOLD \& GALLOWS} with you, so you should do your best to make sure that everyone has a good time. Feel compelled to revise on a whim when players seem unreceptive, and make sure that every player gets a chance to shine every game. One of the most important duties as a Referee is to direct the spotlight. And after every game, ask for feedback, do your research, prepare, and improve for the next one.
+
+\section*{GAME DESIGN}
+\addcontentsline{toc}{section}{GAME DESIGN}
+
+While it is perhaps the top priority that the world of your campaign feel like a living, breathing place, \textbf{GOLD \& GALLOWS} is also a game, and smart game design can be employed without sacrificing the reality of the game world.
+
+\bigbreak
+
+Telegraph dangers. Players should seldom feel that their character's demise was cheap or inevitable. Let the characters know of imminent danger: the bodies of past adventurers lie scattered on the trail, bloodstains or hieroglyphics give sign of a mighty threat, peasants flee in the opposite direction. If all else fails, ask, ``are you sure?" Those three words help realign player expectation; maybe they truly didn't realize that leaping into the inky black death pit spelled certain doom.
+
+\bigbreak
+
+Focus on the characters. Their choices, their actions, their input should be the driving force in your games. If the characters' actions aren't impactful, the players may lose investment in your world. This doesn't have to be on a grand scale; something as simple as earning discounts at the local merchant for helping him solve his goldbug problem can suffice. And certainly never place important choices or pivotal decisions in the hands of NPCs. Let your players play the game.
+
+\bigbreak
+
+It is okay to design obstacles without designing explicit solutions (in the same way you should design situations without explicit plots). It is in this space that PCs can get creative and work to problem solve. For example, deep in a dungeon, a locked door must receive a blast of cold air to open. There is a breeze blowing at the entrance, far above. PCs could find any number of ways to reroute the breeze, provide a new source of air, force the door open, go around, or leave. Choice is the foundation on which \textbf{GOLD \& GALLOWS} is built, and open-ended problems provide the PCs nothing but choice.
+
+\bigbreak
+
+To that end, constantly provide choices. The characters should make big choices, like which quest to take, to more local choices, like whether to leap across the dark chasm or find a way around, all the way down to minute choices, like whether to drink a healing potion or attack this turn. One of the most important jobs of a Referee is to make these choices both clear to the players and meaningful, with interesting consequences for every choice that the characters do or do not make.
+
+\bigbreak
+
+Reskin, adapt, and steal. Inject common tropes with your own unique twists to surprise your players. You can use this technique to find horror in the uncannily familiar, challenge players that are too genre-savvy, or simply spice up your games with variety.
+
+\subsection*{What Does Gameplay Look Like?}
+\addcontentsline{toc}{subsection}{What Does Gameplay Look Like?}
+
+Roleplaying games are a conversation. The Referee provides the scene and setting and asks, either implicitly or directly, ``How do your characters act?" Then the Referee resolves the actions, and the process repeats. Thus, a general gameplay loop looks like:
+
+\bigbreak
+
+Step 1. Referee describes the situation through the characters' senses.
+
+Step 2. Players ask questions.
+
+Step 3. Players take personal action with their character.
+
+Step 4. Referee resolves the consequences of the action and returns to step 1.
+
+\bigbreak
+
+Step 1 is usually accomplished naturally based on the Referee's knowledge of the overall setting and of the specific circumstances involved. Step 4 usually happens according to the rules described in your system. As we've mentioned, sometimes you will find a gap in those rules requiring you to resolve consequences without a specific rule to help you do so. The \textbf{MODULAR RULES} provide some guidance, but even they are limited; at some point, a Referee must simply make the most reasonable ruling they can. Unless later found to be unreasonable, then Referee should then apply the ruling with consistency in similar circumstances. When the players declare action, consider your response in the following order:
+
+\bigbreak
+
+\begin{enumerate}[nosep]
+\item Does it make sense for it to just happen? If so, describe the consequences.
+\item Is it still uncertain? If so, adjudicate the action, using a check, save, etc.
+\item Describe the consequences.
+\end{enumerate}
+
+\bigbreak
+
+Step 2 requires that the Referee give players information generously, as previously mentioned.
+
+\bigbreak
+
+\begin{enumerate}[nosep]
+\item Tell the players the current situation.
+\item When they ask a question, give your answer and ask a question back.
+\item If you think they have misunderstood, clarify.
+\end{enumerate}
+
+\subsection*{Some Unusual Things \textbf{GOLD \& GALLOWS} Does, and Why}
+\addcontentsline{toc}{subsection}{Some Unusual Things \textbf{GOLD \& GALLOWS} Does, and Why}
+
+\subsubsection*{\footnotesize{C}\scriptsize{LASS PHILOSOPHY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Class philosophy}
+
+There are some mechanics and flavor text in \textbf{GOLD \& GALLOWS} which break the mold of a typical fantasy setting. In particular, several classes are retooled and reskinned compared to their presentation in Tolkien fantasy or other roleplaying games. Sometimes this was done because the mechanics of different classes could be consolidated, especially given the design philosophy ``race as class," where a nonhuman race defines the character's mechanical class role, and sometimes this was done because their typical presentation has gotten stale or boring, and some worldbuilding while this system was being playtested envisioned those classes in a different light. Below are those deviations and a bit of explanation for why they occur.
+
+\bigbreak
+
+(Plus, this way you have an idea for what the \textbf{VARIANT CLASS ABILITIES} in \textbf{MODULAR RULES} add to the system, and with the original design philosophy in mind, you can houserule additional rules while staying true to that, or go against the design but armed with the knowledge of how your ideas deviate from the baseline.)
+
+\bigbreak
+
+Dwarfs are not underground miners and tinkerers. Instead, they are modeled off of ancient Greek society. They are studious and scientific and philosophical, and their history draws from mythology. Their mechanics are built on supporting the rest of the party and are often Bard inspired, especially in the \textbf{MODULAR RULES}. This choice has two major reasons behind it: first, vanilla Dwarfs, with their stonework and masonry and dungeons, aren't surprising anymore. Second, Dwarfs in other systems don't have interesting mechanics. Part of this is due to the distinction between race and class in those other systems. But it would not be compelling to create a class of Dwarfs whose only abilities are night vision and knowledge of craftsmanship. That knowledge, however, was the basis for Dwarfs as they appear in \textbf{GOLD \& GALLOWS}; it was simply extended to describe a people who value knowledge, science, and story of all kinds. From there it was a simple connection to tie them to Greek society, where knowledge but also myth and storytelling are the clich\'e, and the fact that once underground miners now live in a Mediterranean style milieu is a fortunate and interesting flavor.
+
+\bigbreak
+
+Halflings are the Rogues of \textbf{GOLD \& GALLOWS}. Again, race as class requires a Halfling class to justify itself mechanically, and a roguish, cunning Halfling is more of an adventurer than a soft, homely Halfling. Such a characterization was perfect for the themes of Tolkien's work, but it is precisely that characterization which makes them bad adventurers. For Tolkien, that was the point, but for our system, something else had to be done. Writing Halflings as Rogues allowed us to effectively keep both.
+
+\bigbreak
+
+Warlocks are dangerous. Ideally that much is clear from the flavor text, but the mechanics in every regard try to reinforce that danger. Necrotic spells are scary and powerful and horrifying. Corruption is deadly. It is hard work to gain Warlock abilities, and precarious to keep and use them. Also, the ways to earn Corruption are kept purposefully vague; Referees should let their minds run wild and cook up all manner of impossible choices and terrible tasks. But Corruption should be exceedingly rare. It is phenomenally dangerous to accumulate, Warlocks will slowly gain it of their own accord without outside intervention, and it should remain mysterious and unknown in order to retain its terror. If at all, a Warlock likely only once in their life will gain Corruption from outside leveling up or casting extra spells, and that moment is likely a campaign-defining moment.
+
+\bigbreak
+
+The \textbf{MODULAR RULES} contain some \textbf{VARIANT CLASS ABILITIES} that reskin the ten classes in \textbf{GOLD \& GALLOWS} to align with some additional classes that weren't included. For instance, there are rules which make Fighters more like Barbarians or Monks.
+
+\subsubsection*{\footnotesize{R}\scriptsize{ACE AS CLASS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Race as class}
+
+The phrase ``race as class" captures the often-chosen old school design decision not to make a distinction between a character's species and their job as an adventurer. For example, in \textbf{GOLD \& GALLOWS}, a Dwarf cannot also be a Cleric or Thief as in some other systems (even old school ones), and a Dwarf certainly cannot be a Magic-User as in some more modern systems. Why?
+
+\bigbreak
+
+Before getting into the justification, we can first express the following. As with all design decisions, this is a preference that can be houseruled, and in fact this particular hangup can be houseruled without touching a single mechanic. Simply create a character that ``is" a Dwarf, but their class is a Magic-User. They are not the Dwarf class, but in the fiction, they are a Dwarf. This houserule can be easily and effortlessly incorporated into any campaign.
+
+\bigbreak
+
+But as written, Clerics, Druids, Fighters, Magic-Users, Paladins, Rangers, and Warlocks are humans. The following are reasons for the race as class design decision:
+
+\bigbreak
+
+\begin{enumerate}[nosep]
+\item Race as class makes humans the focus of the game, and makes fantasy species like Dwarfs, Elves, and Halflings exciting and surprising.
+\item Separating race and class leads to higher powered characters mechanically, as they attain both race abilities and class abilities. In particular, many races have night vision which negates the need to plan for and ration light in dungeons.
+\item Character creation is faster with one less decision to make.
+\item Race and class are both usually chosen, not randomly rolled, leading to a playstyle that only incentivizes min-maxing and homogeneity. This is also why we roll for stats (see \textbf{Roll for Stats}). Choosing only a character's class doesn't allow for the min-maxing synergy of choosing a race which boosts necessary stats and abilities for a chosen class. For instance, in many systems, the Elf race boosts stats that synergize well with e.g. the Ranger class, but to play an Elven Barbarian is a purposeful choice not to advantage oneself using the rules of the system. It can be done, but the system cannot reward it.
+\end{enumerate}
+
+\subsubsection*{\footnotesize{S}\scriptsize{PELL PHILOSOPHY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Spell philosophy}
+
+In addition to classes, we can also discuss spells. The arcane spells do not ever do damage directly; instead, they are designed to be utility spells, physics toys, and fun sandbox effects. Necrotic spells do damage and have a horrifying flavor. They often have dangerous or permanent effects. It may be good to keep this in mind if incorporating new spells into the system.
+
+\subsubsection*{\footnotesize{W}\scriptsize{HY YOU ROLL FOR STATS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Why you roll for stats}
+
+If you are familiar with other roleplaying games, you may know of or even prefer other ways of generating stats for characters. Other than rolling, examples include ``point-buy" and ``stat array," but there are many. However, care has gone into the established character creation in \textbf{GOLD \& GALLOWS} --- namely, that you do roll, and must assign the rolls to your stats in order --- and thus, you yourself should also take care before considering adjusting these mechanics. Detractors of rolling for stats typically have one of the following concerns:
+
+\bigbreak
+
+\begin{enumerate}[nosep]
+\item Rolling for stats creates characters that are too underpowered/overpowered: 
+
+The existence of three different ways to roll for stats, \textbf{EXTREME}, \textbf{STANDARD}, and \textbf{CLASSIC}, is meant to appease this, while still allowing for exciting and interesting variance, a goal not to be discounted in its own right.
+\item Rolling creates an imbalance of stats across the party: 
+
+The tiers again alleviate this concern, but such variance is again exciting and desired. In addition, such imbalance is not as pronounced during gameplay as it might appear. Indeed:
+\item Rolling on occasion creates a completely incompetent character: 
+
+Likely not. The mechanical importance of stats in \textbf{GOLD \& GALLOWS} is less than that of other games. For instance, consider that stats do not affect attack or damage rolls. While scores of 10-11 represent an average person, this is not to say that a score of 3-6 should represent a feeble or incapable person. Characters with 3s in some stats can and do have successful adventures. Characters of all stats can use items, hire hirelings, make plans, and engage with the game world, all skills which are much more impactful on a character's survival than their stats.
+\item Assigning rolls in order prevents the player from assigning their rolls to certain stats to build a specific class: 
+
+Following the order of the rules, players should choose their class after they roll for stats. If the choice of class cannot be compromised, there is excitement in making do with the hand given to you. Otherwise a different, more suitable, class can always be chosen. This is a positive thing, as the system encourages variance as opposed to homogeneity or optimization.
+\item Point-buy/stat array/other alleviates all my concerns: 
+
+Perhaps it does, but that is not the intended experience of this system. Buying stats, in opposition to discovering a character through rolling, is the act of manufacturing a character. Unfortunately such game systems can only reward you for manufacturing optimized characters. This is not to say that unoptimized characters cannot be made, only that the rules system does not incentivize them. Rolling, by its random nature, cannot incentivize any min-maxing strategy.
+\end{enumerate}
+
+\bigbreak
+
+Ultimately, the message conveyed by rolling for stats is that, much as in real life, characters do not choose proficiencies for themselves. Rolling for stats forces a player to step outside of roleplaying habits and mitigates min-maxing. Through the act of rolling, a character is discovered, not popped into existence fully-formed. Rolling in order makes it feel like you're now in charge of a ``real" person. You didn't pick them, but they're your responsibility.
+
+\subsubsection*{\footnotesize{W}\scriptsize{HY YOU SPEND GOLD TO LEVEL UP}\normalsize}
+\addcontentsline{toc}{subsubsection}{Why you spend gold to level up}
+
+Those familiar with other roleplaying games may find the fact that there are no experience points a bit unconventional. Using gold as a means of leveling up presents an interesting risk-reward dynamic for the players. As in most games, the best loot is often behind some of the hardest challenges. Since characters can progress without murder-hoboing or slaying everything in their path, they're encouraged to get creative and problem-solve ways to ensure a big score safely, and players learn quickly that combat is deadly and  generally to be avoided. (Also, characters don't gain \emph{too} terribly much upon leveling up and encounters can still go wrong in a pinch, so this remains a consideration even for higher leveled parties.) Because of this one-two combo of gold to level and high lethality, characters are more highly incentivized to be plunderers and grave robbers, focusing primarily on acquiring items and escaping to safety. (In fact, it is precisely this one-two combo that gives \textbf{GOLD \& GALLOWS} its name!) It also manifests as an in-universe measure of character progress, as opposed to experience points which are an abstract game mechanic.
+
+\section*{HABITS TO ADOPT/KEEP}
+\addcontentsline{toc}{section}{HABITS TO ADOPT/KEEP}
+
+This section describes mechanics and habits that, for many modern sensibilities, have fallen by the wayside. Consider each section a discussion from an apologist advocating for why these habits haven't gotten their fair shake.
+
+\subsection*{Monsters Can Open Doors Easily, PCs Cannot}
+\addcontentsline{toc}{subsection}{Monsters Can Open Doors Easily, PCs Cannot}
+
+There is a school of thought on dungeons that says they should have been built with a distinct purpose, should make sense as far as the inhabitants and their ecology, and need not necessarily be the centerpiece of the game (after all, the Mines of Moria were just a place to get through). None of that need be true for a \textbf{GOLD \& GALLOWS} dungeon. There might be a reason the dungeon exists, but there might not; it might simply be. It certainly can be the centerpiece of a game. As for ecology, a dungeon should have a certain amount of verisimilitude and internal consistency, but it is an underworld: a place where the normal laws of reality may not apply and may be bent, warped, or broken. Not merely an underground site or a lair, not sane, the underworld gnaws on the physical world like some chaotic cancer. It is inimical to men; the dungeon itself opposes and obstructs the adventurers brave enough to explore it.
+
+\bigbreak
+
+Including difficult doors is only one mechanical facet that conveys this alien hostility. Generally, doors will not open by turning the handle or by a push. Doors must be forced open by strength. Most doors will automatically close, despite the difficulty in opening them. Doors will automatically open for monsters, unless they are held shut against them by characters. Doors can be wedged open by means of spikes, but there is a chance that the spike will slip and the door will shut.
+
+\subsection*{Random Encounters}
+\addcontentsline{toc}{subsection}{Random Encounters}
+
+To many, random encounters act as frustrating obstructions on the way to the next ``real" gamepiece. Random encounters are said to be a combat slog, a war of attrition, or unvaried and unexciting. A large part of this mentality can immediately be changed when the Referee builds settings, not predetermined plots, as already discussed, but this is not the only argument in its favor, and indeed, random encounters are useful and important even in campaigns where players follow a preordained plot. 
+
+\bigbreak
+
+Encounter rolls serve several purposes: they keep the adventurers in a state of tension, they emulate a vibrant, lived-in world, they introduce events that no one, not even the Referee, can plan for, they force players to weigh the risks of tarrying in dangerous places, and many other purposes.
+
+\bigbreak
+
+Most of the concerns of running random encounters can be addressed without removing the mechanic entirely. Not every encounter need result in a combat, or even with the meeting of an NPC or monster. A random encounter could be a monster's tracks or trails, an ally, or nothing more than an uneasy feeling as the party's torches are spent and the wind creaks ominously.
+
+\bigbreak
+
+Furthermore, reaction rolls can be applied so that even when a random encounter does result in a monster or NPC, that encounter need not immediately result in combat.
+
+\bigbreak
+
+Another benefit of habitual random encounters is that the silence in the absence of random encounters will be deafening. See E Gary Gygax's \textbf{TOMB OF HORRORS} or James Raggi's\footnote{A mention is not an endorsement. The dude sucks.} \textbf{DEATH FROST DOOM} for perhaps the most well-known examples.
+
+\subsection*{The Mapper}
+\addcontentsline{toc}{subsection}{The Mapper}
+
+Many modern games (especially those that rely on miniatures) ask the Referee to draw battlemaps and provide dungeon maps to their players. But allowing the players the opportunity to create their own maps puts that much more freedom and choice on the players. Mapping becomes a tactical decision: do we spend the time here drawing the most accurate map we can? Do we simplify our map with a flow chart from room to room, rather than exact dimensions? Do we bother with a map at all, or just hope our natural sense of direction gets us through the dungeon/wilderness? These tactical decisions become more interesting when the players are afforded the opportunity to decide.
+
+\bigbreak
+
+One common criticism of mapping is that it is slow. The Referee dictates dimensions and directions to the sole designated mapper, and they dutifully write it down. (Worse: if they make a mistake and the Referee corrects them!) Ideally the rest of the party is occupied with their own tasks, but if not, they sit idly and twiddle their thumbs. If maps are done in this way, it is no wonder the players dislike it!
+
+\bigbreak
+
+But by making mapping a direct part of play, you can increase engagement with the mapping, make the time spent mapping less separate from the ``interesting" things, and decrease the absolute amount of time spent mapping. We provide the following guidance to the Referee:
+
+\begin{enumerate}[nosep]
+\item Don't give mapping descriptions on sight. Mapping takes time. Not even time out of game; mapping takes time in-game. That means that proper (i.e., accurate, detailed) mapping can't be done just by glancing into a room. If you're giving foot-scale dimensions as soon as the party opens a door, stop. Give them a visual impression of the room, not a mathematical impression of the room, and keep play going.
+\item Don't give away mapping information for free. Mapping is work. The mapper doesn't just glance around and begin drawing a grid-perfect map. Accurately mapping a room or corridor involves pacing off the distance or getting out a knotted rope that's brought along just for the purpose. The party mapper measuring and mapping a room is as much legwork and moving around as searching for traps or combing the stonework for secret doors. Just like you don't give away the location and nature of traps and secrets just for the asking, don't give (accurate) mapping information just for the asking. When the mapper asks how long the corridor is, ask them if they start measuring it by slowly pacing down the corridor. At first you'll get a panicked reaction ``No!" as they envision their doom in pit traps and on the fangs of lurking beasts, but after a few repetitions of requiring the mapping character to actually acquire their desired map data in a real way, they'll start getting choosier about when and how they seek that data. Maps and map data are a resource, and like every resource in an old school game, the game kind of breaks when they're still required but made freely available.
+
+You'll find that the mapper doesn't try to map rooms on sight anymore; they'll wait until a room is somewhat explored first. You'll find that mapping becomes the answer to ``and what are you doing while those two spend three turns checking the walls for secrets?" and begins to naturally overlap with such activity. You will also find that the mapper acquires the information more organically, making the process more part of the in-game activity itself than dry bookkeeping at the table. All that moving around the room is in-game activity that can interact with the ever-present unknown of a dungeon, which keeps the tension high.
+\item Don't assume mapping will happen. The players elect to map because it has utility; it is a resource they should be managing, not you. Don't assume or guarantee it for them! Making mapping an in-game activity moves it into the realm of player responsibility. They want a map? Then they have to do the work to make the map. They don't like how long the mapper is taking to have their character strut around the room? Let them debate among themselves whether to stop or grudgingly put up with it for the greater good. Let the players choose to forego an accurate map! Often they won't need an accurate map. The optimal behavior is to map only as often and in as much detail as is necessary to be able to safely and quickly navigate around and back out of the location, and sometimes that means a flow chart map is good enough. How and what they map should be theirs to determine and devise.
+\end{enumerate}
+
+The Referee has the responsibility to initially describe via what the characters see, rather than what would be drawn on the map: ``Stepping up to the arch, your torches reveal a dead-end room. It's twice as wide as the corridor you stand in and square, with no other visible exits. In the far right corner is what looks like a low circular wall surrounding a pit or well." vs ``It's a 20 by 20 room with a well in the northeast corner." Keep it simple, and focus on suggesting a broad-brush impression of the room. This keeps it digestible and gives the players something to engage with and explore. It's a first visual impression for the adventurers, after all, so brevity is fitting anyway. As is usual in old school games, the players will ask questions about features' details, which is akin to their character turning their attention onto the features within the game. (``What kind of wall is it?" ``It's rough masonry, knee-high, and moss grows in the cracks." ``I walk over and hold my torch up to look into it...") If the mapper wants to map, using visually-focused descriptions makes acquiring mappable details just a different kind of question that the player asks.
+
+\bigbreak
+
+As a bonus, giving visual descriptions dovetails with advice 1, 2, and 3; if the mapper or party wants a map faster, they can make a rough one based on the not-very-accurate idea of the space they get from the visual descriptions. There's no need to switch to `Mapping Conversation Mode' with you; they gather the details they want (if any) via exploration and your descriptions in response, seamlessly as part of normal exploration play.
+
+\bigbreak
+
+P.S.: Don't forget the paper and ink; it goes without saying that they can only map if they have the means and supplies. If they want a map, let them plan for it and buy paper, ink, quills, and ways of keeping them safe from unexpected tumbles into underground waterfalls.
+
+\subsection*{``You Can Not Have a Meaningful Campaign if Strict Time Records Are Not Kept."}
+\addcontentsline{toc}{subsection}{``You Can Not Have a Meaningful Campaign if Strict Time Records Are Not Kept."}
+
+So many mechanics depend on the progression of time: consumables like torches and rations, maintaining property, spell duration, combat encounters, HP recovery, overland travel time, and certain class abilities are just a small sample of the requisite mechanics.
+
+\bigbreak
+
+\textbf{GOLD \& GALLOWS} is encouraged to be run as a sandbox with complete player freedom. To make the world more alive, it should progress as time passes: enemies plot and plan, seasons cycle, towns change as businesses grow, politics change, or monsters invade, patrols and caravans travel, and so on.
+
+\bigbreak
+
+Notice that therefore time must be kept on several scales: the big picture, where seasons, travel, and local politics are tracked, the day-to-day, like rations and class abilities, the moment to moment, tracking torches, monster encounters, and so on, and the minuscule, like a combat round or conversation.
+
+\section*{HABITS TO AVOID/BREAK}
+\addcontentsline{toc}{section}{HABITS TO AVOID/BREAK}
+
+On the other hand, some habits have developed that interfere with the goals of \textbf{GOLD \& GALLOWS}. They may not necessarily be bad outright, but they are incompatible with the goals, design ethos, and rules of the system.
+
+\subsection*{Balancing Encounters}
+\addcontentsline{toc}{subsection}{Balancing Encounters}
+
+Some systems take great care to ensure that every combat encounter is appropriately balanced for the number of characters in the party, their level, and their expected combats per day. How artificial!
+
+\bigbreak
+
+\textbf{GOLD \& GALLOWS} is encouraged to be run as a sandbox with complete player freedom. This means that the Referee cannot and should not anticipate who the party will parley with and how often. In a sandbox, the world is not balanced for players; it is indifferent.
+
+\bigbreak
+
+Balancing encounters, by its very definition, also reinforces a homogeneity in the combats the party faces. No matter whether the characters are level 1 or 10, if the combat is balanced, the characters should expect to use a certain amount of their cumulative supplies and abilities in each combat throughout the day. As they level up and their supplies and abilities grow, all this does is serve to lengthen combat encounters out into boring slogs. If encounters scale with character level, then they will continue to be as hard as they did at level 1. 
+
+\bigbreak
+
+But players need to feel that their characters have gained in power, so by neglecting to balance encounters, Referees have the freedom to also throw easy fights at the party, in addition to the hard fights which are often implicitly assumed when one says that encounters are imbalanced. 
+
+\bigbreak
+
+However, that is not to say that the Referee should avoid the hard or impossible fights either. If the world is indifferent, then not every fight is winnable, and players should have the wherewithal to understand that. If players expect combat balance, they'll think every combat is winnable, so combat becomes the go-to approach for every encounter. Yet, if victory is uncertain, then even the act of entering into combat becomes a reasoned decision, and players make every effort to force the situation to go in their favor, like scouting and preparing traps and escape routes, rather than assuming the Referee has done this for them.
+
+\bigbreak
+
+Therefore, imbalanced encounters serve many purposes: they make the world feel more real and less designed with characters in mind, they allow the players to have some easy victories where once they may have struggled, and they force the players to engage the world on its own terms and treat combat as a risk.
+
+\subsection*{Unprompted Rolls}
+\addcontentsline{toc}{subsection}{Unprompted Rolls}
+
+If a player comes from a system with predefined skills and extensive character sheets, they may have a habit of leaning on those skills as opposed to roleplaying. It is a not uncommon refrain to here these players say, ``I use Diplomacy on the guard: 19," or ``I rolled a 23 for Perception; what do I see?"
+
+\bigbreak
+
+But \textbf{GOLD \& GALLOWS} has no skills. Players should be compelled to narrate how they search, or how they appeal to the guard. Where before a player may have asked to make a Perception roll, now a player must tell the Referee that they are searching, where they are searching, and how they are searching. The Referee then must describe what the characters do or do not find. This requires more responsibility in the hands of the players: to be invested and absorbed in the world, and thoughtful enough to search and how, and it requires more responsibility in the hands of the Referee: to prepare adventurers in such a way that clues are discernible with careful thought and planning, to provide hints and guide the players, and to keep the world cohesive so that the players may buy into it.
+
+\bigbreak
+
+And of course it should be stated that the act of rolling unprompted is a synecdoche for a larger problem. Even if a player doesn't proffer to roll dice to solve a problem, they still may be restricting their set of problem-solving tools to the raw mechanics instead of the fiction of the game world. Rolling without being asked to is just one symptom of this issue, but it is an obvious, loud symptom, so it is easily diagnosed and treated. Players should be told (and reminded as necessary!) that the Referee's job is to engage with them truthfully as they navigate the game world, responding to all manner of actions the players choose. Were they restricted to only game mechanics and dice rolling, the Referee could be replaced by a flow chart without disturbing anything!
+
+\bigbreak
+
+Said succinctly: the answers (usually) aren't on the character sheet.
+
+\end{document}

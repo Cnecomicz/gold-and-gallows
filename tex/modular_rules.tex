@@ -1,0 +1,2557 @@
+% !TeX program = xelatex
+\documentclass[twoside]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage{mathspec}
+\usepackage{calc}
+\setmainfont[Path=../fonts/,BoldFont={Futura_Heavy.ttf},ItalicFont={Futura_Medium_Italic.ttf},BoldItalicFont={Futura_Bold_Italic.ttf}]{Futura_Medium.ttf}
+\setmathfont[Path=../fonts/]{Futura_Book.ttf}
+\setmathrm[Path=../fonts/]{Futura_Book.ttf}
+\newfontfamily\myfonta[Path=../fonts/]{Friz_Quadrata_Bold.otf}
+\newfontfamily\myfontb[Path=../fonts/]{Korinna_Bold.ttf}
+\usepackage[inner=0.7in,outer=0.3in,top=0.3in,bottom=0.5in]{geometry}
+\usepackage{moresize}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{hhline}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\bfseries}
+\titleformat*{\subsubsection}{\bfseries}
+\titleformat*{\paragraph}{\bfseries}
+\titleformat*{\subparagraph}{\bfseries}
+\usepackage[titles]{tocloft}
+\renewcommand{\contentsname}{\hfill\large CONTENTS\hfill}  
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{0pt}
+\renewcommand\cftsecfont{\mdseries}
+\renewcommand\cftsecpagefont{\mdseries}
+\usepackage{parskip}
+\usepackage{caption}
+\captionsetup{singlelinecheck = false,justification=raggedright,font={bf},tablename=TABLE}
+\renewcommand{\thetable}{\Roman{table}.}
+\usepackage{faktor}
+\usepackage{tikz}
+\usepackage{enumitem}
+
+\newcommand{\TTN}[2]{\textbf{Thread the Needle} above #1 and below #2}
+
+\usepackage{showframe}
+\begin{document}
+\begin{titlepage}
+\newgeometry{left=0in,right=0in,top=0.3in,bottom=0.5in}
+\centering
+
+\phantom{x}
+
+\vspace{1in}
+
+{\myfonta\raisebox{1ex}{\large \phantom{Official}} \HUGE{\phantom{Advanced}\\Gold \& Gallows}}
+
+\vspace{3ex}
+
+{\myfontb\HUGE{MODULAR RULES}}
+
+WORK IN PROGRESS DRAFT
+\end{titlepage}
+\pagebreak
+
+\restoregeometry
+\begin{center}
+\tableofcontents
+\end{center}
+
+\twocolumn
+
+\section*{INTRODUCTION}
+\addcontentsline{toc}{section}{INTRODUCTION}
+
+This is a collection of optional or suggested rules for \textbf{GOLD \& GALLOWS} (or comparable old school, rules-lite systems) that are designed to be added to games as the Referee chooses.
+
+\bigbreak
+
+These were omitted from the vanilla ruleset often for either being too mechanics-heavy for the rules-lite design philosophy, or for being applicable only to edge cases of regular play. In the vanilla ruleset, Referees finding themselves in either of these circumstances are encouraged to make common sense consistent rulings. In that regard, these rules can also be thought of as helpful guiding examples of what such rulings might look like.
+
+\bigbreak
+
+Broadly speaking, the rules listed in this collection are all high-level; that is to say, rather than dealing with minute details like spell mechanics or class abilities, most of these rules are big-picture systems that can be slotted into any game at a Referee's will with little prior introduction. (Although there is a section on class abilities too.) In some cases, players either need a brief introduction, or they may be completely unaware that the rule is being used. In other cases, if the Referee wants to use a rule that requires player knowledge, inform your table so you can come to a consensus together.
+
+\bigbreak
+
+Not all rules throughout are compatible with one another. In fact, quite the opposite! It is not expected that every modular rule is to be used. Referees should be compelled to pick and choose what suits their table best.
+
+\section*{ABSTRACT DICE MECHANICS}
+\addcontentsline{toc}{section}{ABSTRACT DICE MECHANICS}
+
+\subsection*{Big Purple d30}
+\addcontentsline{toc}{subsection}{Big Purple d30}
+
+Once per session, each player may opt to roll a single d30 in lieu of whatever die or dice the situation normally calls for. The choice to roll the d30 must be made before any roll. The d30 cannot be rolled for generating character statistics or hit points.
+
+\bigbreak
+
+If this is too extreme, replace d30 with the next highest die size of the intended roll. For example, a d10 is upgraded to a d12. A d20 upgrades to the d30.
+
+\subsection*{Escalation Die}
+\addcontentsline{toc}{subsection}{Escalation Die}
+
+The escalation die is a way to ramp up the stakes as combat progresses. Place a d6 on the table, side 1 up. Starting on the second round, all combatants get +1 for each pip on the die. At round 3, flip the die to 2. At round 4, flip it to 3, and so on. Larger or smaller escalation dice may be used at Referee discretion.
+
+\bigbreak
+
+Depending on context, the escalation die can be used for other escalating scenarios. For example, perhaps it is tied to an ancient altar that fills all nearby with visions of rage-inducing violence. In this method, the Referee might give both PCs and villains +1 to attack and damage for each pip on the die after the first round. Or, perhaps waves of necrotic energy flow off of an evil statue; at the beginning of each round, all entities in the room take d6 damage for each pip on the die after the first round. Or, when the die hits six, the airship on which the PCs fight might crash to the ground if they don't fight back the fire elemental lord that normally fuels the ship. Or, the Referee can use the escalation die to trigger specific abilities of a boss monster; e.g., as the PCs battle the red dragon, the dragon's skin becomes hotter and hotter, releasing waves of heat as the battle escalates. Each point on the die adds d6 onto the dragon's attacks and melee attacks on the dragon result in d6 damage to the attacker. Or, the escalation die could act as a minion generator; each round after the first spawns a new minion for each pip on the die.
+
+\subsection*{Nicer Usage Dice}
+\addcontentsline{toc}{subsection}{Nicer Usage Dice}
+
+Typically, a roll of 1 or 2 downgrades a usage die, and if the last stage is downgraded, the item/spell is expended. Here are two ways to make this mechanic more generous:
+
+\bigbreak
+
+(A little more generous:) When the last stage is downgraded, the item/spell now has exactly one more use. After that, it is expended.
+
+\bigbreak
+
+(A lot more generous:) Only a roll of 1 downgrades a usage die.
+
+\subsection*{Time Pool}
+\addcontentsline{toc}{subsection}{Time Pool}
+
+The Time Pool is a collection of dice in the center of table which tracks the passage of time and random encounters during adventuring.
+
+\bigbreak
+
+Whenever there’s a moment in the game where several minutes will pass in the dungeon before the players finish one or more tasks, the Referee declares that ``time passes" and adds a single die to the Time Pool or rolls the Time Pool. The die that gets added is based on the danger of the place. Extremely hostile locations use d4s, normal dungeons use d6s, and sparse dungeons use d8s. Each die in the Time Pool potentially represents up to ten minutes of spent time, vaguely speaking. Once there are six dice in the Time Pool, the Time Pool is full and no more dice can be added. Instead, whenever time passes, the Referee must roll the Time Pool.
+
+\bigbreak
+
+Whenever time passes, the Referee has the option of rolling the Time Pool instead of adding a die. The Referee should do this whenever the action the party has undertaken would attract undue attention. To roll the Time Pool, the Referee picks up the dice and rolls them all. If any die shows a 1, something bad happens. If nothing bad happens, the Time Pool is simply returned to the middle of the table to potentially cause something bad to happen again in the very near future. Once something bad happens, if the Time Pool isn’t full, the Referee removes one die from the Time Pool. But if the Time Pool was full, after something bad happens, the Referee clears the Time Pool. At that point, the Referee tracks that an hour has passed. Durations expire, light sources go out, etc.
+
+\bigbreak
+
+The bad thing can be random encounters or context time-sensitive countdowns, like a patrol approaching, a ruin collapsing and a part of the dungeon closing off, more of the dungeon becoming flooded, the cult completing one of the six steps in opening the portal, etc.
+
+\section*{CHARACTER GENERATION}
+\addcontentsline{toc}{section}{CHARACTER GENERATION}
+
+\subsection*{Failed Professions}
+\addcontentsline{toc}{subsection}{Failed Professions}
+
+Adventurers become adventurers because they are cast out of civilized society, not due to some noble drive for excitement. Adventuring is messy, gruesome, and deadly, and most characters don't willingly turn to it unless they are slightly wrong in the head. 
+
+\bigbreak
+
+Characters have a failed profession, representing what they did before adventuring. A failed profession can mechanically provide a new character with relevant items, like a lookout owning a spyglass or a jailer with manacles. When a character's profession would be advantageous to them during gameplay, they may roll with Advantage.
+
+\subsection*{Multiclassing}
+\addcontentsline{toc}{subsection}{Multiclassing}
+
+Characters that are exposed to and train under different classes as they adventure have the chance to multiclass when they level up. In order to multiclass, a character must have a naturally occurring narrative reason to level under a different class.
+
+\bigbreak
+
+When a character has spent enough gold to gain a level, they may choose to gain a level in a class they have not chosen before. They gain the new class's die in HP; the die + 4 HP a class starts with only applies to the first class a character chooses. They gain all class abilities of the new class. When determining the HP regained after a full night's rest, they use the highest die. When determining the allowed weapons, armor, and shield they can use, they use the lowest result. When determining their AV, they use the highest result. 
+
+\bigbreak
+
+A multiclassed character is functionally multiple different levels, one for each class they are leveling. They do not use the sum total of their levels for anything other than determining how much gold to invest to gain another level, and they must use each class' level for the purposes of level-scaling abilities.
+
+\bigbreak
+
+For instance, an Elf 2 / Magic-User 3 has the Elf abilities of a level 2 Elf, including but not limited to two surges and spells allotted, and the Magic-User abilities of a level 3 Magic-User, including but not limited to usage dice and three metamagics. An Elf 2 / Magic-User 3's AV will be 11 and their HP healed each night is d6 (from Elf 2). They can only use a d4 weapon, light armor, and no shield (from Magic-User 3).
+
+\bigbreak
+
+Once a character gains a level in Warlock, the eldritch beings to which they answer will not be happy if they gain a level in any other class. Reneging on pacts with such beings is ill-advised.
+
+\subsection*{The Funnel}
+\addcontentsline{toc}{subsection}{The Funnel}
+
+Instead of generating a level 1 character, generate several level 0 characters. Roll 3d6 in order for stats, d4 HP, 8 AV, give them two items, no class, but a failed profession if using them. All characters then go on an adventure that tests their mettle, the ``funnel." Those that survive are upgraded to level 1 adventurers. Pick their class and any other mechanics according to their actions during the funnel.
+
+\section*{CHASES}
+\addcontentsline{toc}{section}{CHASES}
+
+\subsection*{Chases Using 2d6}
+\addcontentsline{toc}{subsection}{Chases Using 2d6}
+
+Each round, each group of pursuers and fugitives rolls 2d6. If a group is particularly slow (e.g., over encumbered, injured, etc.), they roll 3d6. A group moves at the speed of its weakest link.
+
+\bigbreak
+
+In between rounds, provide choices for the players. Do not give complete descriptions and details; only quick demands, like ``Left or right?!" if they are fleeing. There is no time to take in environments and make careful choices during a chase. If they have made a map, they should not consult it.
+
+\bigbreak
+
+If all the dice of a group match (i.e., rolling doubles on 2d6 or triples on 3d6), the group succeeds: fugitives escape or pursuers corner a group of fugitives. Ties go to fugitives. Make note of where chases end: characters may become lost and disoriented, lose dropped items, etc. 
+
+\bigbreak
+
+If any results of the fugitives' dice match the pursers', they can exchange a round of ranged attacks with one another; e.g., if the fugitives roll 4 and 6 and the pursuers roll 4 and 5. Missile fire is the only permissible action; no reloading or other actions.
+
+\bigbreak
+
+If either side rolls 7, that side can take a round of actions. They may attack, reload, cast a spell, grab an item, open/close doors, etc.
+
+\bigbreak
+
+At any time, a group of fugitives/pursuers may split off into smaller groups, but they cannot reconvene until after the chase. The chase continues until the fugitives get away, are cornered, or either side is dead.
+
+\bigbreak
+
+If the players act in a way benefiting their rout/pursuit, like dropping something the pursuers desire, they may gain the ability to nudge one of their die rolls by +1 or -1 .
+
+\subsection*{Chases Using Snakes and Ladders}
+\addcontentsline{toc}{subsection}{Chases Using Snakes and Ladders}
+
+Create a Snakes and Ladders board. Fugitive groups go first. On a group's turn, roll d6 + the speed die of the slowest group member. Move forwards or backwards the resulting number of squares.
+
+\bigbreak
+
+The speed die is determined by factoring encumbrance, injury, etc. Start at d8 and downgrade the die for each slowing condition: d8>d6>d4>-. Upgrade for hastening conditions.
+
+\bigbreak
+
+In between rounds, provide choices for the players. Do not give complete descriptions and details; only quick demands, like ``Left or right?!" if they are fleeing. There is no time to take in environments and make careful choices during a chase. If they have made a map, they should not consult it.
+
+\bigbreak
+
+Pursuers catch fugitives if they reach the end first (optionally: or land on the same square as the fugitives). Fugitives escape if they reach the end of the board without being caught. Make note of where chases end: characters may become lost and disoriented, lose dropped items, etc. 
+
+\bigbreak
+
+The board can have squares with special effects: increasing or decreasing speed dice, hazards or distractions, rerolls, etc.
+
+\section*{CORRUPTION}
+\addcontentsline{toc}{section}{CORRUPTION}
+
+Gaining a Corruption point or succeeding on a Corruption check can manifest physically or psychologically on the character (recall that failing a Corruption check results in the loss of the character). Below are some possibilities. Roll and modify the result as necessary, or just pick from the following lists:
+
+\subsection*{Mental Manifestations of Corruption}
+\addcontentsline{toc}{subsection}{Mental Manifestations of Corruption}
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Minor Corruptions}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&Being drunk keeps you sane.\\
+2&You must keep whatever you find.\\
+\rowcolor[gray]{0.75}3&You try to become like someone else you know, adopting their style of dress, mannerisms, and name.\\
+4&You feel you must bend the truth, exaggerate, or outright lie to be interesting to other people.\\
+\rowcolor[gray]{0.75}5&Achieving your goals is the only thing of interest to you, and you will ignore everything else to pursue them.\\
+6&You find it hard to care about anything that goes on around you.\\
+\rowcolor[gray]{0.75}7&You don't like the way people \emph{judge} you all the time.\\
+8&You are the smartest, wisest, strongest, fastest, and most beautiful person you know.\\
+\rowcolor[gray]{0.75}9&There's only one person you can trust, and only you can see this special friend.\\
+10&You can't take anything seriously. The more serious the situation, the funnier you find it.\\
+\rowcolor[gray]{0.75}11 or higher&You've discovered that you really like killing people.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Moderate Corruptions}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&At the start of each combat, retreat into your mind, paralyzed, until you take damage.\\
+2&When you roll doubles, you can only scream, laugh, or weep until you roll doubles again.\\
+\rowcolor[gray]{0.75}3&You only want to eat strange things, like dirt, slime, or offal.\\
+4&You will do whatever anyone tells you to, as long as it isn't self-destructive and they aren't aware of this fact.\\
+\rowcolor[gray]{0.75}5&You can hear out-of-character conversations among the players at your table, but no one believes you.\\
+6 or higher&During combat you always hallucinate one fewer enemy than there really are.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Major Corruptions}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&You are compelled to repeat a specific activity over and over again, like washing hands, touching things, praying, or counting coins, and if you don't, bad things will happen.\\
+2&You know people are watching you, and you can't trust even your companions. But you shouldn't let them know you know.\\
+\rowcolor[gray]{0.75}3&You gain tremors and tics.\\
+4&You have amnesia and cannot remember the events since you last leveled up.\\
+\rowcolor[gray]{0.75}5&You are revulsed by all items of the same type or kind as in your fifth inventory slot.\\
+6 or higher&You become mute.\\
+\end{tabular}
+\end{center}
+
+\subsection*{Physical Manifestations of Corruption}
+\addcontentsline{toc}{subsection}{Physical Manifestations of Corruption}
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Minor Corruptions}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&Develop horrid pustules, painful lesions, and open sores that do not heal.\\
+2&Skin changes to an unnatural color.\\
+\rowcolor[gray]{0.75}3&One leg grows 6 inches.\\
+4&Eyes affected. Roll d4. 1: glow unnaturally. 2: sensitive to light. 3: infravision. 4: large and unblinking.\\
+\rowcolor[gray]{0.75}5&Constantly shake and twitch.\\
+6&Pass out for d6 hours.\\
+\rowcolor[gray]{0.75}7 or higher&Prehensile tongue.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Moderate Corruptions}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&Febrile: lose 1 STR each month for d4 months.\\
+2&A duplicate face grows on the PC's back.\\
+\rowcolor[gray]{0.75}3&Crackle with magical energy, prone to inopportune bursts.\\
+4&Demonic taint. Roll d4. 1: fingers become claws. 2: feet become hooves. 3: legs become goats'. 4: grow horns.\\
+\rowcolor[gray]{0.75}5&Skin appears to melt like wax; it flows and reforms into odd puddles and shapes.\\
+6&Tongue forks and nostrils narrow to slits.\\
+\rowcolor[gray]{0.75}7 or higher&Extremely sensitive to sunlight.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Major Corruptions}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&Soul claimed by a devil and a permanent -2 to all stats.\\
+2&Flesh falls off in chunks; lose d4 HP daily. Only magic healing staves off decay.\\
+\rowcolor[gray]{0.75}3&Each month, one limb is replaced with a tentacle.\\
+4&Tentacles grow at mouth and ears.\\
+\rowcolor[gray]{0.75}5&Third eye. Roll d4. 1: forehead. 2: palm. 3: chest. 4: neck.\\
+6&Skin transforms. Roll d4. 1: scales. 2: feathers. 3: fur. 4: eyes.\\
+\rowcolor[gray]{0.75}7&All your known spells cast at once, targeting randomly.\\
+8 or higher&Become a host for a Transfiguration Worm parasite. See below.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+A Transfiguration Worm confers abilities to the host each time they level up. Roll d6 on the following tables.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Levels 1-3}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&The host wakes each morning with a random spell.\\
+2&The host's fingers and toes become like a gecko's. They can climb without rope if hands and feet are uncovered.\\
+\rowcolor[gray]{0.75}3&The host gains razor sharp fangs; their bite does d6 damage.\\
+4&The host can dislocate their jaw and swallow small objects, then vomit them up at will.\\
+\rowcolor[gray]{0.75}5&The host's healing rate is doubled but they take Disadvantage on CON saves.\\
+6&The host gains superhuman smell.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Levels 4-6}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&The host learns the last d4 weeks of memories upon eating a brain.\\
+2&The host gains a toxin gland; if they spit into a target's eyes and \TTN{enemy HD}{CON}, the target is blinded for d7 days.\\
+\rowcolor[gray]{0.75}3&The host gains an unsightly protrusion which can be used to shock targets for d6 rounds.\\
+4&The host loses their arm to a sword made of bone which does d8 damage.\\
+\rowcolor[gray]{0.75}5&The host gains a new spell.\\
+6&The host can vomit noxious acid. It does 2d8 damage but the host takes damage equal to the higher of the two dice.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\multicolumn{2}{c}{\textbf{Levels 7+}}\\
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&Bat-wings erupt from the host's shoulders, destroying their armor. They can fly but cannot wear armor.\\
+2&The host's legs buckle and break, reshaping like bird's legs. They move twice as fast.\\
+\rowcolor[gray]{0.75}3&The host doubles in size. All fragile and worn equipment is destroyed. Any natural attacks move up one die in damage. The host now has 18 STR.\\
+4-6&The parasite takes control of the host permanently. The character is lost.\\
+\end{tabular}
+\end{center}
+
+\subsection*{Other Classes can be Corrupted Too}
+\addcontentsline{toc}{subsection}{Other Classes can be Corrupted Too}
+
+In the vanilla game, only the Warlock class gains Corruption points and makes Corruption checks. This can be extended to any class; all characters can earn Corruption for doing despicable acts, like murdering the innocent in cold blood, taking part in vile rituals, or unlocking evil artifacts.
+
+\section*{DEATH AND NEAR DEATH}
+\addcontentsline{toc}{section}{DEATH AND NEAR DEATH}
+
+\subsection*{Death and Dismemberment Table}
+\addcontentsline{toc}{subsection}{Death and Dismemberment Table}
+
+This replaces the vanilla mechanic that characters at or below 0 HP are incapacitated until combat is over and then must \TTN{their HP below 0}{CON} to revive.
+
+\bigbreak
+
+Player characters can't have less than 0 HP. Each time a PC takes damage that would take them to or below 0 HP, their HP is set to 0 and they must roll 2d6 on the table below. Optionally, subtract 1 from their roll for each additional time the PC rolls on the table in a given session. Weak hirelings and mundane monsters are dead at 0 and do not roll. Named, epic monsters like dragons should roll, perhaps on a custom table. Classed hirelings might roll, or might die at 0, as do major foes, like an orc chieftan or dreaded owlbear.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}2 or less&Instant death: decapitation, etc.\\
+3&Fatal wound: gutted, stabbed through lung. Die in d6 turns.\\
+\rowcolor[gray]{0.75}4-5&Severed limb: Referee's choice or random roll. If head is severed and no helmet, go to 2. If body is severed and no armor, go to 3. Else, die in 2d6 turns. A tourniquet, cauterization, or magic healing (will not restore HP) will allow a CON save to live.\\
+6-7&Broken bone: Referee's choice or random roll. If head is broken and no helmet, in coma until healed. Else, 3d4 weeks to heal.\\
+\rowcolor[gray]{0.75}8-9&Knocked out for 2d6 turns unless wearing a helmet, in which case stunned for 1 round and helmet is shattered.\\
+10&Stunned for 1 round unless wearing a helmet, in which case knocked down and helmet is shattered.\\
+\rowcolor[gray]{0.75}11&Knocked down.\\
+12&A surge of adrenaline returns d4 HP for each PC level. After combat, HP returns to 0 and the PC faints for 2d6 minutes.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+A PC can continue to act until outright dead using this ruleset, even at 0 HP or if they will die in so many turns.
+
+\subsection*{Death Saving Throw}
+\addcontentsline{toc}{subsection}{Death Saving Throw}
+
+This replaces the vanilla mechanic that characters at or below 0 HP are incapacitated until combat is over and then must \TTN{their HP below 0}{CON} to revive.
+
+\bigbreak
+
+When a character is reduced to 0 or below HP, the player should make a Death Saving Throw (DST), described below. If they fail, they are dead. If successful, the character will return after combat is concluded with 1 HP, gravely injured. In this state, a character cannot act in combat or engage in adventurer tasks unless healed. Additionally, should a character that is gravely injured take any damage, it is a killing blow, without further recourse to the DST.
+
+\bigbreak
+
+Death Saving Throws increase (making survival less likely) each time the character makes one. All characters begin with a DST that succeeds upon rolling a d20 higher than 10, but this increases by one point each time they roll against it.
+
+\subsection*{Funerals}
+\addcontentsline{toc}{subsection}{Funerals}
+
+If a dead body is safely recovered by the party, they may hold a funeral for the deceased. For every 1 gold invested in the funeral via memorials, parades, bar tabs, lavish ceremonies, and otherwise giving them a proper send-off, the party purchases 1 of the deceased's experience points. Each party member may also donate one magic item to the grave. Scrolls, potions, and other one-shot items net a bonus of 250 experience, while more permanent items earn 1,000 experience. Magic items that would have been unusable by the deceased do not count.
+
+\subsection*{Gamble Your HP}
+\addcontentsline{toc}{subsection}{Gamble Your HP}
+
+HP now determines how characters attack. Each HP spent lets the player roll an attack. For example, rolling to hit, spend 3 HP to get to roll 3d20 and pick the best one; spend 8, roll 8, pick the best, and so on. All violent action costs HP. 
+
+\bigbreak
+
+At 0 HP, the character is at the whims of the enemy. They can automatically kill the character or something else, like kidnap them or chop their limbs off.
+
+\bigbreak
+
+Damage works like normal, but gamble HP to roll for damage as well. (Optionally: for damage, rather than taking the highest roll, every point of HP invested is a damage die. If this is overpowered, a cap can be placed: limit the number of HP allowed to be spent when dealing damage to the number of HP spent when rolling the attack.)
+
+\bigbreak
+
+HP pools can be increased a bit to compensate for this system, though should not be dramatically so.
+
+\subsection*{Grit and Flesh}
+\addcontentsline{toc}{subsection}{Grit and Flesh}
+
+Grit and Flesh are fictional abstractions of HP and health. Grit is HP, renamed, and is mechanically identical to HP. It is an abstract measure of a character's well-being and fitness for combat. Losing Grit represents close calls, bruises, scratches, dented armor, and so on. When Grit is depleted, damage is applied to Flesh.
+
+\bigbreak
+
+PCs have 1 HD of Flesh, never gaining more. (Optionally, a generous Referee can give PCs their max possible Flesh.) Losing Flesh represents breaking bones, punctured flesh, blood loss, and so on. At 0 Flesh, use any death system listed, or just have the character die outright. Only rest heals Flesh: 1 per week.
+
+\bigbreak
+
+Level 1 PCs only have Flesh. As PCs level up, they gain Grit but never increase max Flesh.
+
+\bigbreak
+
+Optionally, the Elf's surge attack, the Halfling's sneak attack/advantageous position attack, and the Ranger's attacks against their quarry bypass Grit and damage Flesh directly. Also optionally, if using rules for surprising foes, surprise attacks bypass Grit and damage Flesh directly. These rules substantially power up players, so should be implemented with consideration.
+
+\subsection*{Scars}
+\addcontentsline{toc}{subsection}{Scars}
+
+Scars are weakly compatible with any of the death mechanics; there may be some house-ruling required.
+
+\bigbreak
+
+When you are taken to exactly 0 HP, you get a scar. Your first scar adds d6 HP to your max HP. To determine your scar, roll d6 plus the damage caused by the attack and compare to the following table.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}2&Busted foot: reduced to a limp until fixed.\\
+3&Lasting pain: a nasty scar that causes intense pain if pressed.\\
+\rowcolor[gray]{0.75}4&Busted lung: breathing is loud and you cough blood often.\\
+5&Smashed jaw: several lost teeth and a gained speech impediment.\\
+\rowcolor[gray]{0.75}6&Bloody mess: you gain no benefits from resting until stitched up competently.\\
+7&Shaken nerves: you stammer, twitch, and shake, unless you use something to calm your nerves.\\
+\rowcolor[gray]{0.75}8&Disfigurement: face is totally disfigured.\\
+9&Mind splinter: A specific element of this injury is stuck in your psyche. Lose d3 INT each time you're forced to confront it.\\
+\rowcolor[gray]{0.75}10&Gouged eye: an eye is gouged out.\\
+11&Obsession: you gain no benefits from resting until achieving revenge.\\
+\rowcolor[gray]{0.75}12&Hewn limb: one limb is torn off or in need of amputation.\\
+13&Terrible fracture: one limb is broken. It needs setting by competent hands, until then, you gain no benefits from resting.\\
+\rowcolor[gray]{0.75}14&Lost sense: one of your senses is lost.\\
+15&Heart damage: heart is critically injured. If you suffer this again, you die.\\
+\rowcolor[gray]{0.75}16&Shadow of death: any time you sleep, save versus WIS or scream through the night.\\
+17&Fractured skull: you drool and slur. If you suffer this again, you die.\\
+\rowcolor[gray]{0.75}18+&Doomed to die: you should not have survived that. You have nightmares of your own death. If you fail your next risky save, you die horribly. If you pass, remove this effect.\\
+\end{tabular}
+\end{center}
+
+\subsection*{Smash Bros HP}
+\addcontentsline{toc}{subsection}{Smash Bros HP}
+
+Play combat as normal, but add damage from 0 instead of subtracting from max HP. When a player's damage passes an established threshold, roll d100 (optionally: smaller dice for more lethality). If the roll is under the damage total, the character says their last words and dies. 
+
+\bigbreak
+
+Alternatively, instead of a threshold, roll for death every time they take damage.
+
+\section*{DISEASES}
+\addcontentsline{toc}{section}{DISEASES}
+
+\subsection*{Disease Mechanics}
+\addcontentsline{toc}{subsection}{Disease Mechanics}
+
+Adventuring is not a clean business. Filthy sewers, rabid animals, rusty swords - there are countless ways in which a person might contract a debilitating disease. There are three basic steps to follow when contracting disease: contact, incubation, and infection.
+
+\bigbreak
+
+First, a character needs to come in contact with a disease. Diseases are transmitted in many ways; some more mundane diseases are spread through direct or indirect contact, bites, or consumption, but more bizarre diseases may have other vectors, like hearing an infected person say a trigger word.
+
+\bigbreak
+
+Next, the disease has an incubation period. In this time, no symptoms are displayed.
+
+\bigbreak
+
+Finally, after the incubation period, the player must \TTN{the communicability number}{CON}. Success indicates the character is not infected, but failure means the disease is present and stage one symptoms occur.
+
+\bigbreak
+
+If a disease is present, it has several stages (the number of stages depends on the specific disease) in which symptoms worsen. Stage effects are cumulative; a character on stage three suffers symptoms from stages one, two, and three. Each time the incubation period passes, the player must \TTN{the communicability number}{CON}. Success indicates that the disease has reached its zenith; it goes into decline (see below). Failure means the disease worsens by one stage. First-aid, medicine, and bed rest give Advantage to the roll.
+
+\bigbreak
+
+If a disease is in decline, then the player automatically succeeds on each subsequent roll to determine if the disease worsens a stage or not. If the roll is automatically successful and the disease is at stage 1, then the disease has passed and no symptoms remain. If the disease is in decline but the character comes into contact with the disease again before it has passed, they go into relapse, and no longer automatically pass their rolls.
+
+\bigbreak
+
+Diseases may also be treated. The treatment depends on the specific disease. A treated disease is automatically in decline and cannot relapse.
+
+\subsection*{Generating Diseases}
+\addcontentsline{toc}{subsection}{Generating Diseases}
+
+A disease which uses the above mechanics can be generated via the following tables. Roll d6 or choose, or determine your own beyond what is listed below.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.1\columnwidth -2\tabcolsep}p{.9\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Communicability Number (Choose from listed)}\\
+\rowcolor[gray]{0.75}1&1-2, not very infectious, very easy to overcome\\
+2&3-4, moderately infectious, easy to overcome\\
+\rowcolor[gray]{0.75}3&5-6, quite infectious, slightly hard to overcome\\
+4&7-9, very infectious, hard to overcome\\
+\rowcolor[gray]{0.75}5&10-13, incredibly infectious, very hard to overcome\\
+6&14+, extremely infectious, almost impossible to overcome\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Incubation Period}\\
+\rowcolor[gray]{0.75}1&1 round\\
+2&1 hour\\
+\rowcolor[gray]{0.75}3&1 day\\
+4&3 days\\
+\rowcolor[gray]{0.75}5&1 week\\
+6&1 month\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Transmission}\\
+\rowcolor[gray]{0.75}1&Direct contact: touching an infected person or fluid, like blood, sweat, or pus\\
+2&Indirect contact: through air or diseased items\\
+\rowcolor[gray]{0.75}3&Bites: natural or supernatural creatures bite and inject disease\\
+4&Consumption: eating or drinking rotten or diseased goods\\
+\rowcolor[gray]{0.75}5&Sensory: seeing, hearing, or smelling a trigger which transfers the disease\\
+6&Extrasensory: curses, psionic transmission, gravitational, temporal, transferred via idea\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Number of Stages (Choose from listed)}\\
+\rowcolor[gray]{0.75}1&2\\
+2&3\\
+\rowcolor[gray]{0.75}3&4\\
+4&5-6\\
+\rowcolor[gray]{0.75}5&7-8\\
+6&9+\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Stage Effects}\\
+\rowcolor[gray]{0.75}1&Advantage or Disadvantage on certain rolls\\
+2&Reduced physical or mental capabilities\\
+\rowcolor[gray]{0.75}3&Vulnerability to certain damage\\
+4&Inventory slots lost\\
+\rowcolor[gray]{0.75}5&Bleeding, blisters, boils, coughs, cramps, fever, lesions, sneezing, sweating, vomiting\\
+6&Addiction, anxiety, delirium, hostility, insomnia, mania, paranoia, stress, tiredness\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Treatments}\\
+\rowcolor[gray]{0.75}1&Ingest a rare quest ingredient\\
+2&Destroy the originator of the disease\\
+\rowcolor[gray]{0.75}3&Excise the infected region\\
+4&Infect another character\\
+\rowcolor[gray]{0.75}5&Force the disease to reach the final stage\\
+6&No known treatment exists - research!\\
+\end{tabular}
+\end{center}
+
+\section*{EQUIPMENT AND ENCUMBRANCE}
+\addcontentsline{toc}{section}{EQUIPMENT AND ENCUMBRANCE}
+
+\subsection*{Adventurer's Gear 1}
+\addcontentsline{toc}{subsection}{Adventurer's Gear 1}
+
+Adventurer's gear is a pack of useful, mundane equipment. It can contain many different items, such as a bucket, candles, chains, flint and steel, a grappling hook, locks, a mirror, needles, pitons, poles, rope, soap, torches, vials, a whistle, or more. When a player ``uses" their adventuring gear, they unpack it and discover that it contains the item they need at that moment. Adventurer's gear uses a usage die that starts at d6. It costs 10 gold.
+
+\subsection*{Adventurer's Gear 2}
+\addcontentsline{toc}{subsection}{Adventurer's Gear 2}
+
+In this case, adventurer's gear still represents an abstract pack of miscellaneous items that can be determined as the player unpacks needed items. Here, however, instead of a usage die and a 10 gold price tag, a player can purchase adventurer's gear of any price. When they want to remove an item from the adventurer's gear, they simply reduce the value of their adventurer's gear by the cost of the item.
+
+\subsection*{Anti-Hammerspace Item Tracker}
+\addcontentsline{toc}{subsection}{Anti-Hammerspace Item Tracker}
+
+Traditional encumbrance systems work to weigh you down, but not to define where your items actually are. It's almost impossible for a Referee to mess with items; you have to ask where the player's keeping them, they have to make something up, and you have to shrug and say ``Well, they're gone now." It feels like cheating.
+
+Instead, each character carries 6 containers, and each container has 3 slots. The player defines what each container is - a sack, utility belt, backpack, etc. Wearing light armor takes 1 container, medium takes 2, and heavy takes 3. Small shields take one slot, large shields take 2, and most other items take a single slot. The player just writes down or draws each item in a slot as they get it. Tiny miscellaneous items need not take up a slot, within reason.
+
+\subsection*{Conditions Take Inventory Slots}
+\addcontentsline{toc}{subsection}{Conditions Take Inventory Slots}
+
+Every condition consumes one or more inventory slots each until they are healed or overcome. They may also incur additional effects depending on the condition. Sample conditions include: 
+
+\begin{itemize}[nosep]
+\item Blinded, caused by losing sight;
+\item Cold, gained by exposure to the cold;
+\item Confused, caused by being disoriented and unaware;
+\item Dazed, gained by being unable to react;
+\item Dazzled, caused by being overwhelmed;
+\item Deafened, gained by exposure to loud noises;
+\item Diseased, gained by suffering an illness;
+\item Dizzy, caused by being unbalanced;
+\item Exhausted, caused by getting less than 8 hours sleep;
+\item Fatigued, gained from traveling more than 12 hours;
+\item Frightened, caused by fearsome stimuli;
+\item Hallucinating, caused by sensing unreal things;
+\item Hungry, caused by neglecting daily rations;
+\item Insane, gained by being driven mad;
+\item Overheated, gained by exposure to the heat;
+\item Nauseated, gained by poison or disgust;
+\item Paralyzed, caused by being unable to move;
+\item Slowed, gained by being overburdened or restrained;
+\item Soaked, caused by being wet.
+\end{itemize}
+
+\subsection*{Item Degradation}
+\addcontentsline{toc}{subsection}{Item Degradation}
+
+Every item has a durability, which measures the amount of damage (recorded in notches) that the item can take before being destroyed. When items take direct damage, they obtain notches. In addition to tracking damage, notches provide mechanical downsides; using a tool, roll at Disadvantage, using a weapon, downgrade the damage die, or if the item provides a statistical boon, like armor, decrease it in increments.
+
+\bigbreak
+
+When an item receives a set number of notches, it will shatter. The number of notches is dependent on the fragility of the item; consider the following table, which describes the total notches needed to shatter the item.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{p{.25\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.45\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.3\columnwidth -2\tabcolsep}}
+\textbf{Fragility}&\textbf{Examples}&\textbf{Total Notches}\\
+\rowcolor[gray]{0.75}Delicate&Thin glass, ceramics, complicated or tiny machinery&2\\
+Sturdy&Wood, metal, well-made goods&10\\
+\rowcolor[gray]{0.75}Indestructible&Thick stone, strong metal&50\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Items can be repaired by a craftsman, costing 10\% of the item price per notch. Depending on the item, this may require rare or expensive components. Characters may also use relevant tools to perform basic repairs on their gear, requiring an hour, said tools, and a successful INT check to repair one notch. Failure results in a new notch.
+
+\bigbreak
+
+Items may be tempered so that they withstand more damage. Different tempering qualities multiply the maximum number of notches of the item by the modifiers on the following table.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.7\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.3\columnwidth -2\tabcolsep}}
+\textbf{Tempering Quality}&\textbf{Modifier}\\
+\rowcolor[gray]{0.75}Standard (no tempering)&$\times$1\\
+Uncommon&$\times$2\\
+\rowcolor[gray]{0.75}Rare&$\times$4\\
+Mythic&$\times$8\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Applying a temper requires a trained craftsman. Rare and unique equipment may require special materials for tempering; retrieving these components may be an adventure in itself. The table below lists the cost of tempering an item in gold and in time, and lists the new value of the item after tempering (for reference when reselling, removing notches, or other needs).
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.225\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.225\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.35\columnwidth -2\tabcolsep}}
+\textbf{Quality}&\textbf{Cost}&\textbf{Time}&\textbf{Tempered Value}\\
+\rowcolor[gray]{0.75}Uncommon&Base value$\times$2 gold&3 days&Base value$\times$3 gold\\
+Rare&Base value$\times$4 gold&1 week&Base value$\times$6 gold\\
+\rowcolor[gray]{0.75}Mythic&Base value$\times$8 gold&2 weeks&Base value$\times$12 gold\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Items also have an appearance quality. This doesn't affect the effectiveness, but it may change how people react - a merchant will offer much less for lower quality goods, and a noble may be offended to receive anything that appears second-hand. On the other hand, sometimes a character may want their items to have a few scratches - a fighter who wears pristine armor may look like they've never been in battle, drawing scorn and derision. There are four grades of appearance quality:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{p{.25\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.25\columnwidth -2\tabcolsep}}
+\textbf{Appearance}&\textbf{Mechanics}&\textbf{Description}\\
+\rowcolor[gray]{0.75}Pristine&The item has never been notched.&Seems brand new.\\
+Worn&The item has had at most one notch at a time.&Moderate signs of use.\\
+\rowcolor[gray]{0.75}Well-worn&The item has had at most three notches at a time.&Heavy signs of use.\\
+Scarred&The item has had more than three notches at one time.&Shabby, in poor condition.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Attempting to sell an item of lower appearance quality incurs a penalty. The table below describes the percentage penalty applied to the price the merchant is willing to purchase the item in pristine quality. For instance, if a merchant will buy a pristine longsword for at most 50 gold, then they will buy a well-worn longsword for at most 25 gold.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}}
+\textbf{Appearance}&\textbf{Resale Value}\\
+\rowcolor[gray]{0.75}Pristine&100\%\\
+Worn&75\%\\
+\rowcolor[gray]{0.75}Well-worn&50\%\\
+Scarred&25\%\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+An item's appearance quality can be restored by an appropriate craftsman. Doing so costs 50\% of the item's worth and requires one week of work to improve the appearance quality by one level.
+
+\subsection*{Item Traits that Encumber More}
+\addcontentsline{toc}{subsection}{Item Traits that Encumber More}
+
+Every item can have multiple keywords from the following list. For each one the item weighs one slot more:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.275\columnwidth -2\tabcolsep}p{.725\columnwidth -2\tabcolsep}}
+\textbf{Keyword}&\textbf{Description}\\
+\rowcolor[gray]{0.75}Fragile&Items that are prone to breaking or damage.\\
+Long&Objects longer than 5 feet in any dimension.\\
+\rowcolor[gray]{0.75}Cumbersome&Things that are shaped in ungainly or awkward ways.\\
+Heavy&Objects that despite their size require greater effort to move.\\
+\rowcolor[gray]{0.75}Difficult&Objects that are hard to store or handle, like hot or dangerous things.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+If using these rules, consider adding items that ignore them, making the item more desirable. For example, heavy plate armor might be considered Cumbersome and Heavy, so an expertly crafted set is not Cumbersome, and a master set is neither.
+
+\subsection*{More Forgiving Encumbrance}
+\addcontentsline{toc}{subsection}{More Forgiving Encumbrance}
+
+In the vanilla game, a character can only carry a number of items up to their STR. With this rule, characters can carry STR$\times$1.5 items (optionally: STR+CON items), but must roll all rolls at Disadvantage when carrying more than their STR, and are ``encumbered" for the purposes of movement.
+
+\subsection*{Readied Equipment}
+\addcontentsline{toc}{subsection}{Readied Equipment}
+
+When a PC must remove an item from their equipment in a time sensitive manner, e.g., during combat, they should roll a d20 (optionally: d30). If the roll is equal to or higher than the numbered slot in which the item resides, the PC successfully removes the item. If not, they must try again during their next turn (optionally: with a bonus to succeed, or an automatic success).
+
+\subsection*{Simpler Usage Die}
+\addcontentsline{toc}{subsection}{Simpler Usage Die}
+
+After using a consumable, roll d6.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&Depleted.\\
+2-3&Only one left.\\
+\rowcolor[gray]{0.75}4-6&No change.\\
+\end{tabular}
+\end{center}
+
+\section*{GOLD}
+\addcontentsline{toc}{section}{GOLD}
+
+\subsection*{Mechanics for Investing}
+\addcontentsline{toc}{subsection}{Mechanics for Investing}
+
+When investing, the player chooses: 1: what they're investing in, 2: how much money to invest. The Referee determines the risk level: whether the investment is Stable, Risky, or Wild.
+
+\bigbreak
+
+Every month the following happens: 
+
+\begin{enumerate}[nosep]
+\item (Stakeholder update) whoever manages the investment sends a letter updating the player on the business, its fortunes, its prospects, and any pertinent local news,
+\item (Risk table) roll on the table below to see how successful the business was this month, and
+\item (Profit/loss) roll the specified die to see how much value the investment lost or gained.
+\end{enumerate}
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.4\columnwidth -2\tabcolsep}}
+\multicolumn{3}{c}{\textbf{Risk Level}}&\textbf{Result}\\
+\textbf{Stable (3d6)}&\textbf{Risky (2d6)}&\textbf{Wild (d6)}&\\
+\rowcolor[gray]{0.75}-&-&1&Bankrupt! Lose every last gold.\\
+-&2&2&Terrible catastrophe. -d20\% value.\\
+\rowcolor[gray]{0.75}3-4&3&3&Major calamity. -d10\% value.\\
+5-6&4&-&Mild setback. -d6\% value.\\
+\rowcolor[gray]{0.75}7-8&5&-&Bad omens. -d4\% value. -2 to next risk roll.\\
+9-12&6-8&-&Business as usual. +1\% value.\\
+\rowcolor[gray]{0.75}13-14&9&-&Encouraging signs. +d4\% value. +2 to next risk roll.\\
+15-16&10&-&Good fortune. +d6\% value.\\
+\rowcolor[gray]{0.75}17-18&11&4&Excellent luck. +d10\% value.\\
+-&12&5&Massive windfall. +d20\% value.\\
+\rowcolor[gray]{0.75}-&-&6&Huge profits! +d100\% value.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Circumstantial bonuses can be applied to the risk roll; setting up the business personally or clearing the nearby area of threats might give a bonus, for instance, while a change in management or a hazardous work environment might impose a penalty.
+
+\bigbreak
+
+An additional hireling, the accountant, adds d10\% to an investment each month and requires 5\% of the business's total value in payment each month.
+
+\bigbreak
+
+After each risk roll, the player can decide to cash out some or all of their investment.
+
+\bigbreak
+
+Investing money does not count towards the gold spent to level up.
+
+\subsection*{Mechanics for Selling}
+\addcontentsline{toc}{subsection}{Mechanics for Selling}
+
+When characters are adventuring and find something valuable, set a Dice Price for the item. The player should write the Dice Price next to the item.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{p{.25\columnwidth -2\tabcolsep}p{.75\columnwidth -2\tabcolsep}}
+\textbf{Dice Price}&\textbf{Examples}\\
+\rowcolor[gray]{0.75}d10&Common objects: bucket, candles, flask, pole, rations\\
+d10$\times$3&Simple tools, small weapons: club, crowbar, dagger, ladder, rope\\
+\rowcolor[gray]{0.75}d10$\times$5&Complex tools, medium weapons: chain, lantern, lock, longsword, tent\\
+d10$\times$10&Fancy tools, large weapons, light armor: clock, greatsword, leather vest, lockpicks\\
+\rowcolor[gray]{0.75}d10$\times$20&Exotic weapons, medium armor, art: books, chainmail, chain-scythe, painting\\
+d10$\times$50&Heavy armor, luxuries, jewelry: diamond, full plate, perfume, ruby ring\\
+\rowcolor[gray]{0.75}d10$\times$100&Large gems, forgotten treasures: huge emerald, kings' clothes, mithril shield\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+When the characters are ready to sell something, the following steps occur:
+
+\begin{enumerate}[nosep]
+\item The player rolls the Dice Price for that item. It's what the character thinks the item is worth.
+\item The Referee rolls the Dice Price for that item, in secret. It's what the merchant thinks the item is worth.
+\item The player must choose either their price or the merchant's price, which is unknown to the player.
+\end{enumerate}
+
+Optionally, a player may make a CHA check to reroll their Dice Price, but the merchant's price is fixed. Optionally, if the character has a way to appraise their item, they may roll the Dice Price twice and pick the higher.
+
+\bigbreak
+
+When pricing magic items, they sell for 50 gold per syllable, and, if magic items can be purchased, they cost 100 gold per syllable. The utility of the item is of little consequence; most of the haggling is about what to name it.
+
+\subsection*{Schr\"odinger's Loot}
+\addcontentsline{toc}{subsection}{Schr\"odinger's Loot}
+
+Searching a chest, monster that would have loot, or other booty yields an amount of d6s in gold (depending on the speed at which the Referee rewards gold, HDd6 is a good baseline). The character must stop to ``count" (i.e., roll) the d6s to determine the exact amount of money they have looted.
+
+\section*{HIRELINGS}
+\addcontentsline{toc}{section}{HIRELINGS}
+
+\subsection*{Morale}
+\addcontentsline{toc}{subsection}{Morale}
+
+What follows are a few examples of concrete values to adjudicate lowering a hireling's morale score if they are particularly well-treated and raising morale score as a result of poor treatment.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.275\columnwidth -2\tabcolsep}p{.725\columnwidth -2\tabcolsep}}
+\textbf{Bonus}&\textbf{If the hireling is}\\
+\rowcolor[gray]{0.75}-1&housed.\\
+-1&provided living expenses.\\
+\rowcolor[gray]{0.75}-1&given more than their share.\\
+-1&provided extra comforts.\\
+\rowcolor[gray]{0.75}+1&insulted.\\
++1&faced with unnecessary danger.\\
+\rowcolor[gray]{0.75}+2&allowed to come to avoidable harm.\\
+\end{tabular}
+\end{center}
+
+\subsection*{Simpler Hirelings}
+\addcontentsline{toc}{subsection}{Simpler Hirelings}
+
+Hirelings come in only two types: hired hands and henchmen. Hired hands do menial work, like holding light, carrying treasure, and managing pack animals, but are not willing or able to meaningfully contribute to combat, nor are opposing combatants likely to pay much attention to them. Henchmen do pretty much whatever the players want, so long as they're not treated worse than a PC, and can act in combat at the same round as their employer.
+
+\bigbreak
+
+Hired hands are ordinary, level 0 folk, not adventurers, with the stats 10-10-9-9-9-9 distributed as desired, d6 HP, 8 AV, and 4 morale. If forced to do anything dangerous, check their morale. Regardless of success, add one point to their morale score afterward. Instead of a percent share of loot, pay hired hands 1 gold per day plus living expenses.
+
+\bigbreak
+
+Henchmen are mechanically generated just like PCs. They begin with 2 morale. Henchmen must succeed at a morale check when the situation becomes nigh-intolerable and at the end of each adventure, but they stop checking morale at all once they've passed two morale checks. Henchmen require 50\% share, are rare, and are usually sought for hire from factions that the PC has gained favor from.
+
+\bigbreak
+
+When either type of hireling fails a morale check, they leave the party permanently.
+
+\section*{INITIATIVE}
+\addcontentsline{toc}{section}{INITIATIVE}
+
+\subsection*{Action Tiers}
+\addcontentsline{toc}{subsection}{Action Tiers}
+
+For those Referees that feel the words ``Roll initiative" conditions players to attack first and ask questions later, consider a tiered initiative system: Talk, Flee, Act, Fight. 
+
+\bigbreak
+
+When initiative begins, start with verbal interaction between PCs and NPCs. Then, if anyone wants to flee, they get away. Then, characters take action. Finally, the fight breaks out, and initiative proceeds as usual.
+
+\subsection*{Declared Initiative}
+\addcontentsline{toc}{subsection}{Declared Initiative}
+
+This ruleset is very slow to resolve, with each combat round taking several stages and with multiple actions per character, but it allows for flexible character choices and dynamic combat that can change in the middle of a round. A combat round consists of the following:
+
+\bigbreak
+
+Enemy Planning: During this phase, the Referee examines the battlefield and declares the intentions of the creatures under their control. This description should be as short as possible. ``The Skeletons are going to focus on taking out the Warlock," ``The Dragon is going to ignore the party and attack the church," etc. The players read the battlefield and assess the current situation.
+
+\bigbreak
+
+Player Planning: Now that the players have a broad idea of what the enemy is planning, they come up with a plan themselves, and declare their own intentions. At this stage, actions do not need any more detail than what is needed to determine the initiative roll. Working together is encouraged.
+
+\bigbreak
+
+Roll Initiative: Each player and enemy simultaneously rolls initiative. The number and type of initiative dice an individual rolls depend on the activities the character plans to undertake during the next round. Consult the table below to determine initiative dice. 
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Die}&\textbf{Sample Actions}\\
+\rowcolor[gray]{0.75}d4&Using an item, attacking with ranged.\\
+d6&Generic action, moving.\\
+\rowcolor[gray]{0.75}d8&Attacking with melee.\\
+d10&Casting a spell.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+There is (within reason) no limit to what characters can attempt to do in a single round, as long as they roll the required initiative die for each action.
+
+\bigbreak
+
+To begin the round proper, the Referee counts up from 1. Players and NPCs act on the count that corresponds to the sum of their initiative dice.
+
+\bigbreak
+
+A player can choose to delay or change their action if the situation changes over the course of the round. To delay, instead of taking a turn on their initiative count, a player simply acts on a later initiative count. To deviate from their declared action, a player rolls new initiative dice in accordance to what they now want to do. This number is then added to their current initiative score, and becomes their new initiative score. Choosing not to do an action requires no new initiative dice, but does not lower the sum already rolled.
+
+\subsection*{Lamps are Initiative}
+\addcontentsline{toc}{subsection}{Lamps are Initiative}
+
+When exploring in total darkness, like caverns or dungeons, light is a necessity. Controlling light requires the complete use of one hand. If someone does not have a light, they must be with someone who does, within the radius of that light at all times. When a fight breaks out, only those with light roll initiative. When it is their turn, they determine initiative order of all characters with them. Characters in the darkness always act after every lit character.
+
+\subsection*{Playing Cards 1: Deal Them to Players}
+\addcontentsline{toc}{subsection}{Playing Cards 1: Deal Them to Players}
+
+Vanilla rules use group initiative; this is a variant that uses individual initiative. 
+
+\bigbreak
+
+Instead of rolling for initiative, each character gets one card from a deck, and a number of additional cards as determined by their DEX (e.g., one additional card for each point of DEX above 10). Monsters/NPCs are still grouped, but by type now. Initiative order is determined by each character's highest value card. In the case of ties, resolve alphabetically by suit: clubs beats diamonds beats hearts beats spades. Jokers can go at any initiative they choose.
+
+\subsection*{Playing Cards 2: Assign Players a Card}
+\addcontentsline{toc}{subsection}{Playing Cards 2: Assign Players a Card}
+
+Into a deck place:
+
+\begin{itemize}[nosep]
+\item Two identical cards for each player character,
+\item An abundance of one card to signify hirelings,
+\item An abundance of one more card to signify enemies,
+\item One card that signifies the end of the round.
+\end{itemize}
+
+When combat begins, shuffle the deck. When a PC card is drawn, that PC may act. When a hireling card is drawn, the Referee takes an action for any one hireling present. They can take instructions from the players but are not obliged to follow them. When an enemy card is drawn, the Referee takes an action for any one enemy present. Hirelings and enemies can therefore act multiple times in a turn at Referee discretion, even above the number of initiative cards they contribute. Assume this represents the bolstering effect of having leader-sorts around. In practice, the Referee is encouraged not to use this for purely mechanical advantage, but in a way that makes sense and is enjoyable for everyone.
+
+\bigbreak
+
+If the end of round card is drawn, then all cards are reshuffled and put back in the stack. Resolve any per round or end of round activities, such as magic effects, fire, poison, etc., remove any cards belonging to dead or absent participants, then draw another card and carry on.
+
+\bigbreak
+
+On their turn, a character may decide to take aim with their weapon. To do so, they declare they are aiming and hold onto their initiative card. When their next initiative card is drawn, they attack, rolling with Advantage. If the end of round token comes up and they haven’t used their aim action, they may decide to hold on to their card or abandon their action and put it back in the stack.
+
+\bigbreak
+
+To delay an action, a character may choose not to act when they gain initiative, in which case they put their card back in the stack. This increases their chances of acting later, but does not guarantee it.
+
+\bigbreak
+
+For cases in which a character is hastened, add a third (or fourth) card to the deck. If they are slowed, do the opposite. Alternatively, if a character is very fast, they may recycle their initiative cards for a turn, returning any initiative they draw back in the stack after using it. For slowness in this case, a player is forced to possess two whole initiative cards to act once, and must hold onto the first one drawn and pray another shows.
+
+\subsection*{Popcorn/Narrative Initiative}
+\addcontentsline{toc}{subsection}{Popcorn/Narrative Initiative}
+
+The character which initiates combat goes first. If, for any reason, it is unclear who initiates combat, roll to determine who goes. After their action, the current character nominate the next character to act. Only characters that have yet to have their turn may be nominated. Once every character has had their turn, the round is over, and the process begins again, with the last character to act able to nominate any character, including themselves.
+
+\bigbreak
+
+Characters can interrupt and take their turn instead of the nominee if they have taken damage in the previous turn and have yet to go in the entire round. If multiple characters receive damage and each want to interrupt, roll to determine who goes.
+
+\subsection*{Surprise Rounds}
+\addcontentsline{toc}{subsection}{Surprise Rounds}
+
+A party that has surprise will gain a round to act before initiative is rolled and gain Advantage to all rolls in this round. Surprise occurs via Referee common sense; if a group is caught unaware, their foes have a surprise round. If there is a chance that either party is surprised, roll d6.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1-2&The PCs surprise the enemy.\\
+3-4&Neither party is surprised.\\
+\rowcolor[gray]{0.75}5-6&The enemy surprises the PCs.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Often, instead of attacking on a surprise round, foes should change the battlefield (throw nets, spring traps, set a fire, hide and snipe, send one of their party to bring reinforcements), or deprive the party of a resource (smash backpacks, extinguish torches).
+
+\subsection*{``Swords \& Spells" Initiative}
+\addcontentsline{toc}{subsection}{``Swords \& Spells" Initiative}
+
+These rules are particularly conducive to miniature/war-gaming use. As such, they're a bit slower to resolve. A combat round progresses in the following manner, with specific rules below:
+
+\begin{enumerate}[nosep]
+\item Initiative: Both sides roll d6 for initiative; high roll wins.
+\item Missile/spell: In initiative order, both sides fire missiles, begin to cast spells, etc. If a spell is instantaneous, it occurs now, otherwise, it occurs at step 10 after the number of rounds required to cast it.
+\item Movement: Side with initiative moves up to half move.
+\item Movement: Side without initiative moves up to half move.
+\item Missile: In initiative order, both sides fire missiles, etc.
+\item Movement: Side without initiative moves the remaining half move.
+\item Movement: Side with initiative moves the remaining half move.
+\item Missile: Unengaged combatants fire missiles, etc.
+\item Melee: Engaged combatants fight in melee.
+\item Spell: Spell effects occur.
+\item Statuses: Ongoing conditions like burning, poison, etc., are resolved.
+\end{enumerate}
+
+\bigbreak
+
+Attackers using ranged combat may fire twice if standing still, once if only taking a half move, and not at all if taking a full move.
+
+\bigbreak
+
+A spell caster cannot move and cast a spell in the same round. A caster may not cast a spell while engaged in melee. If the caster becomes engaged while casting, but before the spell is finished, the spell is interrupted and lost. Casting time for spells depends on the spell.
+
+\section*{MAGIC}
+\addcontentsline{toc}{section}{MAGIC}
+
+\subsection*{\footnotesize{A}\scriptsize{RCANE} \footnotesize{R}\scriptsize{ESEARCH}\normalsize}
+\addcontentsline{toc}{subsection}{Arcane Research}
+
+An experienced caster can begin to effect minor changes in the formulae of their spells throughout their career. Over time a spell will change more and more until it is completely different from the original, thus creating a new spell.
+
+\bigbreak
+
+Changing a spell consciously is a costly, time consuming, and risky process. Most spells are made up of formulae used and updated for centuries. They are often safe and effective and are therefore taught to generations. Altering a spell sacrifices this knowledge of ages in search of something beyond. 
+
+\bigbreak
+
+The caster needs to have access to the spell they want to change. They then begin their research, seeking to study and alter one or more elements of that spell. You must choose all changes you want to make at the start of the research. The main elements of spells are their type, duration, range, target, and area, but discussion with your Referee will help to codify how your change should manifest. For each change of the spell, the caster needs 5 weeks of successful research at a cost of d4$\times$100 gold per week of research. The caster \TTN{the spell level}{their spellcasting stat} to advance research each week, only progressing on success. With each failure there is a 25\% chance of an arcane failure, generating a random magical effect, possibly destructive or permanent as magical energies get out of control or do something unexpected. At the end of the research, the caster now knows the altered spell.
+
+\bigbreak
+
+If the spell had a material with a gold cost, multiply that gold cost by the number of alterations made in the spell.
+
+\subsection*{\footnotesize{D}\scriptsize{RUG} \footnotesize{T}\scriptsize{RANCE} \footnotesize{M}\scriptsize{AGIC}\normalsize}
+\addcontentsline{toc}{subsection}{Drug Trance Magic}
+
+Drug trance mages make magical drugs in the form of potions or powders. By taking the drug, they gain the ability to cast a spell for a period of time. Drug trance magic is a part-time pursuit, so any character class can also pursue being a drug trance mage. Drug trance mages do not have masters that they learn spells from, nor can they learn from books or scrolls, since this style of magic is intuitive and not an academic form. Sometimes, drug trance mages form secret societies to share knowledge and protect their members. Visions from the drugs can lead the drug trance mage to the leadership or meeting place of the local secret society.
+
+\bigbreak
+
+A drug trance mage has a maximum spell level of one-half their level rounded up. Drugs they create will contain spells of that level or less. 
+
+\bigbreak
+
+The drug-making process is a form of enchantment, comparable to Spellcrafts writing scrolls. Each drug consists of either a powder or potion made from seven different ingredients, a unique recipe for each spell. The drug mage chooses the level of the spell they are trying to enchant into the drug, but they don't know what spell will be in the drug until they test a dose. Mages should keep records of their recipes, because the same ingredients will produce the same spell effect. These drugs and recipes are specific to the mage who created them; they cannot be shared with other drug trance mages. The ingredients must be worth a total of 100 gold per spell level, plus 100 gold per dose produced. The mage can make up to ten doses at a time. The end result is a potion, if three or more of the ingredients are liquids, or a powder otherwise. Potions are quaffed and powders can either be smoked, snorted, or mixed with food or drink. Potions require fragile bottles or expensive metal flasks to carry. 
+
+\bigbreak
+
+When the drug is made, the Referee should secretly \TTN{the spell level}{INT}. On a success, the mage completes the enchantment and produces the number doses specified at the beginning of the process. On a failure, secretly roll again. If the second roll is a success, impurities have been unknowingly been introduced and the drug is Tainted (see below). If the second roll is a failure, the drug is Addictive (see below). 
+
+\bigbreak To test the drug, the mage consumes a dose. The Referee determines the spell by rolling randomly between all spells of the proper level that aren't already in the drug repertoire of the mage. This includes levelless spells, which are always possible to roll no matter what level the mage intended. If a levelless spell which requires a caster level to adjudicate is rolled, the caster level is the level the drug mage chose at the start of the process.
+
+\bigbreak
+
+Upon taking a dose, the drug takes effect after d4 rounds if a powder and instantly if a potion, and the high lasts 2d6 turns. As soon as the drug takes effect, the mage gets a vision of what spell is in the drug (if they do not already know) and whether it is Tainted. Any side effects (see below) also begin once the drug is active. For the duration of a drug's dose, the mage can cast the spell once. Mages can use these drugs safely once a day per level of the drug mage. If this limit is exceeded, the mage has Overdosed (see below). If a drug trance mage takes a drug while still under the influence of another drug, treat them as if they have Overdosed.
+
+\bigbreak
+
+Tainted drugs are still usable, just more risky, and Overdosed mages may still be able to cast. If the drug is Tainted or the drug trance mage has Overdosed, the mage must make a CON save against poison to avoid a bad trip. On a success, the mage can cast the spell in the drug normally. On a failure, the caster passes out for 2d6 rounds. At the end of this period, the mage must recuperate for an equal amount of time to regain their strength. A drug mage can make another batch of a Tainted drug from the same recipe, trying to tweak the formula using the same ingredients, and avoiding contamination of the new batch. Reroll the drug creation roll with Advantage for each successive formulation.
+
+\bigbreak
+
+If a mage consumes an Addictive drug, they must make a CON poison save. If they fail their Addiction save, they become Addicted to the drug. Each day thereafter, the caster must make a CON save or they must take a dose of the drug. If the caster already has an Addiction, the roll is at Disadvantage. If they take the drug, it works normally, subject to Tainted and Overdose rolls. A character can be addicted to more than one drug at a time. Curing Addiction requires treatment and medication.
+
+\bigbreak
+
+Using magical drugs can have side effects. Each time a drug is used, roll a d20 on the table below to see what happens on this trip. These side effects do not affect the mage's spellcasting ability. Add 2 to the roll, cumulative, if the dose is Tainted or if the mage has Overdosed.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Side Effect}\\
+\rowcolor[gray]{0.75}1-5&No side effects.\\
+6-7&Intoxicated. Disadvantage on all rolls.\\
+\rowcolor[gray]{0.75}8-9&Mellow. Disadvantage on all violent actions.\\
+10-11&Lecherous. Distracted by preferred gender.\\
+\rowcolor[gray]{0.75}12-13&Sleepy. Save against CON or fall asleep in d4 rounds.\\
+14-15&Hallucinating. Distracted by things that don't exist.\\
+\rowcolor[gray]{0.75}16-17&Paranoid. Effected as by the arcane spell \textbf{Presence}.\\
+18-19&Angry. Disadvantage on all nonviolent actions.\\
+\rowcolor[gray]{0.75}20+&Roll twice.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Here is a list of example ingredients.
+
+\begin{itemize}[nosep]
+\item Aloe
+\item Animal bone/horn/teeth/hide/organs
+\item Belladona
+\item Beer
+\item Blood
+\item Boneset
+\item Brandy
+\item Cherry
+\item Cloves
+\item Enchanted pool water
+\item Frankincense
+\item Gardenia
+\item Holy water
+\item Hot spring water
+\item Jasmine
+\item Lavender
+\item Lotus
+\item Mace
+\item Mead
+\item Mistletoe
+\item Mushroom
+\item Musk
+\item Myrrh
+\item Narcissus
+\item Nightshade
+\item Nutmeg
+\item Oil
+\item Opium
+\item Orchid
+\item Peony
+\item Pepper
+\item Poppy
+\item Rose
+\item Saffron
+\item Sage
+\item Sandalwood
+\item Sunflower
+\item Tobacco
+\item Water
+\item Wine
+\end{itemize}
+
+\subsection*{Misfires and Wild Magic}
+\addcontentsline{toc}{subsection}{Misfires and Wild Magic}
+
+When spells fail, are miscast, or are interrupted, or in certain wild magic zones, roll on the following lists.
+
+\bigbreak
+
+\textbf{Arcane}
+
+\begin{enumerate}[nosep]
+\item Different spell effect! The caster inadvertently channels the wrong spell energies. Randomly determine a different spell.
+\item Fireworks! Brilliant colored lights explode all around the caster, creating thundering booms. This effect deals no damage but draws attention to the caster.
+\item Cloud of ash! Everyone within 20 feet of the caster is coated in fine ash.
+\item Mute! The caster cannot speak for the next minute.
+\item Truesight! For one minute, see invisible creatures and illusions for what they are.
+\item Hiccoughs! Until dispelled, roll with Disadvantage when attempting anything more involved than walking.
+\item Hot feet! The shoes of a random ally catch fire.
+\item Balding! All of the caster's hair falls out.
+\item De-bone! A nearby character loses their bones for d6 hours.
+\item Gibbering equipment! An inanimate object on the caster's person gains sentience and a voice.
+\item Hairy! The caster grows d4 feet of hair in an instant.
+\item Gums! The caster's teeth fall out, regrowing in d6 hours. Until then, speaking and casting spells is done at Disadvantage.
+\item Wardrobe malfunction! All of the caster's clothes are on backwards.
+\item Antigravity! The direction of gravity in the area is permanently changed.
+\end{enumerate}
+
+\bigbreak
+
+\textbf{Divine}
+
+\begin{enumerate}[nosep]
+\item Stained with the mark of the unfaithful! The symbol is automatically visible to all worshipers of the caster's faith, even through clothing, but may be invisible to others. Fades in d6 days.
+\item Speak in tongues! The caster cannot speak or understand any known language for d4 hours.
+\item Grow some horns!
+\item Unjust war! All weapons in the vicinity turn into flowers.
+\item Lament! The caster must wail and sob until pacified.
+\item Heretics! Perceive everyone as demonic and warped.
+\item Immoral words! The caster is stunned by blasphemous speech. 
+\item Immortal words! For the next 10 minutes, no one can die for any reason. People can still be injured though, and injuries remain once the time limit is up.
+\end{enumerate}
+
+\bigbreak
+
+\textbf{Natural}
+
+\begin{enumerate}[nosep]
+\item Nearest ally is partially transformed into an animal! WIS save to resist. Determine body part and animal randomly. The duration of this effect is d6 days; on a roll of 6, reroll as d6 weeks, then months.
+\item Rain! But it’s not water. The caster causes a torrential downpour of (d6): 1: flower petals. 2: garden snails. 3: cow dung. 4: rotten vegetables. 5: iron ingots. 6: snakes (5\% chance they are poisonous).
+\item Transformation! A random nearby creature is transformed into (d6): 1: stone. 2: crystal. 3: earth. 4: iron. 5: water. 6: fire. WIS save to resist. There is a 10\% chance the transformation is permanent; otherwise, the creature returns to normal in d6 days.
+\item Grow a tail!
+\item Animal resurrection! All animals are brought back to life, including rations and leathers, which crawl and flap blindly.
+\item Drought! All vegetation within the region withers and dies.
+\item Lactose! All nearby liquid turns to curdled milk.
+\item Heated steel! All nearby metal becomes incredibly hot. Anyone wearing, wielding, or touching metal takes d6 damage.
+\item Bat sense! Lose sight but gain super hearing for d4 hours.
+\item Mire! The area is filled with swamp and quicksand.
+\item Oriented! The caster always knows true north.
+\end{enumerate}
+
+\bigbreak
+
+\textbf{Necrotic}
+
+\begin{enumerate}[nosep]
+\item Explosion centered on nearest creature! That creature takes d4 damage per caster level.
+\item Inadvertent corruption! Gain a Corruption point and roll on the minor corruption table, if using it.
+\item De-age twenty-five years! If the caster is younger than 25, they disappears into cosmic pre-birth.
+\item Age twenty-five years!
+\item Melting money! All currency on the caster's person dissolves into the ether.
+\item Summoning catastrophe! An untamed beast appears beside the caster.
+\item Red eye! Whenever the caster opens their eyes, flame shoots out.
+\item Alien hands! The caster's hands have a mind of their own and choke the caster, only reverting to normal when the caster passes out.
+\item Vomit self! The caster coughs up a thick black fluid, which flees and becomes a doppelg\"anger.
+\item Magic pustule! Plasmic fluid swells in the caster. If they take 5+ damage at once, they must make a CON save or explode, dealing d7 damage per caster level.
+\item Haywire spell! The spell won't stop; it is cast out of control every round without cost until the caster is subdued.
+\item Greed! The caster must obtain the next item they see.
+\item Awakening! An eye appears in the caster's forehead.
+\item Pestilence! For d5 hours, when the caster opens their mouth, a cloud of locusts emerges.
+\item Don't know your own strength! The next person you touch takes d6 damage.
+\item Broken record! Everyone in the vicinity of the caster must repeat their previous action for as many rounds as the caster's level.
+\item Taboo! Everyone in the vicinity of the caster cannot repeat their previous action for as many hours as the caster's level.
+\item Fleeing spells! A spell you know permanently binds itself to an object. When you use the object to cast the spell, it functions as if you were a level higher, but you no longer know the spell yourself; you must have the object to cast it. If another person gets the object, they can cast the spell as if they were one level lower than you.
+\item Unknow one's self! Reroll all stats.
+\end{enumerate}
+
+\subsection*{Spell Effects}
+\addcontentsline{toc}{subsection}{Spell Effects}
+
+Spell casters enjoy the capability to produce minor magical effects related to the spells they have currently memorized. For example, a Magic-User who has a fire spell memorized might be able to light their pipe with a small flame from their thumb or make smoke come from their ears when annoyed. A caster with a wind spell might have their hair constantly blowing in an otherwise non-existent breeze.
+
+\bigbreak
+
+Using a special effect does not cast or use up the spell it is related to; they're not so much ``spells" as they are tangible evidence that the caster has a spell memorized. Referees need not codify these effects, but rather rely on the players to suggest or request an effect. Special effects are always minor, cantrip-like effects.
+
+\section*{MANEUVERS AND COMBAT TRICKS}
+\addcontentsline{toc}{section}{MANEUVERS AND COMBAT TRICKS}
+
+In the base game, maneuvers in combat are handled by saves and Referee judgment. What follows are some additional codified rules to work in general. The option or options the Referee chooses to use in their game should be made clear to the players, so that their options are well-known.
+
+\subsection*{Combat Maneuvers 1}
+\addcontentsline{toc}{subsection}{Combat Maneuvers 1}
+
+When a character attempts a maneuver in combat, like grappling or tackling or shoving or disarming, roll two attacks. If both succeed, the maneuver occurs (optionally: damage as well). If one succeeds, choose: partial success, success at a cost, (optionally: only one of damage or maneuver). If neither succeed, the character fails and finds themselves in a disadvantaged position.
+
+\subsection*{Combat Maneuvers 2}
+\addcontentsline{toc}{subsection}{Combat Maneuvers 2}
+
+When a character attempts a maneuver in combat, roll an attack as usual. If it is successful, the enemy chooses whether to accept the results of the maneuver or take damage as normal. Optionally, there can be a penalty to the attacker if the roll is unsuccessful.
+
+\subsection*{Fire and Oil}
+\addcontentsline{toc}{subsection}{Fire and Oil}
+
+Flaming oil can be used to cover a retreat or attack an enemy. An adventurer can prepare flasks of oil as firebombs, lighting the rags and hurling the flasks at the enemy, or hurl the flask and coat the enemy or area with oil, and then follow this up with a hurled torch or other source of ignition. Oil can also be poured on the ground and lit, either as a trap or as a deterrent to pursuit. 
+
+\bigbreak
+
+Oil burns for 10 minutes. Thrown oil is treated as a ranged weapon, but a missed throw will land within a few feet of the target. A direct hit with ignited oil does d6 damage each round until extinguished. Characters near a direct hit of ignited oil will be splashed by the oil and take d4 damage until extinguished. Rolling a 1 downgrades the damage die for the next round. Rolling a max upgrades the damage die for the next round. If a 1 is rolled on a d4, the flames go out.
+
+\section*{PERCEPTION}
+\addcontentsline{toc}{section}{PERCEPTION}
+
+\subsection*{Group Perception}
+\addcontentsline{toc}{subsection}{Group Perception}
+
+Every object has a concealment score ranging from 0 to infinity. Obvious objects have a score of 0. Most hidden objects are between 3 and 10. The party as a whole has a passive perception score equal to the number of player characters in it. This is their base capability to notice things as they move along in an orderly fashion. It represents them looking around for potential points of interest or danger, but not interacting with or examining things in detail. It requires no time or actions spent to observe the world around them at this level.
+
+\bigbreak
+
+If the party stops moving and starts examining the area around them, they first roleplay the search, interacting with and examining objects. This involves specific indications of what they are examining, and how: ``I check under the bed," ``I cast detect magic and examine the room for auras," ``I bang on the walls and listen for echoes," ``I cut open the monster's stomach." If a character does something that should reveal a hidden object, then they find it.
+
+\bigbreak
+
+Once the characters run out of ideas, they can roll a d6 and add it to the passive perception score. If the result equals or exceeds the concealment score of the objects, they discover the object once they come in sight of it. This kind of search requires a turn (roughly 10 minutes). After resolving the roll, they're done and can't find any more stuff until the situation changes somehow.
+
+\bigbreak
+
+If the characters are broken up into groups, then each sub-group has a passive perception score equal to the number of characters in it. Hirelings, pets, etc. don't contribute to this score unless the specific skill that they were hired for is spotting things, like a tracker dog.
+
+\bigbreak
+
+To determine concealment scores, consider the following metric:
+
+\begin{itemize}[nosep]
+\item If the concealment is less than or equal to the number of characters, then the object is immediately obvious.
+\item If the concealment is between the number of characters +1 and the number of characters +3, then the object is likely to be found if they stop and search.
+\item If the concealment is between the number of characters +4 and the number of characters +6, then the object is very difficult to find even if they stop and search.
+\item In the absence of any other standard, roll d6+3 to determine the concealment score.
+\end{itemize}
+
+\section*{REACTIONS}
+\addcontentsline{toc}{section}{REACTIONS}
+
+\subsection*{Reaction Rolls}
+\addcontentsline{toc}{subsection}{Reaction Rolls}
+
+When encountering a new monster or NPC, a reaction may be rolled. Roll 2d6:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.5\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}2 or less&Loyal\\
+3&Genial\\
+\rowcolor[gray]{0.75}4&Helpful\\
+5&Somewhat genial\\
+\rowcolor[gray]{0.75}6&Neutral\\
+7&Instinctual/Neutral\\
+\rowcolor[gray]{0.75}8&Guarded\\
+9&Warning\\
+\rowcolor[gray]{0.75}10&Threatening\\
+11&Aggressive/Hostile\\
+\rowcolor[gray]{0.75}12 or higher&Violent\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+These are general feelings, not a concrete response. A pack of hateful, hungry monsters that has a genial reaction may bare their teeth in warning rather than immediately go for the throat. A violent reaction from a gentle mother will result in fearful glances as she collects her children into her house, calls for help, and arms herself to watch the party from her window.
+
+\bigbreak
+
+The reaction roll is modified by the party's reputation, by the immediate context (did the party just come from a house full of screams? Add 1 to their roll. Are they dressed in fine clothes? -1.), or by larger context (has the party spent huge amounts of money locally? -1.) The Referee should not award more than +1 or -1 for any single factor.
+
+\subsection*{Reaction Rolls are Modified by Alignment}
+\addcontentsline{toc}{subsection}{Reaction Rolls are Modified by Alignment}
+
+The dice rolled when encountering a new monster or NPC vary depending on the alignment/disposition of the encountered. Roll 3d4 for lawful creatures, 2d6 for neutral creatures, and d12 for chaotic creatures.
+
+\section*{VARIANT CLASS ABILITIES}
+\addcontentsline{toc}{section}{VARIANT CLASS ABILITIES}
+
+All of the following are alternative abilities for the vanilla classes. They can replace the vanilla options or be additional variants to choose from. By default, each class has two abilities, and in general, one scales with level while the other does not (though this is not a hard and fast rule). Some variant abilities may be more powerful than others; house rule at Referee's discretion. Also, some variant abilities are gonzo or have different tones than you might want to convey in your game. Inform players which options they have available to them so that they may make informed decisions.
+
+\bigbreak
+
+A class ability listed below may be a good fit for more classes than the one given; feel free to house rule, mix, and match. These abilities may also be used as power-ups or rewards attained over the course of an adventure.
+
+\subsection*{Cleric}
+\addcontentsline{toc}{subsection}{Cleric}
+
+\subsubsection*{\footnotesize{B}\scriptsize{ESEECH} \footnotesize{D}\scriptsize{EITY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Beseech Deity}
+
+Once per day, the Cleric can call for their deity's aid. Roll a d100; if the result is below the Cleric's level, the god answers. A Cleric can subtract 1 from their roll per 100 gold or per HD creature sacrificed.
+
+\subsubsection*{\footnotesize{C}\scriptsize{ONGREGATION}\normalsize}
+\addcontentsline{toc}{subsubsection}{Congregation}
+
+As long as Clerics have hirelings they can elect for one to take damage from an attack or from falling instead of them. Morale and reputation never suffer when Cleric hirelings are sacrificed in this way.
+
+\subsubsection*{\footnotesize{H}\scriptsize{ERETICS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Heretics}
+
+Once per day, the Cleric can attempt to ``turn undead" on non-undead enemies. Unlike turning actual undead, the Cleric stops after one attempt, successful or not.
+
+\subsubsection*{\footnotesize{S}\scriptsize{PELL} \footnotesize{S}\scriptsize{WAP}\normalsize}
+\addcontentsline{toc}{subsubsection}{Spell Swap}
+
+Once per day, a Cleric can pray with their symbol in order to swap a spell they know for one they do not of an equal or lower level for that day. Alternatively, they may pray to swap a spell for an additional channel energy. Alternatively, they may pray to upgrade a spell usage die: ->d4>d6>d8>d10>d12>d20. Time taken is based on the symbol’s value. Wood means it takes 10 minutes. Iron means it takes a combat round. Silver means it’s instantaneous.
+
+\subsection*{Druid}
+\addcontentsline{toc}{subsection}{Druid}
+
+\subsubsection*{\footnotesize{B}\scriptsize{EAST} \footnotesize{F}\scriptsize{ORM}\normalsize}
+\addcontentsline{toc}{subsubsection}{Beast Form}
+
+The Druid can turn into one other creature at will. It can be another humanoid, or it can be an ordinary animal somewhere between the Druid's size and cat size. Its stats are exactly the same as the Druid's. 
+
+\subsubsection*{\footnotesize{E}\scriptsize{NTHRALL} \footnotesize{B}\scriptsize{EAST}\normalsize}
+\addcontentsline{toc}{subsubsection}{Enthrall Beast}
+
+The Druid makes eye contact and uses calming noises and gestures while approaching an animal. They must genuinely not wish to harm or trap the animal; the animal will sense any trickery. So long as the attempt is made with good intentions and neither of them are disturbed, the creature will remain transfixed until the end, then the Druid must \TTN{monster HD}{CHA}. Each successful use will turn one hostile creature to neutral, or one neutral creature to charmed.
+
+\bigbreak
+
+A charmed beast will strive to protect its Druid, but it is far from trained. Beasts might greatly misinterpret social situations and become viciously overprotective. Charmed beasts can be released from service and sent back into the wild at any time. Long time animal companions can learn a few commands, but they still might need to roll an enthralling check to see if they obey commands that conflict with their natural instincts.
+
+\bigbreak
+
+The Druid can safely have their level of beasts charmed at once, with less than the Druid's level total HD. Exceeding either of those numbers will cause the beasts to become confused and extremely jealous, growling and snapping at one another and even the Druid. During this time the Druid must enthrall all beasts actively. Any who break free of the charm in this way will attack out of frustration and anger for at least one round before running off to return to the wilderness.
+
+\subsubsection*{\footnotesize{P}\scriptsize{LAGUE} \footnotesize{C}\scriptsize{ARRIER}\normalsize}
+\addcontentsline{toc}{subsubsection}{Plague Carrier}
+
+The Druid is fortified against all mundane diseases. Furthermore, if exposed to a magical affliction, like mummy rot or lycanthropy, the Druid rolls saves at Advantage, and if both dice are successful, the Druid's allies are saved as well. A Druid can attempt to inflict on their enemies any disease they have been exposed to.
+
+\subsubsection*{\footnotesize{W}\scriptsize{ILD} \footnotesize{T}\scriptsize{HING}\normalsize}
+\addcontentsline{toc}{subsubsection}{Wild Thing}
+
+All that time a Druid spends in nature has changed them, and not necessarily for the better. A Druid's mere presence will cause untrained domestic animals like horses, cows, sheep, and goats to make a morale check or panic and try and escape. A rider can control a trained mount, and animals can become used to the Druid's presence if they prove innocuous. When the Druid encounters wild animals, however, the animal's disposition will be one stage friendlier than it would have been, and morale checks made with wild animals are done at Advantage.
+
+\subsection*{Dwarf}
+\addcontentsline{toc}{subsection}{Dwarf}
+
+\subsubsection*{\footnotesize{G}\scriptsize{ADGETRY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Gadgetry}
+
+Dwarf society is filled with tinkerers and inventors, scientists and mechanics. At first level, the Dwarf begins with a single item crafted by their people, chosen at random. Once it is lost it cannot be replaced.
+
+\bigbreak
+
+The Dwarf receives a package containing a new random item at every odd numbered level. If it is the same as an item they already own, they can send it back with a strongly-worded note demanding an exchange, but this will take four to six weeks.
+
+\bigbreak
+
+Any non-Dwarf trying to operate one of these gadgets has a 1 in 3 chance of it backfiring unpleasantly upon them.
+
+\bigbreak
+
+\begin{enumerate}[nosep]
+\item \textbf{Camera}: Makes a flash of light that blinds all creatures in front of the user. Also takes pictures. Can be used once per day.
+\item \textbf{Animated Luggage}: A large chest that walks around by itself and follows the Dwarf faithfully. Carries 18 items. If the Dwarf is killed, there is a 50\% chance the Luggage will imprint upon the nearest creature, and a 50\% chance it will run off and go feral.
+\item \textbf{Bug Repellent}: Exceedingly strong spray for keeping off noxious insects. When used, all creatures who smell it must make a morale check or flee until out of the area. Dwarfs are immune to it and allies may plug their nostrils in advance. Each can contains 2d6 charges of spray.
+\item \textbf{Sunblock}: An unguent that provides Advantage against fire and radiation attacks, and total immunity to sun scorch, light beams and other solar effects. Lasts 6 hours but must be applied 20 minutes in advance. Each tube contains 4d6 doses.
+\item \textbf{Ever Full Lunchbox}: Whenever you open this lunchbox, there will be a cheese and corn sandwich, a banana and a thermos full of tea.
+\item \textbf{Travel Guide}: A book containing truths and falsehoods about the local area. The Dwarf may consult the book once for each area (town, dungeon, hex, etc.). The Referee will privately roll a d6:
+\begin{itemize}[nosep]
+\item1-2: useful secret (hidden door, trap warning, saucy blackmail information, etc.)
+\item 3-5: useful information but not secret,
+\item 6: false and potentially dangerous information.
+\end{itemize}
+\item \textbf{Portable Jukebox}: A small box which can record and play back sounds with perfect fidelity. Also contains a variety of musical recordings of an utterly bizarre and shamelessly licentious style. This novelty confers a -2 bonus to reaction rolls for NPCs of neutral or chaotic alignment; lawful characters will find the music crude and boorish.
+\item \textbf{Universal Panacea}: A bottle of pills that can heal just about any ailment, but not hit point loss. Minor ailments, including anything non-permanent, require 1 pill; major ailments, such as permanent blindness, disease or poisoning, require 2 pills; extreme ailments, such as dismemberment or a curse, require 4 pills. There are exactly 10 pills in each bottle.
+\end{enumerate}
+
+\subsubsection*{\footnotesize{I}\scriptsize{NSPIRE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Inspire}
+
+Once per fight a Dwarf can give any other PC an extra action, as long as it is not a melee or ranged attack or a spell. 
+
+\subsubsection*{\footnotesize{M}\scriptsize{AD} \footnotesize{S}\scriptsize{CIENTIST}\normalsize}
+\addcontentsline{toc}{subsubsection}{Mad Scientist}
+
+Some Dwarfs are not storytellers, songwriters, or soothsayers, but instead have devoted their lives to the singular task of knowledge at all costs. Each time a scientist Dwarf levels up, they can choose to gain one of the following forbidden knowledges or mechanical enhancements, provided they have the prerequisite level.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\textbf{Level}&\textbf{Power/Enhancement}\\
+\rowcolor[gray]{0.75}1&\textbf{Mechanical Arm}: This adds +1 to your STR (not to exceed 20). This ability may be taken once for each arm.\\
+1&\textbf{Fingerblades}: Your fingertips are replaced with razors. You can attack twice per round, once with each hand, doing d4 damage per hand. This requires both hands free.\\
+\rowcolor[gray]{0.75}1&\textbf{Identify Technology}: You have a 10\% chance per level (max 90\%) of successfully identifying a technological item’s powers.\\
+1&\textbf{Suturepede}: The suturepede is a biomechanical centipede-like creature surgically implanted within your body. When you fall at or below 0 hit points, the suturepede will exit through a wound and graft itself to the injuries. This will immediately restore d8 HP. The suturepede then dies and falls off.\\
+\rowcolor[gray]{0.75}1&\textbf{Wired Reflexes}: This adds +1 to your DEX (not to exceed 20).\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\textbf{Level}&\textbf{Power/Enhancement}\\
+\rowcolor[gray]{0.75}3&\textbf{Mechanical Legs}: Your movement rate doubles, and you are able to jump 10 feet in the air vertically and 20 feet horizontally, 40 feet from a running start.\\
+3&\textbf{Repair Automata}: Once per day, you can jury-rig repairs to machines, healing them of 2d8 points of damage.\\
+\rowcolor[gray]{0.75}3&\textbf{Repulsor Field}: There is a 50\% chance that small missile weapons miss you outright, and a 10\% chance that  large missiles and melee weapons miss. This check is made after it is normally determined that an attack hits you.\\
+3&\textbf{Targeting Reticule}: You have Advantage to hit with missile weapons. Only one eye may be replaced with a targeting reticule.\\
+\rowcolor[gray]{0.75}3&\textbf{Well-Grounded}: Electrical attacks now only do half damage, and on a successful saving throw (if applicable) do no damage at all.\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\textbf{Level}&\textbf{Power/Enhancement}\\
+\rowcolor[gray]{0.75}5&\textbf{Bioanalysis}: You can measure the pulse, blood pressure, and body temperature of a patient, and determine if someone is lying with 75\% accuracy.\\
+5&\textbf{Hemofiltration}: You are immune to poison. Few Dwarfs take this ability, as it also eliminates the intoxicating effects of drugs and alcohol.\\
+\rowcolor[gray]{0.75}5&\textbf{Recharge Item}: You may attempt to recharge drained technological artifacts. You have a 10\% chance per level (max 90\%) of successfully recharging an item, granting an additional 2d4 charges (up to the item’s maximum number of charges). On failure, however, the item is ruined.\\
+5&\textbf{Voice Modulator}: Once per combat, you can screech threats at your opponents, forcing them to make an immediate morale check.\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\textbf{Level}&\textbf{Power/Enhancement}\\
+\rowcolor[gray]{0.75}7&\textbf{Adrenaline Boost}: Once per day, you gain the effects of the arcane spell \textbf{Haste} for 3 rounds.\\
+7&\textbf{Subvert Automata}: Once per day, make a save versus spells to force a machine to your will. Save once per day on each following day to retain control. After the third saving throw, it has been permanently re-programmed.\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.15\columnwidth -2\tabcolsep}p{.85\columnwidth -2\tabcolsep}}
+\textbf{Level}&\textbf{Power/Enhancement}\\
+\rowcolor[gray]{0.75}9&\textbf{Mind Transfer}: Transfer your mind into a machine permanently; your body dies once the mind is moved.\\
+9&\textbf{Supreme Science}: Once per day, you can release a cloud of nanomites capable of suppressing magic. No magical effects will operate in the area, and creatures normally only harmed by magic will be susceptible to normal weapons while in it. The cloud is visible as a thin mist, and lasts for 2 hours.\\
+\end{tabular}
+\end{center}
+
+
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF} \footnotesize{C}\scriptsize{HARM}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of Charm}
+
+The smooth-tongued Dwarf knows how to enchant and enthrall those who hear their crooning medleys. Once per day a Dwarf can sing a song to decrease the reaction roll of an NPC by 2. The Referee gets to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF} \footnotesize{C}\scriptsize{OURAGE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of Courage}
+
+The Dwarfs sing songs to inspire bravery and heroism in all who hear their valiant melodies. Once per day a Dwarf can sing a song to allow all allies, including the Dwarf, to roll with Advantage on saves against fear and ally morale checks. The Referee gets to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF} \footnotesize{H}\scriptsize{ISTORY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of History}
+
+The Dwarfs have been recording their memories in song going back to before the making of the world. Once per day a Dwarf can sing a song to remember a clue related to any ancient mystery. The Referee must provide something useful, but they also get to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF} \footnotesize{T}\scriptsize{ERROR}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of Terror}
+
+Dwarfs know the discordant melodies of ancient horrors, long since lost to history. Once per day a Dwarf can sing a song to force all allies, including the Dwarf, to roll with Advantage on attacks using fear and enemy morale checks. The Referee gets to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF THE} \footnotesize{F}\scriptsize{LEET OF} \footnotesize{F}\scriptsize{OOT}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of the Fleet of Foot}
+
+The magic of Dwarfsong inspires companions to endure even when they are tired and homesick. Once per day a Dwarf can sing a song while traveling to gain 25\% to the distance they can travel for the day. The Referee gets to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF THE} \footnotesize{H}\scriptsize{OPLON}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of the Hoplon}
+
+The Dwarfs sing about their superior military technology. Their shields are second-to-none. Once per day a Dwarf can sing a song to increase all allies' AC by 1 (including the Dwarf's). The Referee gets to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF THE} \footnotesize{W}\scriptsize{ARRIOR}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of the Warrior}
+
+The Dwarfs sing myths about the adventures of heroes and demigods, fearless in battle. Once per day a Dwarf can sing a song to increase all allies' AV by 1 (including the Dwarf's). The Referee gets to make an immediate check for wandering monsters.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ONG OF THE} \footnotesize{W}\scriptsize{EARY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Song of the Weary}
+
+Dwarfsong is soothing; it calms distressed and tired allies. Once per day a Dwarf can sing a song during camp to allow all allies, including the Dwarf, to gain an additional 1 HP during rest. The Referee gets to make an immediate check for wandering monsters.
+
+\subsection*{Elf}
+\addcontentsline{toc}{subsection}{Elf}
+
+\subsubsection*{\footnotesize{A}\scriptsize{NCIENT} \footnotesize{L}\scriptsize{ORE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Ancient Lore}
+
+Elves tap into their ancestral memories during the strange, meditative trances they undertake during rest. When they meditate at night, elves may ask the Referee one question of something on the Elven akashic record. The response comes from an Elven ancestor and may be difficult to understand but is never false or misleading. 
+
+\subsubsection*{\footnotesize{C}\scriptsize{RAFT} \footnotesize{S}\scriptsize{ENSE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Craft Sense}
+
+An Elf can appraise treasure well. They can estimate the value of non-magical things flawlessly, and if a piece of treasure, magical or not, is not what it seems, they can get an inkling if they ask.
+
+\subsubsection*{\footnotesize{F}\scriptsize{UGUE} \footnotesize{S}\scriptsize{TATE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Fugue State}
+
+Upon ingesting drugs or alcohol, the Elf can enter a divinely inspired insanity. Consuming even a small amount will send the Elf into a fugue for d4 turns. During this time the Elf loses all inhibitions and must constantly search for treasure, food, wine, and drugs. If interrupted by enemies, the Elf will fight to the death, and if they find a store of food or wine they will feast and then fall asleep for the remainder of the fugue. While in a fugue, the Elf gains Advantage to attack rolls due to their unerring accuracy, Advantage to saving throws because of an uncanny sixth sense, and once per fugue a brief vision that will lead them to their immediate goals, such as an augury of the nearest food or treasure.
+
+\bigbreak
+
+After the fugue ends, the Elf will pass out for 1 turn and during this time make a saving throw versus spells; if successful, a more long-term vision is granted from the following table. The saving throw attempt may only be made once per day regardless of how many fugues are triggered.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1-3&Vision of the Elf achieving their current goal.\\
+4-8&Vision of the Elf suffering an imminent death.\\
+\rowcolor[gray]{0.75}9-12&Vision of a random NPC nearby.\\
+13-16&Vision of a random location nearby.\\
+\rowcolor[gray]{0.75}17-18&Further vision related to the fugue (i.e., if the fugue was primarily spent eating, a vision of a nearby cookhouse might occur).\\
+19&Vision of a far-off location, possibly another plane.\\
+\rowcolor[gray]{0.75}20&Vision of an important event in the distant future.\\
+\end{tabular}
+\end{center}
+
+\subsubsection*{\footnotesize{H}\scriptsize{ERBAL} \footnotesize{M}\scriptsize{AGIC}\normalsize}
+\addcontentsline{toc}{subsubsection}{Herbal Magic}
+
+An Elf can use herbs to heal an ally d4 HP, fill a room with light, discern the truth from lies, or detect nearby monsters. This action immediately downgrades the herbs' usage die.
+
+\subsubsection*{\footnotesize{M}\scriptsize{EDITATION}\normalsize}
+\addcontentsline{toc}{subsubsection}{Meditation}
+
+An Elf is adept at meditation. Once per day, they may meditate in silence to perform one of the following: resist poison, heal d4 HP, cure mundane disease, gain Advantage, or, for one turn per level, appear dead.
+
+\subsubsection*{\footnotesize{P}\scriptsize{ERSISTENT}\normalsize}
+\addcontentsline{toc}{subsubsection}{Persistent}
+
+Every time the Elf misses an attack, they gain Advantage to hit, stacking until a successful hit.
+
+\subsubsection*{\footnotesize{T}\scriptsize{RUE} \footnotesize{S}\scriptsize{IGHT}\normalsize}
+\addcontentsline{toc}{subsubsection}{True Sight}
+
+An Elf can see the true form of a shape-changer, polymorphed subject, or anyone else whose original form has been changed. They spot all illusions for what they are. An Elf will be briefly aware of invisible creatures when they pass their field of vision, but they receive no other boon against them.
+
+\subsubsection*{\footnotesize{W}\scriptsize{ELL-}\footnotesize{T}\scriptsize{RAVELED}\normalsize}
+\addcontentsline{toc}{subsubsection}{Well-Traveled}
+
+An Elf may make an INT check to know how to speak a sentence in any language that comes up from a place they've been. They can learn to speak well enough to basically get along after a week somewhere and can master the language in a month.
+
+\subsection*{Fighter}
+\addcontentsline{toc}{subsection}{Fighter}
+
+\subsubsection*{\footnotesize{B}\scriptsize{ERSERK}\normalsize}
+\addcontentsline{toc}{subsubsection}{Berserk}
+
+Once per day a Fighter can berserk for one round per level. In the midst of berserking, the Fighter rolls damage, morale, and STR, DEX, and CON checks at Advantage, rolls AC and INT, WIS, and CHA at Disadvantage, and cannot die or accrue death/near-death effects until after berserking.
+
+\subsubsection*{\footnotesize{C}\scriptsize{RITS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Crits}
+
+A Fighter successfully hits their enemy on a roll of 20, even if this roll fails to be under their AV. Optionally, this hit incurs maximum damage, but only if a roll of 1 is a fumble and incurs a negative effect besides just ``miss."
+
+\subsubsection*{\footnotesize{D}\scriptsize{ISTRIBUTING} \footnotesize{D}\scriptsize{AMAGE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Distributing Damage}
+
+Replacing the ability to attack a new target on a killing blow, a Fighter can choose on a successful hit to distribute the damage rolled between a number, up to the Fighter's level, of targets within reach, so long as they each have an equal or lesser AC to the one just hit.
+
+\subsubsection*{\footnotesize{D}\scriptsize{UAL} \footnotesize{W}\scriptsize{IELDING}\normalsize}
+\addcontentsline{toc}{subsubsection}{Dual Wielding}
+
+If the Fighter keeps both hands otherwise free (no shields, torches, potions, etc), then they may hold a weapon in each hand. If a dual wielding Fighter succeeds at hitting an opponent, then they may roll a damage die for each of their weapons and choose the higher value.
+
+\subsubsection*{\footnotesize{M}\scriptsize{ARTIAL} \footnotesize{M}\scriptsize{AGIC}\normalsize}
+\addcontentsline{toc}{subsubsection}{Martial Magic}
+
+Role niches be damned! Your Fighter is so skilled, their martial prowess confers on them magical abilities. Your Fighter knows a number of martial spells equal to half their level, round up. You cast them by investing a number of casting dice in a spell and then rolling them. 
+
+\bigbreak
+
+Each day you start with a number of d6 casting dice equal to your half your level, round up. When you want to cast a spell, choose how many casting dice you will invest in it, and then roll them. Every casting die that comes up 1-3 returns to your casting dice pool. Every die that comes up 4-6 is exhausted, and only returns to your casting dice pool after a good night's sleep. Once your casting dice pool is empty, you cannot cast any more spells that day. Spell effects vary based on the number of dice you invest, signaled by [dice], and by the cumulative roll of those dice, signaled by [sum].
+
+\bigbreak
+
+If you roll doubles on your casting dice, you have incurred Chaos. The spell still goes through. You gain d3 Doom Points and roll on the Chaos table below.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.1\columnwidth -2\tabcolsep}p{.9\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Effect}\\
+\rowcolor[gray]{0.75}1&For the next 24 hours, casting dice only return to your pool if you roll a 1-2.\\
+2&Take d6 damage.\\
+\rowcolor[gray]{0.75}3&Gain a random mutation for d6 rounds, then roll a CON save. If you fail, it's permanent.\\
+4&The next person you touch takes damage as if you hit them with your weapon, even if you touched them gently.\\
+\rowcolor[gray]{0.75}5&You are blinded for d6 rounds.\\
+6&Your fingers become sharp as swords for d8 hours. Anything you touch that is soft or fragile is cut as if you poked it with a sword.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+If you roll triples, you have incured a Calamity. The spell still goes through. You gain d4 Doom Points and roll on the Calamity table below.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.1\columnwidth -2\tabcolsep}p{.9\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Effect}\\
+\rowcolor[gray]{0.75}1&A giant hand of blue energy emerges from your hand. The hand has d6 HD, can fly, and wants to steal and break valuable objects. It will remain for d6 rounds.\\
+2&Your skin starts glowing like a bonfire. Indoors in the dark, it is obvious for 300 feet around.\\
+\rowcolor[gray]{0.75}3&One non-virtuous person near you must save. On a failure, they die in a freak accident. On a success, they are merely seriously injured.\\
+4&The next person you touch must save or suffer a heart attack. They must then make a second save; if they fail, they die.\\
+\rowcolor[gray]{0.75}5&For the next d10 rounds, if you move faster than walking speed, you light on fire. It does d6 damage per round.\\
+6&You die. Make an INT check every hour to find your way back from the lands of the dead. You gain a contact in the afterlife.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+At 10 Doom Points, you invoke the Doom of Fools. A former classmate of your suddenly shows up. They demand that you return with them to your monastery/guild/school, claiming that one of the former senior students has returned, having learned black, forbidden techniques from unknown sources. All students of your school must return immediately, to protect the Grandmaster and the secret knowledge. There is a 50\% chance your classmate is telling the truth. If they are, you two will be attacked shortly thereafter by Assassins working for the former senior student. If they are not telling the truth, they are actually a traitor who wants to test your loyalty to the school. If you prove loyal, they will try to kill you. If you are not, however, they will tell you to stay lost and not come back.
+
+\bigbreak
+
+At 20 Doom Points, you invoke the Doom of Kings. A former Teacher at your school suddenly shows up. They have a 50\% of being a survivor who escaped the school when it was seized by the former senior student, or they are working for the student to spare their own life. If the former, they are being pursued by a posse of Assassins who serve the former senior student. When the Assassins arrive, they will try to kill the Teacher and anyone else associated with the school. If you promise to come with them and swear fealty to the former senior student, they will let you live. If you resist, they will kill you and anyone else who stands in the way of killing the former Teacher. If the latter, then the Teacher will demand you return to the school to swear your allegiance to the new Grandmaster, the former senior student. If you resist, they will try to beat you into submission and drag you back in chains. The Teacher will resort to killing you, though they'd like to avoid that, if possible.
+
+\bigbreak
+
+At 30 Doom Points, you invoke the Ultimate Doom. The former senior student themselves suddenly arrives, accompanied by a group of their bodyguards and supporters. They will demand you swear your allegiance to them and do something dangerous, unpleasant or degrading for them. If you refuse, they will kill you. This Doom can be avoided by hunting down the former senior student and killing them, or by crafting a disguise convincing enough that no one from your former school can recognize you.
+
+\bigbreak
+
+Below is a list of some of the martial spells in existence. Unless otherwise noted, all spells with ongoing effects last up to [dice]$\times$10 minutes, and have a range of up to 40 feet. If the target attempts to resist the spell, the caster must \TTN{target HD}{their spellcasting stat (STR for Fighters)}. If they fail, the effects of the spell are reduced or negated.
+
+\bigbreak
+
+\textbf{\ref{fight:num} Martial Spells}
+\begin{enumerate}[nosep]
+\item \textbf{All Journeys Begin and End with One Step}: Move up to [dice]$\times$30 feet. Your movement is so fast it appears instantaneous. At 1 [die], you ignore pressure plates (or similar mechanisms) and dangerous or difficult terrain. At 2 [dice], you may move up a wall or over the ceiling, as long as you end your movement in a place where you can normally stand. At 3 [dice], you may move over surfaces that couldn't normally support your weight (surface of water, twigs and leaves, weapons held by your enemies). At 4 [dice], you may move through impossibly tight squeezes without being slowed (between prison bars, through a keyhole).
+\item \textbf{Empty Palm Vanquishes the Wicket}: You fire a gigantic hand made of blue life-force from your own hand. The hand can be used to strike anyone within range for d6+[dice] damage, or it can do anything else a giant hand could do. It cannot fly or really move, but it can hold things or lift things up. It has a STR of 13+[dice] and HP of [sum]. It disappears after time runs out or it runs out of health.
+\item \textbf{Fear of Rain Clouds is Advised}: You may make 1 ranged attack with a shuriken, throwing knife, or small thrown projectile of the sort. This projectile is then multiplied many thousands of times over, doing normal damage+[sum]. If the creature you targeted had any creatures standing adjacent to them, the amount of damage taken is divided evenly among those creatures.
+\item \textbf{Fortune Shakes the Proud, but the Humble Endure}: Make a melee attack against a creature. On a hit, \TTN{enemy HD}{STR+[dice]}. On a success, that creature is stunned, and cannot take any actions for [dice] rounds. If you cast this spell with 2 or more [dice], then the creature also cannot move when you successfully \textbf{Thread the Needle}. If you cast this spell with 4 or more [dice], \textbf{Thread the Needle} an additional time, regardless of what you rolled on the first one. If you succeed, the target dies.
+\item \textbf{Green Woman is Easily Rebuffed by the Chaste}: The target is as light as air. They take no fall damage, can jump a number of feet equal to their STR score, and can run along walls for far longer than is humanly possible, though they will still fall down.
+\item \textbf{Hark! The Breaker of Worlds Stares at Me From Across the Rice Fields}:
+\item \textbf{If You Meet God on the Road, Kill It}: Select an event that just occurred. This event no longer occurs and never occurred. Instead, reality is rewritten so that event didn't happen. Reality shifts to show the new events that occurred but in the smallest way possible. If this spell is cast with 1 [die], you may undo an event that occurred up to 1 turn ago. If this spell is cast with 2 [dice], 1 round ago. If this spell is cast with 3 [dice], one day ago. If cast with 4 [dice], one week ago. 
+\item \textbf{It Takes a Lifetime to Learn, so the Earlier You Start, the Longer it Takes}:
+\item \textbf{Light is Foreign, Darkness is Native}: For the next [dice] rounds, the caster exudes a thin aura of light. This light illuminates [dice]$\times$10 feet around the caster. If they strike anyone with a melee attack, they do an extra [dice] damage to that person. If this spell is cast with 4 or more [dice], the light exuded by the caster has the properties of natural sunlight.
+\item \textbf{Meshi Meshi Meshi Meshi Meshi Meshi Ora!}: You may make [dice] bonus attacks on your next turn. If you cast this spell using 4 or more [dice], you may choose to instead do [sum] bonus attacks.
+\item \textbf{Pain is the Curse of Living}: You take [dice] damage. A touched target regains [sum] HP. You can also use this spell to regenerate the bodies of undead, bringing them ``back to life." If this is done to an undead, \TTN{enemy HD}{STR}. On a failure, they are still undead but now with restored body that will swiftly begin rotting. On a success, their body is filled with the power of their soul and restored to life.
+\item \textbf{Rain Parts for the Wise}: When you are targeted by a ranged attack, you can cast this spell. Reduce the damage [dice] projectiles do by [sum]. If you reduce the damage to 0, you catch the projectiles. This spell only works on projectiles that could conceivably be caught, unless you invest 4 or more [dice], in which case the spell works on any projectile.
+\item \textbf{Sin Brings Death, but the Path of Righteousness is Life}: One creature suddenly has every indignity, humiliation, and injury they've inflicted on any other creature poured out upon them. The Referee should make a ruling on the creature's moral standing. Righteous or heroic creatures take only [dice] damage, as no one is perfect. Middling creatures take 2$\times$[dice] damage. Immoral or corrupt creatures take [sum] damage and the truly wicked take [sum] damage once a round for [dice] rounds. After you cast this spell, you will not be able to regain any spellcasting dice until you say a prayer for the fallen, and make sure their body is respectfully interned in a crypt or tomb. You need not bury them yourself, but it certainly would be polite.
+\item \textbf{The Gale Shatters the Oak, but the Willow Endures}: Use any object as if it could cut, from grass to your own fingers. The enchanted item counts as a sword and deals damage based on [dice] invested:
+\begin{itemize}[nosep]
+\item 1 [die]: d6
+\item 2 [dice]: d8
+\item 3 [dice]: d10
+\item 4 [dice]: d12
+\end{itemize}
+\item \textbf{The Wise Student Fills the Teacups}: The caster can spend a round meditating and doing nothing else. If they do this, one person within 100 feet regains [dice] HP. The caster may continue doing this for as many rounds as they like, but if they stop meditating, the spell automatically ends. Additionally, if they take damage or suffer a significant shock or scare, they must save. On a failed save, they let go of the spell and it ends.
+\item \textbf{Virtue is a Shield against Tragedy}: When next attacked or affected by an opponent's ability, \TTN{enemy HD}{STR+[dice]}. On success, the attack or ability used against does not affect you, and instead is redirected back at the person who used it, affecting them instead. The effect of their attack or ability is multiplied by [dice].
+\label{fight:num}
+\end{enumerate}
+
+\subsubsection*{\footnotesize{M}\scriptsize{IGHTY} \footnotesize{D}\scriptsize{EEDS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Mighty Deeds}
+
+In lieu of an attack, Fighters can attempt any maneuver in combat. To succeed, they must roll a 4 or higher on their Mighty Deed die. The Mighty Deed die increases as the Fighter levels up: d4>d6>d8>d10>d12>d20.
+
+\subsubsection*{\footnotesize{N}\scriptsize{OTCHES}\normalsize}
+\addcontentsline{toc}{subsubsection}{Notches}
+
+Fighters use their combat experience to anticipate enemy behavior. For each combatant of a species slain, the Fighter makes a notch on their weapon. Once per encounter with that species, the Fighter may assess the creature by rolling percentile dice. If the first d10 is under the number slain, the Fighter knows the AC, current hit points, and attack bonus of the creature. If the percentile roll is lower than the total slain, the Fighter knows what the creature will do in the next round of combat.
+
+\subsubsection*{\footnotesize{P}\scriptsize{ARRY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Parry}
+
+The Fighter can use an action to defend themselves against enemy attacks. Gain Advantage on AC rolls and saves, and gain immunity to any surprise effects until the Fighter's next turn.
+
+\subsubsection*{\footnotesize{T}\scriptsize{OUGH}\normalsize}
+\addcontentsline{toc}{subsubsection}{Tough}
+
+Tough Fighters ignore the first attack that any enemy makes against them. This does not include things like gaze attacks or paralyzing touch or magic missile, but it does include big area attacks like breath weapons which would include them.
+
+\subsubsection*{\footnotesize{W}\scriptsize{EAPON} \footnotesize{M}\scriptsize{ASTERY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Weapon Mastery}
+
+Fighters can gain additional bonuses based on the type of weapon they use. These can be treated as passive abilities or as combat maneuvers, using any maneuver rules.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.35\columnwidth -2\tabcolsep}p{.65\columnwidth -2\tabcolsep}}
+\textbf{Weapon Type}&\textbf{Bonus}\\
+\rowcolor[gray]{0.75}Chop (axes)&Reroll damage results of 1 or 2.\\
+Grapple (whips)&Pull your enemy’s legs out from under them.\\
+\rowcolor[gray]{0.75}Slice (swords)&If the Fighter parries and the foe would have missed anyway, get a free counterattack.\\
+Smash (hammers)&Daze on hit, stunning the target until the end of the round.\\
+\rowcolor[gray]{0.75}Stab (daggers)&Deal max damage when grappling.\\
+\end{tabular}
+\end{center}
+
+\subsection*{Halfling}
+\addcontentsline{toc}{subsection}{Halfling}
+
+\subsubsection*{\footnotesize{B}\scriptsize{ABBLE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Babble}
+
+As many times per day as their level, the Halfling can Babble, which can have one of two different effects. When used during an encounter, the Halfling may use this diversion to distract the enemies and automatically succeed on their initiative roll. In roleplaying interactions, the Halfling can avoid unwanted attention by confusing those around them, beginning a conversation over again from scratch as if for the first time. If this effect is attempted in a large enough group, the Halfling must save versus WIS to succeed.
+
+\subsubsection*{\footnotesize{C}\scriptsize{ARD} \footnotesize{C}\scriptsize{HEAT}\normalsize}
+\addcontentsline{toc}{subsubsection}{Card Cheat}
+
+Halflings are experts at parlor games, cards, board games, dice games, etc. Whenever such things come up, the Referee must give a Halfling some clear advantage when determining the winner.
+
+\subsubsection*{\footnotesize{C}\scriptsize{OME ON} \footnotesize{I}\scriptsize{N}\normalsize}
+\addcontentsline{toc}{subsubsection}{Come on In}
+
+Halflings can ``pick locks," but they don't actually pick the locks. They just find doors that happen to be left ajar. They must \TTN{door difficulty}{DEX}, but the difficulty is determined exclusively by how frequently the door is opened, not any actual lock on it. This only applies to the Halfling; if another character tries to pick the same lock, the difficulty is determined by the lock itself.
+
+\bigbreak
+
+If the Halfling fails this check, the door is in fact locked. They can immediately attempt to actually pick the lock this time (with difficulty determined by the lock) without incurring any negative effects from their first failed roll, since all they did before was quietly try the knob. 
+
+\subsubsection*{\footnotesize{F}\scriptsize{IGHTING WITHOUT} \footnotesize{F}\scriptsize{IGHTING}\normalsize}
+\addcontentsline{toc}{subsubsection}{Fighting without Fighting}
+
+On the first round of combat, if the enemy strikes first (or if the Halfling lets the enemy strike first) with a physical attack, the Halfling can announce they are ``fighting without fighting." They get no attack this round, but instead do a clever dodge or redirect; the enemy does however much damage they would've done to the Halfling to themselves instead (regardless of the enemy's AC).
+
+\subsubsection*{\footnotesize{F}\scriptsize{ILCH}\normalsize}
+\addcontentsline{toc}{subsubsection}{Filch}
+
+On a successful melee hit, the Halfling may immediately \TTN{enemy HD}{DEX} to grab an item (other than the target's weapon) off the target. This won't work twice on anyone above zombie-intelligence who sees it.
+
+\subsubsection*{\footnotesize{I}\scriptsize{MPROVISED} \footnotesize{C}\scriptsize{OMBAT}\normalsize}
+\addcontentsline{toc}{subsubsection}{Improvised Combat}
+
+Halflings are very skilled with improvised weapons and use the element of surprise to catch their foes off guard. Roll an attack with Advantage the first time you strike with a suddenly improvised weapon. If it hits, add your CHA score to the damage. The target must be intelligent enough to be surprised by this maneuver for it to work. This won't work twice on anyone above zombie-intellegence who sees it.
+
+\subsubsection*{\footnotesize{J}\scriptsize{AM THE} \footnotesize{T}\scriptsize{RAP}\normalsize}
+\addcontentsline{toc}{subsubsection}{Jam the Trap}
+
+If a character triggers a trap and the Halfling is in a place to do so, they may jam the trap by \TTN{trap HD}{DEX}. Success means the trap effect is delayed for one round. The Halfling may continue to jam the trap for as many rounds as they continue to succeed their roll, but upon their first failure, the trap is immediately triggered, and the Halfling is always in the crossfire, along with any other targets. The Halfling can take no other actions while they are jamming the trap. If a trap is disabled while the Halfling is jamming the trap, they may stop jamming the trap without consequence.
+
+\subsubsection*{\footnotesize{L}\scriptsize{UCKY} \footnotesize{B}\scriptsize{REAK}\normalsize}
+\addcontentsline{toc}{subsubsection}{Lucky Break}
+
+A Halfling may escape death or another equally awful fate exactly once. They must spend at least a round playing opossum to build tension.
+
+\subsubsection*{\footnotesize{N}\scriptsize{IMBLE} \footnotesize{D}\scriptsize{ODGE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Nimble Dodge}
+
+Once per combat, if the Halfling is not wearing armor, they can roll with Advantage to avoid an attack that they can see coming.
+
+\subsubsection*{\footnotesize{S}\scriptsize{CAMP}\normalsize}
+\addcontentsline{toc}{subsubsection}{Scamp}
+
+Halflings are mischievous and light on their feet. They can move 30 feet twice in their turn. They can act before, between, or after their movements.
+
+\subsubsection*{\footnotesize{S}\scriptsize{CORES}\normalsize}
+\addcontentsline{toc}{subsubsection}{Scores}
+
+Halflings keep a record of all the things that they have heisted or thieved - but only objects actively guarded or trapped. Any criminal who knows the Halfling's reputation treats the Halfling as having 1 additional CHA point for every 1000 gold worth of objects in their scores.
+
+\subsubsection*{\footnotesize{S}\scriptsize{COUNDREL} \footnotesize{F}\scriptsize{IGHTING}\normalsize}
+\addcontentsline{toc}{subsubsection}{Scoundrel Fighting}
+
+If the Halfling successfully attacks a foe with a dagger or similar weapon, they have the option to leave the dagger in some horrible place. The dagger will do d6 ongoing damage per round and will do d20 if they take it out. Magical healing will allow safe extraction of the dagger, as will decent mundane medical attention. 
+
+\subsubsection*{\footnotesize{S}\scriptsize{ECOND} \footnotesize{B}\scriptsize{REAKFAST}\normalsize}
+\addcontentsline{toc}{subsubsection}{Second Breakfast}
+
+Once per day, a Halfling may gluttonously devour a week's worth of rations at once and heal d6 HP.
+
+\subsubsection*{\footnotesize{S}\scriptsize{EEDY} \footnotesize{C}\scriptsize{ONTACTS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Seedy Contacts}
+
+In addition to or replacing the Halfling's favors, a Halfling gains one contact at each level up. This ability can be triggered in any civilized area (or uncivilized areas that travelers frequent) by shouting ``HEY, IT'S YOU!" These will generally be low-level low-class types: thugs, mountebanks, and freakshow performers, and, though they have information, they will not be adventurer/hireling material (i.e., they won't help fight things or open trapped doors). However, in lieu of gaining a contact at level up, a Halfling can elect to do one of the following: upgrade an existing contact to upper-class status or upgrade an existing contact to adventurer status.
+
+\subsubsection*{\footnotesize{S}\scriptsize{ILVER} \footnotesize{T}\scriptsize{ONGUE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Silver Tongue}
+
+Once per day, someone of ordinary intelligence will believe a lie you tell them.
+
+\subsection*{Magic-User}
+\addcontentsline{toc}{subsection}{Magic-User}
+
+\subsubsection*{\footnotesize{B}\scriptsize{LUE} \footnotesize{M}\scriptsize{AGE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Blue Mage}
+
+A Blue Mage does not learn spells in the same way as a regular Magic-User. Instead, they may learn special monster attacks and abilities once they have been the target of them. Once targeted by an ability, a Blue Mage may choose to learn the monster ability. Blue Mages may also learn spells, by being the target of a spell. Learning an ability or a spell takes 1 turn after the Blue Mage has been targeted by it. Blue Mages may not know more spells and abilities in total than their level + CON. If the Blue Mage is protected from the effects of a spell or ability, they will not learn it. They must be affected, personally, by the ability. However, a Blue Mage can learn an ability regardless of the success or failure of their saving throw versus the attack. But they must be a target of a spell or ability to learn it; seeing it is not enough.
+
+\bigbreak
+
+A Blue Mage can also attempt to learn passive or defensive abilities from creatures by eating them. They must save versus poison after consuming a corpse to learn the ability. Otherwise they are sick and vomit up the corpse which is ruined. A whole corpse must be consumed and this takes 1 turn. Each of these passive abilities counts against the total number of abilities the Blue Mage can learn.
+
+\subsubsection*{\footnotesize{C}\scriptsize{HRONOMANCY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Chronomancy}
+
+Many of the Magic-User's spells are themed around time control. Here are a few more such spells that are more experimental and dangerous. Time travel is complicated. Timelines can split, causations can fail, and the fabric of the universe can unravel. Time travel cannot change the past. When you go back in time, you'll simply be in the same stretch of time twice; you were always there twice.
+
+\bigbreak
+
+If you know one of these spells, you can simply decide that you will cast it in the future. At that moment of decision, the spell takes effect. Later on, at a moment specified by the spell, you must cast the spell, sending its effect back through time and closing the loop. If you fail to do so, you gain Paradox, which will quickly kill you.
+
+\begin{enumerate}[nosep]
+\item \textbf{Item Drop}: You decide you are going to cast this spell sometime this week. As soon as you decide, a portal opens and any item of your choice falls through. You must cast this spell before midnight in seven days, targeting a copy of the item in question. The copy cannot be the one from the future; it must be from this timeline. If you fail to cast \textbf{Item Drop}, the item from the future will fade from existence and you gain 1 Paradox.
+
+You can only cast \textbf{Item Drop} if you decided you would in the last week. Touch the chosen item and send it back in time. There is now only one copy of the item.
+\item \textbf{Noncausal Cast}: You decide you are going to cast this spell sometime today. As soon as you decide, another spell you have prepared is cast by yourself in the future. The target can be anywhere. If the spell in question returns information to the caster, you will not receive that information until you actually cast this spell later today. You must know the target exists and its location to cast this spell. You must cast \textbf{Noncausal Cast} before the day ends, and you must cast the chosen spell into the resulting time portal. You must be within range of the place where the target was. If you fail to do this, you gain 1 Paradox.
+
+You can only cast \textbf{Noncausal Cast} if you decided you would earlier today. As a part of casting this spell, you must also cast the chosen spell, which is sent back in time.
+\item \textbf{Step Backwards}: You decide you are going to cast this spell on your next turn. As soon as you decide, your future self appears somewhere. You control them and they may move and take actions as normal. They have Advantage on all rolls and cannot be surprised. Any damage or effects you take are automatically and retroactively applied to them. On your next turn, you must cast \textbf{Step Backwards} in the place your future self appeared at. If you fail to do so, your copy fades from existence and you gain 1 Paradox.
+
+You can only cast \textbf{Step Backwards} if you decided you would last round. You travel back in time one round. Now there is only one of you, and the timeline continues.
+\item \textbf{Greater Step Backwards}: As \textbf{Step Backwards}, except your time limit to cast the spell is 1 minute instead of 1 round. Your future self cannot pass any information to you, as that would cause a Paradox. Because of the extra length of time, just seeing them will tell you of your future. You cannot see your future self. If you do, gain 1 Paradox.
+
+It is rumored that \textbf{Step Backwards} and \textbf{Greater Step Backwards} can be made even more powerful, extending the time limit even further, but the same rules and restrictions must apply.
+\end{enumerate}
+
+Whenever you gain Paradox, roll d6 and add your current Paradox score. The effect happens immediately. Paradox score cannot be decreased.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.1\columnwidth -2\tabcolsep}p{.9\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}2&Thrown forward in time 1 day.\\
+3&Thrown forward in time 1 week.\\
+\rowcolor[gray]{0.75}4&Get lost among the timelines. Age 10 years, learn 1 new spell, and lose 2d6 HP.\\
+5&Erase your past. Lose all items and abilities connected to your pre-adventuring days, and no one can remember what they were.\\
+\rowcolor[gray]{0.75}6&A version of you 30 years older appears and tries to kill you. They're 5 levels higher than you. They know everything you know and every new thing you learn.\\
+7&Visit the end of time and return. Lose 2 INT and 2 WIS from the unspeakable things you see.\\
+\rowcolor[gray]{0.75}8&Locked in stasis forever.\\
+9+&Erased from existence and history. No trace of you remains and no one remembers you existed.\\
+\end{tabular}
+\end{center}
+
+\subsubsection*{\footnotesize{C}\scriptsize{OUNTERSPELL}\normalsize}
+\addcontentsline{toc}{subsubsection}{Counterspell}
+
+Magic-Users may roll their spell usage die to protect as many people as their level from the effects of a spell. This must be done before damage or saving throw are rolled. For example, a level 2 Magic-User can roll their spell usage die to protect two people from a spell. 
+
+\bigbreak
+
+When a spell targets the Magic-User, they can choose to downgrade a usage die immediately to block the spell from affecting them and attempt to cast it themselves on their attacker, using the Magic-User's stats if the spell requires it. This must be done before damage or saving throw are rolled.
+
+\subsubsection*{\footnotesize{F}\scriptsize{AMILIAR}\normalsize}
+\addcontentsline{toc}{subsubsection}{Familiar}
+
+A Magic-User can have a small animal as their familiar. It holds and can cast a single extra spell daily. The familiar can be given simple instructions, can communicate mentally with the caster, and cannot be killed, instead disappearing in a puff of smoke to reappear one hour later. If the Magic-User dies, their familiar erupts as a magic bomb, dealing d6 damage per Magic-User level to those nearby.
+
+\subsubsection*{\footnotesize{P}\scriptsize{OORLY} \footnotesize{L}\scriptsize{EARNED} \footnotesize{S}\scriptsize{PELLS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Poorly Learned Spells}
+
+Once per day, the Magic-User may cast any spell. It has a 50\% chance of backfiring.
+
+\subsubsection*{\footnotesize{S}\scriptsize{PELL} \footnotesize{S}\scriptsize{WAP}\normalsize}
+\addcontentsline{toc}{subsubsection}{Spell Swap}
+
+In lieu of the Magic-User's ritual ability, once per day, a Magic-User can swap a spell they know for one they do not. Doing so requires a minute of intense study.
+
+\subsection*{Paladin}
+\addcontentsline{toc}{subsection}{Paladin}
+
+\subsubsection*{\footnotesize{D}\scriptsize{ILIGENCE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Diligence}
+
+The Paladin may keep acting even once their HP total has reached 0 or less. They only stop when the task they are attempting (e.g., holding a position or combating an evil foe) is completed, or when their accumulated negative HP is greater than CON + level, whichever comes first.
+
+\subsubsection*{\footnotesize{D}\scriptsize{IVINE} \footnotesize{L}\scriptsize{IGHT}\normalsize}
+\addcontentsline{toc}{subsubsection}{Divine Light}
+
+When the sun is at its peak (typically noon) you gain Advantage on any die rolls you make during combat or ones that involve utilization of your STR score. This vanishes completely at night or if you are hidden away from the sun. Magical daylight confers this ability.
+
+\subsubsection*{\footnotesize{F}\scriptsize{ANATIC} \footnotesize{F}\scriptsize{OLLOWERS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Fanatic Followers}
+
+A Paladin's hirelings that do not already have a strong faith gain -2 morale from the Paladin's contagious religious fervor. (Recall: lower morale scores are better.)
+
+\subsubsection*{\footnotesize{H}\scriptsize{OLY} \footnotesize{B}\scriptsize{LADE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Holy Blade}
+
+At character creation, the Paladin must choose their signature weapon. They may magically generate and maintain a single artisan version of this weapon each round. The Paladin may create their signature weapon even if they have already done so in the previous round, but the older weapon vanishes. They may move and/or attack on the same round they create a melee weapon. A missile weapon takes an entire round to generate, but ammunition is made alongside it in the amount of a d4 usage die. 
+
+\bigbreak
+
+At second level, a Paladin can maintain two of their signature weapons at once. 
+
+\bigbreak
+
+At third level, these weapons count as magical for the purpose of hitting and damaging certain creatures. 
+
+\bigbreak
+
+At fourth level they deal an additional 1 damage upon hitting and they gain a further cumulative +1 bonus every level afterwards.
+
+\bigbreak
+
+This power allows for very unorthodox methodology - abandoning weapons in fallen foes for allies to utilize, hurling swords at enemies that leap out of reach, and sometimes using weapons for tasks they wouldn't normally be suitable for, such prying open doors or making hand holds for a steep climb.
+
+\subsubsection*{\footnotesize{L}\scriptsize{IMBS} \footnotesize{S}\scriptsize{HALL BE} \footnotesize{S}\scriptsize{PLINTERED}\normalsize}
+\addcontentsline{toc}{subsubsection}{Limbs Shall be Splintered}
+
+If a Paladin fails a STR or DEX save and would be dealt damage, they can opt to lose a limb instead, and ignore the damage.
+
+\subsubsection*{\footnotesize{M}\scriptsize{ERCY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Mercy}
+
+When striking a living creature with a blow that would be fatal, a Paladin may opt for the hit to instead send them into unconsciousness. Assuming they do not perish through some other means afterward, they will be aware that the Paladin spared them and may think of them more favorably from then on.
+
+\subsubsection*{\footnotesize{M}\scriptsize{IRACLE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Miracle}
+
+When a Paladin reaches level 10, they may perform a great Miracle once. This Miracle can do anything, subject to the following caveats: this Miracle may only be used to save or assist others in some way, and the Paladin's intent is considered when the Miracle is announced, as opposed to their way of asking for it. Once the Miracle is performed, the Paladin is officially a saint.
+
+\bigbreak
+
+Optionally, a Paladin can perform a Miracle earlier than level 10, but it should be closer to 10 than to 1, and they must permanently and irrevocably die.
+
+\subsubsection*{\footnotesize{N}\scriptsize{OBLE} \footnotesize{S}\scriptsize{TRENGTH}\normalsize}
+\addcontentsline{toc}{subsubsection}{Noble Strength}
+
+Once per day, when performing a feat of strength that will save the life of another, you are counted as having the strength of a giant, allowing you to lift, throw, or hold things a normal human should be incapable of. This may not be used to harm anyone.
+
+\subsubsection*{\footnotesize{P}\scriptsize{ACIFISM}\normalsize}
+\addcontentsline{toc}{subsubsection}{Pacifism}
+
+A pacifist Paladin may use any weapon against unliving or undead targets, but if they ever kill a living person or creature with it, even accidentally, they must surrender that weapon and give up the use of weapons of that type forever. Pacifists may deal an additional d4 on every successful attack as long as that attack does not kill. Pacifists may intentionally ``take" a hit. Those doing so may deal d12 unblockable unlethal damage to their attacker.
+
+\bigbreak
+
+Optionally, just because the pacifist Paladin didn't land the killing blow doesn't mean they're not culpable for deaths caused by their allies. Tread lightly with this rule though because player infighting in this way isn't fun or interesting and parties should want to work together. Use it to introduce story and moral consequences, not mechanical ones.
+
+\subsubsection*{\footnotesize{S}\scriptsize{MITE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Smite}
+
+Any time a Paladin rolls maximum damage with a melee weapon, immediately \TTN{enemy HD}{CHA}. Success stuns the enemy for d4 rounds.
+
+\subsubsection*{\footnotesize{T}\scriptsize{ITHE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Tithe}
+
+The Paladin must donate 10\% of their earnings after every adventure in order to use their supernatural abilities. If they ascetically fast, they are considered one level higher for the purposes of adjudicating their supernatural abilities, at the cost of acquiring a severe Hungry condition (for a sample mechanic of becoming Hungry, see \textbf{Conditions Take Inventory Slots}).
+
+\subsubsection*{\footnotesize{T}\scriptsize{HE} \footnotesize{S}\scriptsize{UN}\normalsize}
+\addcontentsline{toc}{subsubsection}{The Sun}
+
+Once per year, a Paladin may banish the night from its throne and bring forth the sun regardless of the time. The sun will move to its zenith for the remainder of the interval between its arrival and whenever the night was to fall on the next day.
+
+\subsubsection*{\footnotesize{U}\scriptsize{NFINISHED} \footnotesize{B}\scriptsize{USINESS}\normalsize}
+\addcontentsline{toc}{subsubsection}{Unfinished Business}
+
+If the Paladin perishes fighting for a great cause that remains undone and if even one person calls for them to return, they may stand again once more, regaining half of their total HP. This power also allows the Paladin a moment of invulnerability, so that if they fell prey to a trap they may pull themselves free of it. This power works only once.
+
+\subsection*{Ranger}
+\addcontentsline{toc}{subsection}{Ranger}
+
+\subsubsection*{\footnotesize{A}\scriptsize{SSURED} \footnotesize{S}\scriptsize{HOT}\normalsize}
+\addcontentsline{toc}{subsubsection}{Assured Shot}
+
+The Ranger always has ranged ammunition when needed.
+
+\subsubsection*{\footnotesize{I}\scriptsize{MPROVED} \footnotesize{F}\scriptsize{AVORED} \footnotesize{T}\scriptsize{ERRAIN}\normalsize}
+\addcontentsline{toc}{subsubsection}{Improved Favored Terrian}
+
+In the Ranger's favored terrain, they automatically succeed on initiative rolls.
+
+\subsubsection*{\footnotesize{I}\scriptsize{MPROVED} \footnotesize{Q}\scriptsize{UARRY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Improved Quarry}
+
+You delay entering combat in order to study your target. When combat begins, for every round you spend only moving, forgoing your action to watch your quarry, you get Advantage (which stacks if you observe for multiple rounds) on AV, AC, saves, and combat maneuvers when you finally do decide to attack. This only works on targets that are engaged in combat while they are being observed. Upon using Advantage earned in this way once, you lose it, but you may disengage to observe further and re-accumulate Advantage in this way.
+
+\subsubsection*{\footnotesize{P}\scriptsize{ERFECT} \footnotesize{A}\scriptsize{IM}\normalsize}
+\addcontentsline{toc}{subsubsection}{Perfect Aim}
+
+If a Ranger rolls max damage while using a ranged weapon, the projectile lands wherever they want.
+
+\subsubsection*{\footnotesize{R}\scriptsize{ECKLESS} \footnotesize{C}\scriptsize{HARGE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Reckless Charge}
+
+On the first round of any combat (and only on the first round) the Ranger may gamble any number of their HP on an attack against their quarry. If they hit, do that much damage; if they miss, take that much damage, indicating the quarry was able to set up to receive the charge.
+
+\subsubsection*{\footnotesize{S}\scriptsize{URVIVOR}\normalsize}
+\addcontentsline{toc}{subsubsection}{Survivor}
+
+If a Ranger gets hopelessly lost in a dungeon or the wilderness, they can make their way to safety no more than d6 days later, emerging naked and covered in slime, filth, and blood, exhausted, but alive. The Ranger can only save d6 other individuals, including party members, NPCs, and hirelings. If the roll is not high enough to account for the whole party, the player must choose who lives and who dies and is not allowed to settle this question by die roll, drawing straws, or any other form of cop-out.
+
+\subsubsection*{\footnotesize{W}\scriptsize{ILD} \footnotesize{S}\scriptsize{ENSE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Wild Sense}
+
+In the Ranger's favored terrain, they can anticipate wandering monsters a round ahead of time in that environment and are immune to non-magic surprise there.
+
+\subsubsection*{\footnotesize{W}\scriptsize{ILDERNESS} \footnotesize{E}\scriptsize{XPERIENCE}\normalsize}
+\addcontentsline{toc}{subsubsection}{Wilderness Experience}
+
+The Ranger keeps a list of all the places they have gone and all the creatures they have seen. Whenever one of these creatures is seen again, or a new kind of creature, NPC, or thing which has its origins in one of those places is encountered, the Ranger will have at least one fact at their disposal about it. 
+
+\subsection*{Warlock}
+\addcontentsline{toc}{subsection}{Warlock}
+
+\subsubsection*{\footnotesize{F}\scriptsize{RIEND OF} \footnotesize{D}\scriptsize{EATH}\normalsize}
+\addcontentsline{toc}{subsubsection}{Friend of Death}
+
+A Warlock can only level up if they have died in the previous level. A Warlock must both spend the required money to level up and have performed a successful \TTN{negative damage}{CON} at least once in the previous level. If they have not done both, they do not get to level up.
+
+\subsubsection*{\footnotesize{G}\scriptsize{UT} \footnotesize{M}\scriptsize{AGIC}\normalsize}
+\addcontentsline{toc}{subsubsection}{Gut Magic}
+
+If the Warlock eats something, they can choose to cause someone else that they have seen to vomit it up.
+
+\subsubsection*{\footnotesize{H}\scriptsize{AG}\normalsize}
+\addcontentsline{toc}{subsubsection}{Hag}
+
+A Hag is a Warlock through bloodlines instead of through pacts with eldritch beasts. They use age to cast their spells. When a Hag casts a spell, they age d7 years, minus their class level. They can spend an additional turn casting to reduce this number by 1. If this result is zero or less, they do not age.
+
+\bigbreak
+
+A Hag inherits spells through their bloodline, but they do not know these spells until they try to cast them. When a Hag casts a spell, they can choose to cast a known spell or discover a new one. If they try to discover a new spell, they roll a random spell on the necrotic spell list. If they roll a spell they already know, they simply cast it instead of discovering a new spell. The Hag can choose not to cast the newly discovered spell, but the spell will still make them grow older. A Hag can only discover twice as many spells as their current level at once. A Hag can reroll a known spell by drinking a special potion made with the blood of another Hag who has been bested in combat.
+
+\bigbreak
+
+As Hags grow older, their skin become hard like leather and they gain +1 to their AC for each 10 years above 50, as long as they are not wearing armor.
+
+\bigbreak
+
+Hags can collect the life-force of living beings to brew rejuvenating potions. Brewing a potion takes a number of turn equal to the number of life-forces being brewed. A Hag can extract life-forces by capturing the breath of a living being. They can drink the life-force on the spot or bottle it to brew a potion later.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{p{.4\columnwidth -2\tabcolsep}p{.6\columnwidth -2\tabcolsep}}
+\textbf{Source}&\textbf{Number of life-forces gained}\\
+\rowcolor[gray]{0.75}Child&5.\\
+Adolescent&4.\\
+\rowcolor[gray]{0.75}Adult&3.\\
+Middle-aged&2.\\
+\rowcolor[gray]{0.75}Elderly&1.\\
+Animal&1 life-force per HD, but +2 to the mutation roll (see below)\\
+\rowcolor[gray]{0.75}Rare magical plant&1, but -1 to the mutation roll (see below)\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Living beings must freely accept to give their life-forces. When they do they grow older by a number of d7 equal to the taken life-forces. Children can't willingly give their life-forces. Life-forces can also be collected without consent by collecting the dying breath of a living being. 
+
+\bigbreak
+
+When life-forces are consumed on the spot, the Hag grows younger by a number of years equal to the collected life-forces. A life-forces potion rejuvenates d5 years per life-force. Life-force potions cause weird mutations. When a Hag drinks a life-force potion, make a save against CON. On a failed save, roll d14 plus the number of life-forces in the potion and compare to the mutation table below.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.3\columnwidth -2\tabcolsep}p{.7\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1 or less&Terrible cough.\\
+2&Weird smell.\\
+\rowcolor[gray]{0.75}3&Warts or skin tags.\\
+4&Reptilian eyes.\\
+\rowcolor[gray]{0.75}5&Webbed fingers and ears.\\
+6&Clawed fingers (that do d4 damage).\\
+\rowcolor[gray]{0.75}7&Elongated arms and feet.\\
+8&Needle teeth.\\
+\rowcolor[gray]{0.75}9&Barbed tongue.\\
+10&Hooked or missing nose.\\
+\rowcolor[gray]{0.75}11&Horns or antlers.\\
+12&Snake hair.\\
+\rowcolor[gray]{0.75}13&Beast wings.\\
+14&Beast tail.\\
+\rowcolor[gray]{0.75}15&Beast skin.\\
+16&Beastly arms and legs.\\
+\rowcolor[gray]{0.75}17&Half beast body.\\
+18&Full beast body.\\
+\rowcolor[gray]{0.75}19 or higher&Beast mind and intellgence. INT becomes d4.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+A Hag's maximum age is 13d14-1. When they exceed this number, they die.
+
+\subsubsection*{\footnotesize{M}\scriptsize{OON} \footnotesize{M}\scriptsize{AGIC}\normalsize}
+\addcontentsline{toc}{subsubsection}{Moon Magic}
+
+​A Warlock learns an extra spell in the week preceding the new moon and forgets a spell during the week preceding the full moon. At the time of the new moon they gain an extra spell per Warlock level and vice versa at the time of the full moon.
+
+\subsubsection*{\footnotesize{S}\scriptsize{NEAKY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Sneaky}
+
+In a combat situation where the Warlock is one of several potential targets, an enemy must roll a 1-2 on a d6 in order to attack the Warlock first. After the enemy's first attack, it may notice the Warlock and attack freely.
+
+\subsubsection*{\footnotesize{T}\scriptsize{REACHERY}\normalsize}
+\addcontentsline{toc}{subsubsection}{Treachery}
+
+The Warlock may save themselves from death, level drain, failed Corruption checks, or any other imminent doom by choosing another PC to take the fall. This can be used in any situation where perfidy and treachery can be brought to bear. This can only be done once, but once is enough.
+
+\section*{WILDERNESS, OVERLAND, AND SURVIVAL}
+\addcontentsline{toc}{section}{WILDERNESS, OVERLAND, AND SURVIVAL}
+
+\subsection*{Eating Monsters}
+\addcontentsline{toc}{subsection}{Eating Monsters}
+
+A dead monster has a 1 in 6 chance of being unusable. Otherwise, dead monsters provide one ration per HD.
+
+\bigbreak
+
+Monster meat can be prepared. Odds of doing so successfully are 1 in 6, with an increase by 1 for each of the following: fire, water, utensils, pots and pans, spices. A well-stocked party that can take time to prepare succeeds automatically.
+
+\bigbreak
+
+Upon consumption, roll d6 to check for additional benefits. Add 1 if the food was prepared, and subtract 4 if the food was rotten. Compare the result with the following:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.4\columnwidth -2\tabcolsep}p{.6\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}0 or less&Save versus CON or lose d6 HP\\
+1&Save versus CON or no effect\\
+\rowcolor[gray]{0.75}2-5&No additional effect\\
+6 or higher&Heal 1 HP\\
+\end{tabular}
+\end{center}
+
+\subsection*{Encounters 1}
+\addcontentsline{toc}{subsection}{Encounters 1}
+
+Wilderness encounters are checked once when the party sleeps, once every hex, and whenever the party is loud. Typical encounter odds are on the following table (roll d6), but it is often the case that Referees may want to use different probabilities for specific locations.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{b{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}b{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}b{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}b{.2\columnwidth -2\tabcolsep}>{\centering\arraybackslash}b{.2\columnwidth -2\tabcolsep}}
+\textbf{Terrain}&\multicolumn{4}{c}{\textbf{Result of Encounter Die}}\\
+&\textbf{Nothing}&\textbf{Non-combat}&\textbf{Monster Omen}&\textbf{Monster}\\
+\rowcolor[gray]{0.75}Deserts&1-2&3&4&5-6\\
+Forests&1-2&3&4&5-6\\
+\rowcolor[gray]{0.75}Jungles&1&2&3&4-6\\
+Hills&1-2&3&4&5-6\\
+\rowcolor[gray]{0.75}Mountains&1&2&3&4-6\\
+Plains&1-3&4&5&6\\
+\rowcolor[gray]{0.75}Roads&1-3&4&5&6\\
+Swamps&1&2&3&4-6\\
+\end{tabular}
+\end{center}
+
+\subsection*{Encounters 2}
+\addcontentsline{toc}{subsection}{Encounters 2}
+
+For both overland and dungeon exploration, the following is an alternative way to check for encounters. Roll d6 every set time interval (e.g., 10 minutes, hour, etc.), which will be referred to as a turn.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&Encounter.\\
+2&Percept (clue, spoor).\\
+\rowcolor[gray]{0.75}3&Locality (context-dependent timer).\\
+4&Exhaustion (rest or take penalties).\\
+\rowcolor[gray]{0.75}5&Lantern.\\
+6&Torch.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Ignore results that do not make sense, such as torches going out on the first turn or PCs needing to rest on the second turn. A result should be interpreted not as ``X happens," but rather as a prompt. A result can be deferred, but only so many times. As a guideline, ignore results above 3 for the first 6 or so turns.
+
+\bigbreak
+
+Torches should probably go out almost every time a 6 six comes up and lanterns should deplete approximately every third or fourth result of 5. ``Locality" refers to area-specific states that should be kept separate from standard random encounters, like water rising, the stalker drawing nearer, a prisoner losing an appendage to the torturer, doors locking behind PCs, and so forth.
+
+\subsection*{Encounters 3}
+\addcontentsline{toc}{subsection}{Encounters 3}
+
+For lighter Referee bookkeeping, random encounters are rolled when the players stay still inside the dungeon for an extended period of time. No wandering monsters checks while they're moving around and keeping the pace up, never staying in the one place for more than a few minutes. Time should still be tracked, but only for light sources and rations.
+
+\bigbreak
+
+When the characters stop for about 10 minutes, roll a d6 for a random encounter. Consult the table below.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.2\columnwidth -2\tabcolsep}p{.8\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Is there an encounter?}\\
+\rowcolor[gray]{0.75}1&Yes.\\
+2&If the party is making a little noise, like searching a room or casting spells.\\
+\rowcolor[gray]{0.75}3&If they're making a lot of noise, like breaking a door down, ransacking a room, or climbing a wall with pitons.\\
+4-6&Only if they're making a deafening noise, like detonating an explosive.\\
+\end{tabular}
+\end{center}
+
+\subsection*{Herbalism}
+\addcontentsline{toc}{subsection}{Herbalism}
+
+In a familiar garden, characters have a 90\% chance of finding required herbs. At an unfamiliar garden, the chance is reduced to 70\%. In both cases, these represent herbs and plants that are cultivated and readily available. If the characters are in the wilderness, then to find herbs, they must resort to foraging (see \textbf{Hunting, Gathering, and Foraging}).
+
+\bigbreak
+
+Unless properly stored (kept in dry places, in bottles and jars, etc.), herbs will lose their efficacy after d4 days. Upon crafting a potion, cure, or poison out of herbs, the concoction lasts indefinitely as long as it is kept airtight.
+
+\bigbreak
+
+Concoctions have two tiers. The second tier requires more ingredients, more time, and more expertise, and it has a greater chance to sour, be defective, or fail disastrously, causing the opposite or an undesired effect.
+
+\begin{enumerate}[nosep]
+\item Poultice of healing: when applied, restores 2d6 HP after 12 hours. 10 minutes to create.
+\item Greater poultice of healing: when applied, restores d6 HP instantly and 2d6 HP after 12 hours. 20 minutes to create.
+\item Disinfecting ointment: when applied, allows for an additional save against mundane disease received via wounds.10 minutes to create.
+\item Greater disinfecting ointment: when applied, cures mundane disease and allows for an additional save against magical disease received via wounds. 20 minutes to create.
+\item Antidote: when consumed, allows for an additional save against mundane poison. 20 minutes to create.
+\item Greater antidote: when consumed, cures mundane poison and allows for an additional save against magical poison. 30 minutes to create.
+\item Bodily cleanse: when consumed, cures mundane disease after d12 hours. 10 minutes to create.
+\item Greater bodily cleanse: when consumed, cures mundane disease and allows for an additional save against magical disease. 20 minutes to create.
+\item Poison of weakness: when consumed, roll a save or gain Disadvantage on all rolls for d12 hours. 1 hour to create.
+\item Greater poison of weakness: when consumed, roll a save or gain Disadvantage on all rolls for d12 hours and lose one point on a random stat. 2 hours to create.
+\item Deadly poison: when consumed, roll a save or lose d6 HP per hour until an antidote is administered. 4 hours to create.
+\item Greater deadly poison: when consumed, roll a save or lose 2d6 HP per hour until an antidote is administered. If the saving throw is successful, roll another save or lose d6 HP per hour until an antidote is administered. 8 hours to create.
+\end{enumerate}
+
+\subsection*{Hex Travel}
+\addcontentsline{toc}{subsection}{Hex Travel}
+
+The following rules describe how the party navigates the overworld, specifically when attempting to move from their current hex to the next. This ruleset assumes a standard 6 mile hex.
+
+\bigbreak
+
+Keeping a landmark in view ensures accurate navigation, as does traveling via road. View is usually three miles in open terrain, but can be reduced (e.g., overgrown terrain in a forest) or increased (e.g., looking out from a mountain peak). If navigation is not ensured accurate, the chance to get lost is:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.6\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.4\columnwidth -2\tabcolsep}}
+\textbf{Terrain}&\textbf{Chance}\\
+\rowcolor[gray]{0.75}Plains&1 in 6\\
+Mountains, Hills, Forests&2 in 6\\
+\rowcolor[gray]{0.75}Deserts, Jungles, Swamps&3 in 6\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+A player with relevant knowledge or a map can each decrease the odds of getting lost by 1. The following also increase the odds of getting lost by 1 each: traveling off roads at night (sans full moon), traveling hastily, the inability to see the sky, bad weather.
+
+\bigbreak
+
+When lost, the party moves randomly to a different hex adjacent to the current one. Consider the edge the party intends to pass through. Roll a d6 to determine the deviation from the intended path.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.4\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.6\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&Two hexes left\\
+2-3&One hex left\\
+\rowcolor[gray]{0.75}4-5&One hex right\\
+6&Two hexes right\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+\begin{center}
+\begin{tikzpicture}
+  \newdimen\R
+\R=2.7cm
+  \draw (0:\R)
+  \foreach \x in {60,120,...,360} { -- (\x:\R) }
+-- cycle (360:\R) 
+-- cycle (300:\R) 
+-- cycle (240:\R) 
+-- cycle (180:\R) 
+-- cycle (120:\R) 
+-- cycle (60:\R) ;
+\draw [->] (0,0) -- (0,3) node[above] {Intended path};
+\draw [->] (0,0) to (-3,2) node[left] {2-3};
+\draw [->] (0,0) to (3,2) node[right] {4-5};
+\draw [->] (0,0) to (-3,-2) node[left] {1};
+\draw [->] (0,0) to (3,-2) node[right] {6};
+\end{tikzpicture}
+\end{center}
+
+\bigbreak
+
+A party will not necessarily know when they have become lost, but can discover that they are lost by choosing a character to \TTN{9}{WIS} (at their discretion, never at the Referee's prompting). It takes time to check if one is lost, consulting maps and getting one's bearings, so that it is not overused. (If an abstract gamified rule is needed, take e.g. that the party can only check if they are lost when they change hexes.) 
+
+\bigbreak
+
+The Referee can decide to decrease the lower bound of the roll that \textbf{Threads the Needle} to check if the party is lost (making the roll easier), as the party wanders farther from their intended destination and it becomes more obvious they are on the wrong track. Alternatively, the party should instantly know that they are lost if they reenter a well-known hex or gain new information that demonstrates they are lost.
+
+\bigbreak
+
+The party can travel up to 12 hours in a day without becoming Fatigued (for a sample mechanic of becoming Fatigued, see \textbf{Conditions Take Inventory Slots}). They may push themselves to travel up to 16 hours, but gain Fatigue and can only travel 6 hours the next day. The party travels at the following given speeds, which may be modified faster if traveling via horse or similar and slower if encumbered or injured or otherwise unable to move efficiently.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.4\columnwidth -2\tabcolsep}>{\centering\arraybackslash}p{.6\columnwidth -2\tabcolsep}}
+\textbf{Terrain}&\textbf{Hours to traverse one hex}\\
+\rowcolor[gray]{0.75}Deserts&6\\
+Forests&6\\
+\rowcolor[gray]{0.75}Hills&4\\
+Jungles&6\\
+\rowcolor[gray]{0.75}Mountains&12\\
+Plains&3\\
+\rowcolor[gray]{0.75}Roads&1\\
+Swamps&6\\
+\end{tabular}
+\end{center}
+
+\subsection*{Hunting, Gathering, and Foraging}
+\addcontentsline{toc}{subsection}{Hunting, Gathering, and Foraging}
+
+Foraging takes no extra time but may only be done once every 6 miles. Choose one party member and have them \TTN{9}{WIS} to successfully forage for d3 rations.
+
+\bigbreak
+
+The party may also forage for herbs. It takes no extra time to randomly discover one. To search for a specific herb requires 3 hours and is found only half the time, if it is even present in the hex.
+
+\bigbreak
+
+Hunting requires 3 hours. Choose one party member and have them \TTN{9}{WIS} to successfully hunt d6 rations. For each downgrade of an arrows' usage die, decrease the lower bound of the roll by 1. For instance, if the party decreases an arrows' usage die from d10 to d6 (two downgrades), then a successful hunt is a roll below WIS and above 7.
+
+\bigbreak
+
+Optionally, foraging and hunting in forests and jungles is rolled at Advantage, and foraging and hunting in deserts is rolled at Disadvantage.
+
+\subsection*{Tracking}
+\addcontentsline{toc}{subsection}{Tracking}
+
+It takes d4 exploding (i.e., upon rolling 4, roll another d4 and add to the result, repeating as necessary) half hours to find the source of tracks.
+
+\subsection*{Weather 1}
+\addcontentsline{toc}{subsection}{Weather 1}
+
+Roll d6 each morning/afternoon/evening.
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.12\columnwidth -2\tabcolsep}p{.88\columnwidth -2\tabcolsep}}
+\textbf{Roll}&\textbf{Result}\\
+\rowcolor[gray]{0.75}1&Bad.\\
+2&A little worse than it was. Signs of bad weather.\\
+\rowcolor[gray]{0.75}3&A little better than it was.\\
+4-6&Typical for the season and locale.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+Feel free to use the following descriptors: 
+
+\begin{itemize}[nosep]
+\item Cold: cool, chilly, breezy, frigid. 
+\item Warm: hot, sunny, humid, sweltering. 
+\item Wet: hail, rain, thunderhead, storm, drizzle, hazy, snowflakes. 
+\item Other: cloudy, windy, mild, clear, overcast, foggy, dry.
+\end{itemize}
+
+\subsection*{Weather 2}
+\addcontentsline{toc}{subsection}{Weather 2}
+
+Roll 2d6 where the two dice are visually distinct. Denote one die as the first and the other as the second.
+
+\bigbreak
+
+If the first die shows a 1, it's cold. If the first die shows a 6, it's hot.
+
+\bigbreak
+
+If the second die shows a 1, it's rainy. If the second die shows a 6, it's cloudy.
+
+\bigbreak
+
+Weather combines in the following ways:
+
+\begin{itemize}[nosep]
+\item Cold + rainy = snowy.
+\item Cold + cloudy = foggy.
+\item Hot + rainy = stormy.
+\item Hot + cloudy = gale-force winds.
+\end{itemize}
+
+\bigbreak
+
+Weather imposes the following conditions or status effects:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.25\columnwidth -2\tabcolsep}p{.75\columnwidth -2\tabcolsep}}
+\textbf{Weather}&\textbf{Effect}\\
+\rowcolor[gray]{0.75}Cold&A campfire and blanket are required for comfortable sleep.\\
+Hot&More water than usual is necessary.\\
+\rowcolor[gray]{0.75}Rainy&Flying creatures are obscured. A tent is required for comfortable sleep. Parties attempting to surprise have Advantage.\\
+Cloudy&Flying creatures are obscured.\\
+\rowcolor[gray]{0.75}Snowy&In addition to cold and rainy, travel speed is halved.\\
+Foggy&In addition to cold and cloudy, viewing distance is halved.\\
+\rowcolor[gray]{0.75}Stormy&In addition to hot and rainy, darkness is generated and the likelihood of wandering monsters is doubled.\\
+Gale-force winds&In addition to hot and cloudy, ranged attacks have Disadvantage.\\
+\end{tabular}
+\end{center}
+
+\bigbreak
+
+In certain terrains, such as the desert, jungle, mountains, etc., you can eliminate certain weather types, make others more likely, or invent new ones like magical storms/acid rain/sandstorm etc.
+
+\bigbreak
+
+To incorporate seasons, do the following:
+
+\bigbreak
+
+\begin{center}
+\noindent\begin{tabular}{>{\centering\arraybackslash}p{.25\columnwidth -2\tabcolsep}p{.75\columnwidth -2\tabcolsep}}
+\textbf{Season}&\textbf{Modification}\\
+\rowcolor[gray]{0.75}Spring&-2 to the second die.\\
+Summer&+2 to the first die.\\
+\rowcolor[gray]{0.75}Fall&+2 to the second die.\\
+Winter&-2 to the first die.\\
+\end{tabular}
+\end{center}
+
+
+\end{document}

@@ -1,0 +1,9 @@
+# LaTeX build artifacts
+/build/
+
+# Sublime Text workspace
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
